@@ -55,3 +55,15 @@ Check a production build before pushing:
 npm run lint
 npm run build
 ```
+
+## Known issue: `*.netlify.app` does not load from Egypt
+
+Netlify's DNS sends visitors in Egypt to its Frankfurt servers (`63.176.8.218`, `35.157.26.135`),
+and those IPs time out from Egyptian networks. The site itself works: it loads from other countries,
+and from Egypt when served by other Netlify IPs such as `75.2.60.5`.
+
+- **During development:** open the `netlify.app` URL with a VPN.
+- **At launch, with the custom domain:** add an **A record** for the main domain pointing to `75.2.60.5`,
+  and point `www` to the same IP. Do not use Netlify DNS or a CNAME to `*.netlify.app`, because both send
+  Egyptian visitors back to the Frankfurt servers. Then test on several Egyptian mobile carriers.
+- **If that fails:** move hosting to Cloudflare Pages.

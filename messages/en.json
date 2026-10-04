@@ -1,0 +1,31 @@
+{
+  "Common": {
+    "skipToContent": "Skip to content"
+  },
+  "Nav": {
+    "label": "Main navigation",
+    "home": "Home",
+    "about": "About",
+    "services": "Services",
+    "blog": "Articles",
+    "book": "Book an appointment",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
+  },
+  "LanguageSwitcher": {
+    "label": "العربية",
+    "ariaLabel": "التبديل إلى العربية"
+  },
+  "Footer": {
+    "quickLinks": "Quick links",
+    "contact": "Contact",
+    "phone": "Phone",
+    "whatsapp": "WhatsApp",
+    "followUs": "Follow us",
+    "rights": "All rights reserved"
+  },
+  "WhatsApp": {
+    "buttonLabel": "Chat on WhatsApp",
+    "prefilledMessage": "Hello, I would like to book an appointment with Dr. Ramy Agamy"
+  }
+}

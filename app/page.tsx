@@ -1,8 +1,0 @@
-export default function HomePage() {
-  return (
-    <main className="flex flex-1 flex-col items-center justify-center gap-2 p-6 text-center">
-      <h1 className="text-3xl font-bold">د. رامي عجمي</h1>
-      <p className="text-lg">استشاري النساء والتوليد والحقن المجهري</p>
-    </main>
-  );
-}

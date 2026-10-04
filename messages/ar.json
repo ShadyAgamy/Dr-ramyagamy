@@ -1,0 +1,31 @@
+{
+  "Common": {
+    "skipToContent": "انتقل إلى المحتوى"
+  },
+  "Nav": {
+    "label": "القائمة الرئيسية",
+    "home": "الرئيسية",
+    "about": "عن الدكتور",
+    "services": "الخدمات",
+    "blog": "المقالات",
+    "book": "احجز موعد",
+    "openMenu": "فتح القائمة",
+    "closeMenu": "إغلاق القائمة"
+  },
+  "LanguageSwitcher": {
+    "label": "English",
+    "ariaLabel": "Switch to English"
+  },
+  "Footer": {
+    "quickLinks": "روابط سريعة",
+    "contact": "تواصل معنا",
+    "phone": "الهاتف",
+    "whatsapp": "واتساب",
+    "followUs": "تابعنا",
+    "rights": "جميع الحقوق محفوظة"
+  },
+  "WhatsApp": {
+    "buttonLabel": "تواصل عبر واتساب",
+    "prefilledMessage": "مرحباً، أريد حجز موعد مع د. رامي عجمي"
+  }
+}

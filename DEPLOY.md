@@ -8,7 +8,7 @@ Build settings live in `netlify.toml`, so you do not need to type them in the Ne
 Create an empty repository on GitHub (no README, no .gitignore, no license), then:
 
 ```bash
-git remote add origin git@github.com:ShadyAgamy/Dr-ramyagamy.git
+git remote add origin https://github.com/ShadyAgamy/Dr-ramyagamy.git
 git push -u origin main
 ```
 

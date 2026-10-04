@@ -1,17 +1,64 @@
 @import "tailwindcss";
 
+/*
+ * Design tokens.
+ * Brand colors are placeholders until the exact hex values arrive.
+ * Change them here only; components use the Tailwind names below
+ * (bg-brand, text-ink, bg-cream, rounded-card, shadow-soft, ...).
+ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Brand orange. "brand-strong" is dark enough for white text and links on white (WCAG AA). */
+  --brand: #f07c2a;
+  --brand-strong: #b4500e;
+  --brand-soft: #fde4d0;
+
+  /* Backgrounds */
+  --peach: #fff1e6;
+  --cream: #fffaf4;
+  --surface: #ffffff;
+
+  /* Text */
+  --ink: #2a211b;
+  --ink-muted: #6b5d52;
+
+  /* Lines */
+  --line: #f1e3d6;
+
+  /* WhatsApp brand green */
+  --whatsapp: #25d366;
+
+  /* Shape */
+  --radius-card: 1.25rem;
+  --radius-button: 9999px;
+  --shadow-soft: 0 6px 24px -8px rgb(180 80 14 / 0.18);
+
+  /* Layout */
+  --container-max: 72rem;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-brand: var(--brand);
+  --color-brand-strong: var(--brand-strong);
+  --color-brand-soft: var(--brand-soft);
+  --color-peach: var(--peach);
+  --color-cream: var(--cream);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-line: var(--line);
+  --color-whatsapp: var(--whatsapp);
+
+  --radius-card: var(--radius-card);
+  --radius-button: var(--radius-button);
+  --shadow-soft: var(--shadow-soft);
+  --container-site: var(--container-max);
+
+  /* Set by next/font in app/[locale]/layout.tsx.
+     Latin first: Arabic characters fall through to the Arabic font. */
+  --font-sans: var(--font-latin), var(--font-arabic), system-ui, sans-serif;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: system-ui, sans-serif;
+  background: var(--cream);
+  color: var(--ink);
 }

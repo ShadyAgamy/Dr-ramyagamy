@@ -22,7 +22,7 @@
     "phone": "Phone",
     "whatsapp": "WhatsApp",
     "followUs": "Follow us",
-    "rights": "All rights reserved"
+    "copyright": "© {year} {name}. All rights reserved."
   },
   "WhatsApp": {
     "buttonLabel": "Chat on WhatsApp",

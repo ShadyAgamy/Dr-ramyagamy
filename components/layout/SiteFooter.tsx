@@ -90,7 +90,7 @@ export function SiteFooter() {
       <div className="border-t border-line">
         {/* Extra bottom padding on mobile so the floating WhatsApp button does not cover this line. */}
         <p className="mx-auto max-w-site px-4 pt-4 pb-24 text-sm text-ink-muted md:pb-4">
-          © {new Date().getFullYear()} {doctorName}. {t("rights")}.
+          {t("copyright", { year: new Date().getFullYear(), name: doctorName })}
         </p>
       </div>
     </footer>

@@ -22,7 +22,7 @@
     "phone": "الهاتف",
     "whatsapp": "واتساب",
     "followUs": "تابعنا",
-    "rights": "جميع الحقوق محفوظة"
+    "copyright": "جميع الحقوق محفوظة © {year} {name}"
   },
   "WhatsApp": {
     "buttonLabel": "تواصل عبر واتساب",

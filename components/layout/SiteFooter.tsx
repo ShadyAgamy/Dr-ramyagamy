@@ -2,7 +2,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { getSiteSettings, localize } from "@/lib/content";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
-import { navItems } from "./nav-items";
+import { bookHref, navItems } from "./nav-items";
 
 export function SiteFooter() {
   const t = useTranslations("Footer");
@@ -42,7 +42,7 @@ export function SiteFooter() {
               </li>
             ))}
             <li>
-              <Link href="/book" className={linkClass}>
+              <Link href={bookHref} className={linkClass}>
                 {tNav("book")}
               </Link>
             </li>

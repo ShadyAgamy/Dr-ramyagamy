@@ -53,8 +53,7 @@
   --shadow-soft: var(--shadow-soft);
   --container-site: var(--container-max);
 
-  /* Set by next/font in app/[locale]/layout.tsx.
-     Latin first: Arabic characters fall through to the Arabic font. */
+
   --font-sans: var(--font-latin), var(--font-arabic), system-ui, sans-serif;
 }
 

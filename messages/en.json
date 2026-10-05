@@ -27,5 +27,12 @@
   "WhatsApp": {
     "buttonLabel": "Chat on WhatsApp",
     "prefilledMessage": "Hello, I would like to book an appointment with Dr. Ramy Agamy"
+  },
+  "Blog": {
+    "title": "Articles",
+    "description": "Articles answering patient questions from Dr. Ramy Agamy's videos.",
+    "empty": "No articles yet.",
+    "allArticles": "All articles",
+    "watchVideo": "Watch the video"
   }
 }

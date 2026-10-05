@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { IBM_Plex_Sans, IBM_Plex_Sans_Arabic } from "next/font/google";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
-import { getTranslations, setRequestLocale } from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 import { routing } from "@/i18n/routing";
 import { getSiteSettings, localize } from "@/lib/content";
 import { SiteFooter } from "@/components/layout/SiteFooter";
@@ -46,8 +46,6 @@ export default async function LocaleLayout({ children, params }: LayoutProps<"/[
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) notFound();
 
-  // Enables static rendering for this locale.
-  setRequestLocale(locale);
   const t = await getTranslations("Common");
 
   return (

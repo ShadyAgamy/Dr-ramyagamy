@@ -1,6 +1,6 @@
 import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
-import { getSiteSettings, localize } from "@/lib/content";
+import { getClinics, getSiteSettings, localize } from "@/lib/content";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
 import { bookHref, navItems } from "./nav-items";
 
@@ -8,6 +8,8 @@ export function SiteFooter() {
   const t = useTranslations("Footer");
   const tNav = useTranslations("Nav");
   const tWhatsApp = useTranslations("WhatsApp");
+  const tClinics = useTranslations("Clinics");
+  const tHome = useTranslations("Home");
   const locale = useLocale();
   const site = getSiteSettings();
   const doctorName = localize(site.doctorName, locale);
@@ -23,7 +25,7 @@ export function SiteFooter() {
 
   return (
     <footer className="mt-16 border-t border-line bg-peach">
-      <div className="mx-auto grid max-w-site gap-8 px-4 py-10 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mx-auto grid max-w-site gap-8 px-4 py-10 sm:grid-cols-2 lg:grid-cols-5">
         <div>
           <p className="text-lg font-bold text-ink">{doctorName}</p>
           <p className="mt-1 text-ink-muted">{localize(site.specialty, locale)}</p>
@@ -46,6 +48,23 @@ export function SiteFooter() {
                 {tNav("book")}
               </Link>
             </li>
+          </ul>
+        </nav>
+
+        <nav aria-labelledby="footer-clinics">
+          <h2 id="footer-clinics" className={headingClass}>
+            {tHome("clinicsTitle")}
+          </h2>
+          <ul className="space-y-2">
+            {getClinics().map((clinic) => (
+              <li key={clinic.slug}>
+                <Link href={`/clinics/${clinic.slug}`} className={linkClass}>
+                  {clinic.name
+                    ? localize(clinic.name, locale)
+                    : tClinics("title", { label: localize(clinic.label, locale) })}
+                </Link>
+              </li>
+            ))}
           </ul>
         </nav>
 

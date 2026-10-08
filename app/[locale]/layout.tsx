@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { IBM_Plex_Sans, IBM_Plex_Sans_Arabic } from "next/font/google";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { routing } from "@/i18n/routing";
@@ -8,20 +7,8 @@ import { getSiteSettings, localize } from "@/lib/content";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
+import { arabicFont, latinFont } from "../fonts";
 import "../globals.css";
-
-const arabicFont = IBM_Plex_Sans_Arabic({
-  subsets: ["arabic"],
-  weight: ["400", "500", "700"],
-  variable: "--font-arabic",
-  display: "swap",
-});
-
-const latinFont = IBM_Plex_Sans({
-  subsets: ["latin"],
-  variable: "--font-latin",
-  display: "swap",
-});
 
 // Pre-render both languages at build time.
 export function generateStaticParams() {

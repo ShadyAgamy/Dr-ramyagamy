@@ -7,13 +7,12 @@ import { z } from "zod";
 import { slugSchema } from "./schemas";
 import type { Locale } from "./types";
 
-/** Thrown when a content file is invalid. Fails the build with the file path and the reason. */
-export class ContentError extends Error {
-  constructor(file: string, details: string) {
-    super(`Invalid content in ${file}:\n${details}`);
-    this.name = "ContentError";
-  }
-}
+/** Creates the error thrown when a content file is invalid. Fails the build with the file path and the reason. */
+export const contentError = (file: string, details: string): Error => {
+  const error = new Error(`Invalid content in ${file}:\n${details}`);
+  error.name = "ContentError";
+  return error;
+};
 
 /** The slug folders in content/<section>, e.g. ["icsi", "pregnancy-tips"]. */
 export function listSlugs(section: string): string[] {
@@ -29,11 +28,17 @@ export function listSlugs(section: string): string[] {
   for (const slug of slugs) {
     const result = slugSchema.safeParse(slug);
     if (!result.success) {
-      throw new ContentError(`content/${section}/${slug}`, `folder name ${result.error.issues[0].message}`);
+      throw contentError(
+        `content/${section}/${slug}`,
+        `folder name ${result.error.issues[0].message}`,
+      );
     }
     // Arabic is the default language, so every item needs an Arabic file.
     if (!fs.existsSync(path.join(dir, slug, "ar.mdx"))) {
-      throw new ContentError(`content/${section}/${slug}`, "ar.mdx is missing (Arabic is required)");
+      throw contentError(
+        `content/${section}/${slug}`,
+        "ar.mdx is missing (Arabic is required)",
+      );
     }
   }
 
@@ -50,14 +55,14 @@ export function readMdxFile<Schema extends z.ZodType>(
   locale: Locale,
   schema: Schema,
 ): { data: z.output<Schema>; body: string } | undefined {
-  const relativePath = `content/${section}/${slug}/${locale}.mdx`;
+  const relativePath = path.join("content", section, slug, locale + ".mdx");
   const fullPath = path.join(process.cwd(), relativePath);
   if (!fs.existsSync(fullPath)) return undefined;
 
   const { data, content } = matter(fs.readFileSync(fullPath, "utf8"));
   const result = schema.safeParse(data);
   if (!result.success) {
-    throw new ContentError(relativePath, z.prettifyError(result.error));
+    throw contentError(relativePath, z.prettifyError(result.error));
   }
 
   return { data: result.data, body: content.trim() };

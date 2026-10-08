@@ -23,17 +23,21 @@ export type ImageRef = {
   height: number;
 };
 
+export type PhoneNumber = {
+  /** Shown on the page, e.g. "010 97333303". */
+  display: string;
+  /** E.164 format for tel: links, e.g. "+201097333303". */
+  e164: string;
+};
+
 export type SiteSettings = {
   doctorName: Localized<string>;
+  /** Hidden until a real photo is added. */
+  doctorPhoto?: ImageRef;
   specialty: Localized<string>;
   /** Credentials as written in his Facebook bio. */
   credentials: Localized<string[]>;
-  phone: {
-    /** Shown on the page, e.g. "010 97333303". */
-    display: string;
-    /** E.164 format for tel: links, e.g. "+201097333303". */
-    e164: string;
-  };
+  phone: PhoneNumber;
   /** Digits only, with country code, as wa.me expects, e.g. "201097333303". */
   whatsappNumber: string;
   /** Clinic email. Booking requests from Web3Forms are delivered here. */
@@ -75,7 +79,7 @@ export type Clinic = {
   lat?: number;
   lng?: number;
   /** Clinic phone if different from the main phone in site settings. */
-  phone?: string;
+  phone?: PhoneNumber;
   /** Empty until the days and hours are known. */
   schedule: ScheduleEntry[];
   photos: ImageRef[];

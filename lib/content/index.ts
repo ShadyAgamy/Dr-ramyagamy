@@ -9,7 +9,7 @@ import { redirects } from "@/content/redirects";
 import { services } from "@/content/services";
 import { siteSettings } from "@/content/site";
 import { testimonials } from "@/content/testimonials";
-import { ContentError, listSlugs, readMdxFile } from "./mdx";
+import { contentError, listSlugs, readMdxFile } from "./mdx";
 import {
   pageFrontmatterSchema,
   postFrontmatterSchema,
@@ -34,10 +34,22 @@ export type * from "./types";
 
 const locales: Locale[] = ["ar", "en"];
 
-/** Returns the value for `locale`, falling back to Arabic. */
+/**
+ * Returns the value for `locale`, falling back to Arabic.
+ * Use for names and addresses, where Arabic is better than nothing.
+ */
 export function localize<T>(value: Localized<T>, locale: Locale): T {
   return value[locale] ?? value.ar;
 }
+
+/**
+ * Returns the value for `locale` only, or undefined if it is not translated.
+ * Use for text sections, so an English page hides them instead of showing Arabic.
+ */
+export const localizeStrict = <T>(
+  value: Localized<T> | undefined,
+  locale: Locale,
+): T | undefined => value?.[locale];
 
 // ---------------------------------------------------------------------------
 // Site, clinics, hospitals, testimonials, redirects (TypeScript data files)
@@ -86,11 +98,19 @@ export function getServices(locale?: Locale): Service[] {
 }
 
 /** One service in one language, with its MDX body if the file exists. */
-export function getService(slug: string, locale: Locale): ServiceDetail | undefined {
+export function getService(
+  slug: string,
+  locale: Locale,
+): ServiceDetail | undefined {
   const service = getServices(locale).find((item) => item.slug === slug);
   if (!service) return undefined;
 
-  const file = readMdxFile("services", slug, locale, serviceBodyFrontmatterSchema);
+  const file = readMdxFile(
+    "services",
+    slug,
+    locale,
+    serviceBodyFrontmatterSchema,
+  );
   return { ...service, body: file?.body };
 }
 
@@ -111,7 +131,7 @@ const loadAllPosts = cache((): Post[] => {
 
       for (const serviceSlug of data.relatedServices) {
         if (!serviceSlugs.has(serviceSlug)) {
-          throw new ContentError(
+          throw contentError(
             `content/posts/${slug}/${locale}.mdx`,
             `relatedServices: "${serviceSlug}" is not a service in content/services.ts`,
           );
@@ -151,6 +171,13 @@ export function getPost(slug: string, locale: Locale): Post | undefined {
   return getPosts(locale).find((post) => post.slug === slug);
 }
 
+/** Posts in one language that list this service in relatedServices. */
+export const getPostsForService = (
+  serviceSlug: string,
+  locale: Locale,
+): Post[] =>
+  getPosts(locale).filter((post) => post.relatedServices.includes(serviceSlug));
+
 // ---------------------------------------------------------------------------
 // Pages (content/pages/<slug>/<locale>.mdx), e.g. the privacy policy
 // ---------------------------------------------------------------------------
@@ -188,20 +215,43 @@ export function getAvailableLocales(
   });
 }
 
+/**
+ * Every page path that exists in one language, without the locale prefix,
+ * e.g. ["/", "/about", "/blog/some-post", ...].
+ * Used by the language switcher, and by the sitemap (Phase 4).
+ */
+export const getPagePaths = (locale: Locale): string[] => [
+  "/",
+  "/about",
+  "/services",
+  "/blog",
+  "/book",
+  ...(getPage("privacy", locale) ? ["/privacy"] : []),
+  ...getClinics().map((clinic) => `/clinics/${clinic.slug}`),
+  ...getServices(locale).map((service) => `/services/${service.slug}`),
+  ...getPosts(locale).map((post) => `/blog/${post.slug}`),
+];
+
 // ---------------------------------------------------------------------------
 // Checks for the TypeScript data files. TypeScript already checks the shape;
 // these catch what it cannot: slug format, duplicates, time format.
 // ---------------------------------------------------------------------------
 
 const checkDataFiles = cache(() => {
-  checkSlugs("content/clinics.ts", clinics.map((clinic) => clinic.slug));
-  checkSlugs("content/services.ts", services.map((service) => service.slug));
+  checkSlugs(
+    "content/clinics.ts",
+    clinics.map((clinic) => clinic.slug),
+  );
+  checkSlugs(
+    "content/services.ts",
+    services.map((service) => service.slug),
+  );
 
   for (const clinic of clinics) {
     for (const entry of clinic.schedule) {
       for (const time of [entry.opens, entry.closes]) {
         if (!/^([01]\d|2[0-3]):[0-5]\d$/.test(time)) {
-          throw new ContentError(
+          throw contentError(
             "content/clinics.ts",
             `${clinic.slug} schedule: "${time}" must be 24-hour time like "17:00"`,
           );
@@ -216,10 +266,13 @@ function checkSlugs(file: string, slugs: string[]) {
   for (const slug of slugs) {
     const result = slugSchema.safeParse(slug);
     if (!result.success) {
-      throw new ContentError(file, `slug "${slug}" ${result.error.issues[0].message}`);
+      throw contentError(
+        file,
+        `slug "${slug}" ${result.error.issues[0].message}`,
+      );
     }
     if (seen.has(slug)) {
-      throw new ContentError(file, `slug "${slug}" is used twice`);
+      throw contentError(file, `slug "${slug}" is used twice`);
     }
     seen.add(slug);
   }

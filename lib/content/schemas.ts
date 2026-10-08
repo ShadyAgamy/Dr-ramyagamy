@@ -10,7 +10,10 @@ const optionalText = z
   .optional()
   .transform((value) => value || undefined);
 
-const requiredText = z.string({ error: "is required" }).trim().min(1, "is required");
+const requiredText = z
+  .string({ error: "is required" })
+  .trim()
+  .min(1, "is required");
 
 /**
  * A "YYYY-MM-DD" date. YAML turns unquoted dates (publishedAt: 2026-10-05)
@@ -24,7 +27,10 @@ const dateText = z.preprocess(
 /** Lowercase Latin words joined by dashes, e.g. "icsi" or "pregnancy-tips". */
 export const slugSchema = z
   .string()
-  .regex(/^[a-z0-9]+(-[a-z0-9]+)*$/, "must be lowercase Latin letters, numbers and dashes");
+  .regex(
+    /^[a-z0-9]+(-[a-z0-9]+)*$/,
+    "must be lowercase Latin letters, numbers and dashes",
+  );
 
 export const postFrontmatterSchema = z
   .object({
@@ -39,7 +45,7 @@ export const postFrontmatterSchema = z
     metaDescription: optionalText,
     noindex: z.boolean().default(false),
   })
-  .refine((post) => !post.coverImage || post.coverAlt, {
+  .refine((post) => !(post.coverImage && !post.coverAlt), {
     message: "is required when coverImage is set",
     path: ["coverAlt"],
   });

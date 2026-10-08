@@ -24,8 +24,10 @@
   /* Lines */
   --line: #f1e3d6;
 
-  /* WhatsApp brand green */
+  /* WhatsApp brand green. The bright one is for the icon-only floating button;
+     "whatsapp-strong" is dark enough for white button text (WCAG AA). */
   --whatsapp: #25d366;
+  --whatsapp-strong: #168043;
 
   /* Shape */
   --radius-card: 1.25rem;
@@ -47,6 +49,7 @@
   --color-ink-muted: var(--ink-muted);
   --color-line: var(--line);
   --color-whatsapp: var(--whatsapp);
+  --color-whatsapp-strong: var(--whatsapp-strong);
 
   --radius-card: var(--radius-card);
   --radius-button: var(--radius-button);

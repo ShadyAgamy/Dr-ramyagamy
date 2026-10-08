@@ -34,5 +34,71 @@
     "empty": "No articles yet.",
     "allArticles": "All articles",
     "watchVideo": "Watch the video"
+  },
+  "Home": {
+    "credentialsTitle": "Credentials",
+    "servicesTitle": "Services",
+    "allServices": "All services",
+    "clinicsTitle": "Clinics",
+    "latestArticlesTitle": "Latest articles",
+    "allArticles": "All articles",
+    "testimonialsTitle": "Patient reviews"
+  },
+  "About": {
+    "title": "About the doctor",
+    "credentialsTitle": "Credentials",
+    "hospitalsTitle": "Hospitals where he operates"
+  },
+  "Services": {
+    "title": "Services",
+    "description": "Dr. Ramy Agamy's services in obstetrics, gynecology and ICSI.",
+    "empty": "Services will be added soon.",
+    "relatedArticles": "Related articles"
+  },
+  "Clinics": {
+    "title": "{label} Clinic",
+    "viewClinic": "Clinic details",
+    "address": "Address",
+    "phone": "Phone",
+    "hours": "Opening hours",
+    "openMap": "Open in maps",
+    "photos": "Clinic photos"
+  },
+  "Weekdays": {
+    "saturday": "Saturday",
+    "sunday": "Sunday",
+    "monday": "Monday",
+    "tuesday": "Tuesday",
+    "wednesday": "Wednesday",
+    "thursday": "Thursday",
+    "friday": "Friday"
+  },
+  "Testimonials": {
+    "facebook": "On Facebook",
+    "google": "On Google",
+    "other": ""
+  },
+  "Book": {
+    "title": "Book an appointment",
+    "description": "Book your appointment at the Suez or New Cairo clinic.",
+    "intro": "Contact us on WhatsApp or by phone, and we will confirm your appointment as soon as possible.",
+    "notice": "Please do not write any medical details in your messages. Your case is discussed with the doctor directly.",
+    "clinicsTitle": "Clinics"
+  },
+  "Cta": {
+    "title": "Book your appointment",
+    "text": "Contact us to book an appointment at the Suez or New Cairo clinic.",
+    "book": "Book an appointment",
+    "whatsapp": "Chat on WhatsApp",
+    "call": "Call us"
+  },
+  "Privacy": {
+    "updatedAt": "Last updated: <date></date>"
+  },
+  "NotFound": {
+    "title": "Page not found",
+    "text": "Sorry, we could not find this page.",
+    "home": "Back to home",
+    "book": "Book an appointment"
   }
 }

@@ -34,5 +34,71 @@
     "empty": "لا توجد مقالات بعد.",
     "allArticles": "كل المقالات",
     "watchVideo": "شاهد الفيديو"
+  },
+  "Home": {
+    "credentialsTitle": "المؤهلات",
+    "servicesTitle": "الخدمات",
+    "allServices": "كل الخدمات",
+    "clinicsTitle": "العيادات",
+    "latestArticlesTitle": "أحدث المقالات",
+    "allArticles": "كل المقالات",
+    "testimonialsTitle": "آراء المرضى"
+  },
+  "About": {
+    "title": "عن الدكتور",
+    "credentialsTitle": "المؤهلات",
+    "hospitalsTitle": "المستشفيات التي يجري بها العمليات"
+  },
+  "Services": {
+    "title": "الخدمات",
+    "description": "خدمات د. رامي عجمي في النساء والتوليد والحقن المجهري.",
+    "empty": "سيتم إضافة الخدمات قريباً.",
+    "relatedArticles": "مقالات ذات صلة"
+  },
+  "Clinics": {
+    "title": "عيادة {label}",
+    "viewClinic": "تفاصيل العيادة",
+    "address": "العنوان",
+    "phone": "الهاتف",
+    "hours": "المواعيد",
+    "openMap": "افتح على الخريطة",
+    "photos": "صور العيادة"
+  },
+  "Weekdays": {
+    "saturday": "السبت",
+    "sunday": "الأحد",
+    "monday": "الاثنين",
+    "tuesday": "الثلاثاء",
+    "wednesday": "الأربعاء",
+    "thursday": "الخميس",
+    "friday": "الجمعة"
+  },
+  "Testimonials": {
+    "facebook": "من فيسبوك",
+    "google": "من Google",
+    "other": ""
+  },
+  "Book": {
+    "title": "احجز موعد",
+    "description": "احجز موعدك في عيادة السويس أو التجمع الخامس.",
+    "intro": "تواصل معنا على واتساب أو بالهاتف، وسنؤكد موعدك في أقرب وقت.",
+    "notice": "من فضلك لا تكتب أي تفاصيل طبية في الرسائل. تتم مناقشة حالتك مع الطبيب مباشرة.",
+    "clinicsTitle": "العيادات"
+  },
+  "Cta": {
+    "title": "احجز موعدك",
+    "text": "تواصل معنا لحجز موعد في عيادة السويس أو التجمع الخامس.",
+    "book": "احجز موعد",
+    "whatsapp": "تواصل عبر واتساب",
+    "call": "اتصل بنا"
+  },
+  "Privacy": {
+    "updatedAt": "آخر تحديث: <date></date>"
+  },
+  "NotFound": {
+    "title": "الصفحة غير موجودة",
+    "text": "عذراً، لم نتمكن من العثور على هذه الصفحة.",
+    "home": "العودة للرئيسية",
+    "book": "احجز موعد"
   }
 }

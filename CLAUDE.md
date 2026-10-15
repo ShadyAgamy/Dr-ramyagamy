@@ -16,7 +16,7 @@ He already has a strong social presence (about 525K Facebook followers, reels wi
 
 1. Rank first on Google for his name (Arabic and English spellings).
 2. Rank locally for each clinic (Suez first, New Cairo second).
-3. Turn visitors into bookings: booking form + WhatsApp.
+3. Turn visitors into bookings: WhatsApp and phone (the clinic handles every booking).
 4. Publish articles based on patient questions from his reels.
 
 **Content approach: static first, no CMS.**
@@ -27,8 +27,7 @@ All content lives in the repo as typed data files and MDX. The developer edits c
 - **Next.js** (latest stable, App Router), **TypeScript**, **Tailwind CSS**
 - **next-intl** for Arabic and English
 - **MDX** for articles: `gray-matter` for frontmatter + `next-mdx-remote` (RSC) for rendering
-- **Netlify** for hosting (free plan, commercial use allowed). Do NOT target Vercel.
-- **Web3Forms** for the booking form (sends email, no backend)
+- **Netlify** for hosting (free plan, commercial use allowed). Do NOT target Vercel. Known issue: `*.netlify.app` is unreachable from Egypt; see `DEPLOY.md` for the launch plan (custom domain A record to `75.2.60.5`).
 - **Google Tag Manager** via `@next/third-parties`
 
 Rendering: every public page is statically generated at build time (`generateStaticParams`). No page depends on client-side fetching for its main content.
@@ -56,7 +55,7 @@ Rendering: every public page is statically generated at build time (`generateSta
 | `/clinics/[slug]`  | One clinic page: address, map link, phone, days and hours, photos, booking CTA. Slugs: `suez`, `new-cairo`                        |
 | `/blog`            | Articles list                                                                                                                     |
 | `/blog/[slug]`     | One article                                                                                                                       |
-| `/book`            | Booking form                                                                                                                      |
+| `/book`            | How to book: WhatsApp and call buttons, the two clinics. No form                                                                  |
 | `/privacy`         | Privacy policy (MDX)                                                                                                              |
 | 404                | Custom, bilingual, with links home and to booking                                                                                 |
 
@@ -170,13 +169,12 @@ Pages and components must import content ONLY from this module. Never read `/con
 
 ## 7. Booking
 
-- Form fields: name, phone, clinic (select: Suez / New Cairo), preferred day, optional short note.
-- Show a small notice: do not write medical details in the form.
-- Submit to Web3Forms. Access key from env var. Email goes to the booking email.
-- Spam protection: honeypot field.
-- Clear success and error states, in both languages.
+**Decision (2026-10-16): no booking form.** Patients book on WhatsApp or by phone; the clinic assistant handles every booking.
+
+- `/book` shows WhatsApp and call buttons, the two clinics, and a notice: do not send medical details in booking messages.
 - **WhatsApp:** a floating WhatsApp button on every page, using `https://wa.me/<number>` with a prefilled message in the current language. Also a WhatsApp button on each clinic page and on `/book`.
 - No double-booking logic. The clinic confirms each request by phone or WhatsApp.
+- **Later (after launch), see Phase 7:** online consultations with payment and scheduling.
 
 ## 8. Design direction
 
@@ -194,7 +192,7 @@ Match his existing social media brand:
 - Specialty: consultant of obstetrics, gynecology and ICSI
 - Credentials (from his Facebook bio, Arabic):
   - جراح النساء والتوليد والحقن المجهري
-  - استشاري الحقن المجهري برنامجهام - انجلترا
+  - استشاري الحقن المجهري برمنجهام - انجلترا (corrected spelling, confirmed)
   - دبلومة المناظير عالية الدقة كليرمونت - فرنسا
   - دكتوراه النساء والتوليد والعقم - جامعة الأزهر
   - خبرة أكثر من ١٥ عام في الإخصاب المساعد
@@ -204,15 +202,21 @@ Match his existing social media brand:
 - TikTok: `drramiagamy.obg`
 - Facebook page: "Dr. Ramy Agamy - د.رامي عجمي"
 - New Cairo clinic address (Arabic, from Facebook): التجمع الخامس - ش التسعين الشمالي خلف المستشفى الجوي - مركز HCC الدور الثالث، عيادة 336
+- Suez clinic address (given by the developer, **not yet confirmed** against Google Business Profile): الملاحه الجديده, بجوار مستشفي قناه السويس التخصصي
+- Clinic email (accounts, not shown on the site): ramytagamo3clinic@gmail.com
+- Facebook page URL: https://www.facebook.com/RamyElAgamyClinic
+- Name spelling: use "رامي عجمي" / "Ramy Agamy" for now. "رامي العجمي" / "El-Agamy" also appear (his bio, Facebook URL); use them as alternate names in structured data.
 
 ## 10. Missing data (do NOT invent)
 
 These will be added to the content files later. Leave them out or as optional fields. Never write placeholder medical text, fake reviews, fake credentials, fake hours or fake addresses.
 
-- Suez clinic address and hours
+- Suez clinic hours (and confirmation of its address)
 - New Cairo clinic days and hours
 - Final list of services and their content
-- Booking email
+- Clinic names exactly as on Google Business Profile
+- Whether there is a Madinaty (مدينتي) clinic (mentioned on his Instagram)
+- Hospitals where he operates, testimonials, articles
 - Logo files and exact brand colors
 - Photos
 - English versions of content
@@ -224,7 +228,6 @@ The site must build and render cleanly when this data is missing. Hide empty sec
 
 ```
 NEXT_PUBLIC_SITE_URL=
-NEXT_PUBLIC_WEB3FORMS_KEY=
 NEXT_PUBLIC_GTM_ID=
 ```
 
@@ -250,10 +253,19 @@ All routes from section 4 using the content layer and static generation. Empty s
 Everything in section 6: metadata, hreflang, sitemap, robots, JSON-LD, redirects.
 
 **Phase 5: Booking**
-Booking form and WhatsApp links from section 7.
+WhatsApp and phone only (section 7). Already covered by Phases 1 and 3; no form.
 
 **Phase 6: Finish**
-GTM, Lighthouse pass on mobile, fix issues, and a short README covering: setup, env vars, how to add an article, how to add a service or update a clinic, how to add a redirect, and how to deploy.
+GTM, Lighthouse pass on mobile, fix issues, and a short README covering: setup, env vars, how to add an article, how to add a service or update a clinic, how to add a redirect, and how to deploy. Then launch (custom domain, remove `noindex`, Google Search Console).
+
+**Phase 7 (after launch): Online consultations with payment**
+A learning project for the developer, built step by step with short lessons first: Paymob payments (start in test mode; call its REST API directly, since there is no official Node SDK) via Next.js Route Handlers and a verified webhook (HMAC), then the clinic's own scheduling (availability slots, no double booking) with a database. Payments settle to the doctor's bank account. The real merchant account needs the clinic's papers.
+
+## 12b. Decisions so far
+
+- **Launch without articles.** "Articles" is hidden from the nav and footer until the first post exists, per language. Later: turn his own reels into articles (transcribe with Whisper, draft, doctor approves, link the reel). Never copy other doctors' articles.
+- **404:** `notFound()` inside pages renders an empty document in Next 16 (vercel/next.js#99287), so unknown URLs go to one bilingual `app/global-not-found.tsx` (experimental `globalNotFound` flag), and dynamic routes use `dynamicParams = false`.
+- **Workflow:** leave changes uncommitted for review; commit on the developer's OK and push on a separate OK. The developer is learning Next.js: explain new concepts briefly, keep replies short, use arrow functions.
 
 ## 13. Rules
 

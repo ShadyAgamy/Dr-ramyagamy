@@ -2,21 +2,21 @@
 
 import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
-import { navItems } from "./nav-items";
+import type { NavItem } from "./nav-items";
 
 function isActive(pathname: string, href: string) {
   return href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(`${href}/`);
 }
 
 /** Desktop navigation links. Hidden on small screens (see MobileMenu). */
-export function MainNav() {
+export function MainNav({ items }: { items: NavItem[] }) {
   const t = useTranslations("Nav");
   const pathname = usePathname();
 
   return (
     <nav aria-label={t("label")} className="hidden md:block">
       <ul className="flex items-center gap-1">
-        {navItems.map((item) => {
+        {items.map((item) => {
           const active = isActive(pathname, item.href);
           return (
             <li key={item.href}>

@@ -5,10 +5,10 @@ import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
 import { CloseIcon, MenuIcon } from "@/components/ui/icons";
 import { isActive } from "./MainNav";
-import { bookHref, navItems } from "./nav-items";
+import { bookHref, type NavItem } from "./nav-items";
 
 /** Menu button and dropdown for small screens. The links are real <a> tags. */
-export function MobileMenu() {
+export function MobileMenu({ items }: { items: NavItem[] }) {
   const t = useTranslations("Nav");
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
@@ -44,7 +44,7 @@ export function MobileMenu() {
       >
         {/* Clicking any link closes the menu. */}
         <ul className="mx-auto flex max-w-site flex-col gap-1 px-4 py-4" onClick={() => setOpen(false)}>
-          {navItems.map((item) => {
+          {items.map((item) => {
             const active = isActive(pathname, item.href);
             return (
               <li key={item.href}>

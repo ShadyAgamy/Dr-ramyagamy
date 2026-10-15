@@ -1,16 +1,17 @@
 import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
-import { getPagePaths, getSiteSettings, localize } from "@/lib/content";
+import { getPagePaths, getPosts, getSiteSettings, localize } from "@/lib/content";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { MainNav } from "./MainNav";
 import { MobileMenu } from "./MobileMenu";
-import { bookHref } from "./nav-items";
+import { bookHref, visibleNavItems } from "./nav-items";
 
 export function SiteHeader() {
   const t = useTranslations("Nav");
   const locale = useLocale();
   const site = getSiteSettings();
   const otherLocalePaths = getPagePaths(locale === "ar" ? "en" : "ar");
+  const navItems = visibleNavItems(getPosts(locale).length > 0);
 
   return (
     <header className="sticky top-0 z-40 border-b border-line bg-surface/95 backdrop-blur">
@@ -20,7 +21,7 @@ export function SiteHeader() {
           {localize(site.doctorName, locale)}
         </Link>
 
-        <MainNav />
+        <MainNav items={navItems} />
 
         <div className="flex items-center gap-2">
           <LanguageSwitcher otherLocalePaths={otherLocalePaths} />
@@ -30,7 +31,7 @@ export function SiteHeader() {
           >
             {t("book")}
           </Link>
-          <MobileMenu />
+          <MobileMenu items={navItems} />
         </div>
       </div>
     </header>

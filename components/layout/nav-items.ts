@@ -6,4 +6,10 @@ export const navItems = [
   { href: "/blog", key: "blog" },
 ] as const;
 
+export type NavItem = (typeof navItems)[number];
+
+/** The nav without links to empty sections: "Articles" shows once a post exists. */
+export const visibleNavItems = (hasPosts: boolean): NavItem[] =>
+  navItems.filter((item) => item.href !== "/blog" || hasPosts);
+
 export const bookHref = "/book";

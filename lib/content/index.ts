@@ -224,7 +224,7 @@ export const getPagePaths = (locale: Locale): string[] => [
   "/",
   "/about",
   "/services",
-  "/blog",
+  ...(getPosts(locale).length > 0 ? ["/blog"] : []),
   "/book",
   ...(getPage("privacy", locale) ? ["/privacy"] : []),
   ...getClinics().map((clinic) => `/clinics/${clinic.slug}`),

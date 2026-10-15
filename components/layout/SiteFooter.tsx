@@ -1,8 +1,8 @@
 import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
-import { getClinics, getSiteSettings, localize } from "@/lib/content";
+import { getClinics, getPosts, getSiteSettings, localize } from "@/lib/content";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
-import { bookHref, navItems } from "./nav-items";
+import { bookHref, visibleNavItems } from "./nav-items";
 
 export function SiteFooter() {
   const t = useTranslations("Footer");
@@ -12,6 +12,7 @@ export function SiteFooter() {
   const tHome = useTranslations("Home");
   const locale = useLocale();
   const site = getSiteSettings();
+  const navItems = visibleNavItems(getPosts(locale).length > 0);
   const doctorName = localize(site.doctorName, locale);
 
   const socialLinks = [

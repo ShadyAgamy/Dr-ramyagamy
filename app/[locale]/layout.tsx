@@ -19,11 +19,17 @@ export async function generateMetadata({ params }: LayoutProps<"/[locale]">): Pr
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) return {};
   const site = getSiteSettings();
+  const t = await getTranslations({ locale, namespace: "Home" });
+  const doctorName = localize(site.doctorName, locale);
 
-  // Temporary. Real SEO metadata comes in Phase 4.
   return {
-    title: localize(site.doctorName, locale),
-    description: localize(site.specialty, locale),
+    title: {
+      // Home page (and any page without its own title).
+      default: `${doctorName} | ${localize(site.specialty, locale)}`,
+      // Every other page: "<page title> | د. رامي عجمي".
+      template: `%s | ${doctorName}`,
+    },
+    description: t("metaDescription"),
     // Keep the site out of search results until real content exists.
     robots: { index: false, follow: false },
   };

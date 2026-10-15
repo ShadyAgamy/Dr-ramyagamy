@@ -28,9 +28,15 @@ export const generateMetadata = async ({ params }: PageProps<"/[locale]/clinics/
   const clinic = getClinic(slug);
   if (!clinic) return {};
 
+  const title = await getClinicTitle(clinic, locale);
+  const t = await getTranslations("Clinics");
+
   return {
-    title: localizeStrict(clinic.seo?.metaTitle, locale) ?? (await getClinicTitle(clinic, locale)),
-    description: localizeStrict(clinic.seo?.metaDescription, locale) ?? localizeStrict(clinic.description, locale),
+    title: localizeStrict(clinic.seo?.metaTitle, locale) ?? title,
+    description:
+      localizeStrict(clinic.seo?.metaDescription, locale) ??
+      localizeStrict(clinic.description, locale) ??
+      t("metaDescription", { title }),
   };
 };
 

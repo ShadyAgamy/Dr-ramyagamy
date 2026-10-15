@@ -42,12 +42,14 @@
     "clinicsTitle": "Clinics",
     "latestArticlesTitle": "Latest articles",
     "allArticles": "All articles",
-    "testimonialsTitle": "Patient reviews"
+    "testimonialsTitle": "Patient reviews",
+    "metaDescription": "Dr. Ramy Agamy, consultant of obstetrics, gynecology and ICSI. Clinics in Suez and New Cairo. Book online or on WhatsApp."
   },
   "About": {
     "title": "About the doctor",
     "credentialsTitle": "Credentials",
-    "hospitalsTitle": "Hospitals where he operates"
+    "hospitalsTitle": "Hospitals where he operates",
+    "metaDescription": "About Dr. Ramy Agamy, consultant of obstetrics, gynecology and ICSI: credentials and experience."
   },
   "Services": {
     "title": "Services",
@@ -62,7 +64,8 @@
     "phone": "Phone",
     "hours": "Opening hours",
     "openMap": "Open in maps",
-    "photos": "Clinic photos"
+    "photos": "Clinic photos",
+    "metaDescription": "{title}: address, phone and booking with Dr. Ramy Agamy, consultant of obstetrics, gynecology and ICSI."
   },
   "Weekdays": {
     "saturday": "Saturday",

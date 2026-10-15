@@ -15,7 +15,7 @@ import {
 
 export const generateMetadata = async (): Promise<Metadata> => {
   const t = await getTranslations("About");
-  return { title: t("title") };
+  return { title: t("title"), description: t("metaDescription") };
 };
 
 /** /about: name, specialty, credentials and hospitals. */

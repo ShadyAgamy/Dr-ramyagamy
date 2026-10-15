@@ -34,7 +34,6 @@ The keys are listed in `.env.example`:
 | Key                         | Value                                       | Needed from |
 | --------------------------- | ------------------------------------------- | ----------- |
 | `NEXT_PUBLIC_SITE_URL`      | The live URL, e.g. `https://drramyagamy.netlify.app` | Phase 4 |
-| `NEXT_PUBLIC_WEB3FORMS_KEY` | Access key from https://web3forms.com       | Phase 5     |
 | `NEXT_PUBLIC_GTM_ID`        | Google Tag Manager ID, e.g. `GTM-XXXXXXX`   | Phase 6     |
 
 `NEXT_PUBLIC_*` values are baked in at build time. After changing one, trigger a new deploy:

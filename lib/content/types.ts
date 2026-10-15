@@ -40,7 +40,7 @@ export type SiteSettings = {
   phone: PhoneNumber;
   /** Digits only, with country code, as wa.me expects, e.g. "201097333303". */
   whatsappNumber: string;
-  /** Clinic email. Booking requests from Web3Forms are delivered here. */
+  /** Clinic email. Not shown on the site. */
   email?: string;
   social: {
     instagram?: string;
@@ -68,7 +68,7 @@ export type ScheduleEntry = {
 export type Clinic = {
   /** URL slug: /clinics/<slug>. Latin letters only. */
   slug: string;
-  /** Short label for menus and the booking form, e.g. "السويس". */
+  /** Short label for menus and cards, e.g. "السويس". */
   label: Localized<string>;
   /** Exact name as on Google Business Profile. */
   name?: Localized<string>;

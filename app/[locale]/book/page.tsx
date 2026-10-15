@@ -15,7 +15,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
   return { title: t("title"), description: t("description") };
 };
 
-/** /book: contact options. The booking form is added in Phase 5. */
+/** /book: booking is by WhatsApp or phone, handled by the clinic. */
 const BookPage = async ({ params }: PageProps<"/[locale]/book">) => {
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) notFound();

@@ -33,6 +33,7 @@
   --radius-card: 1.25rem;
   --radius-button: 9999px;
   --shadow-soft: 0 6px 24px -8px rgb(180 80 14 / 0.18);
+  --shadow-lift: 0 14px 36px -10px rgb(180 80 14 / 0.3);
 
   /* Layout */
   --container-max: 72rem;
@@ -54,6 +55,7 @@
   --radius-card: var(--radius-card);
   --radius-button: var(--radius-button);
   --shadow-soft: var(--shadow-soft);
+  --shadow-lift: var(--shadow-lift);
   --container-site: var(--container-max);
 
 

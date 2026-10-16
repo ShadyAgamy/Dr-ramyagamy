@@ -8,14 +8,15 @@ He already has a strong social presence (about 525K Facebook followers, reels wi
 
 **Clinics**
 
-- **Suez**: the main clinic.
-- **New Cairo (Fifth Settlement / التجمع الخامس)**: 2 or 3 days a week, at the HCC center.
+- **New Cairo (Fifth Settlement / التجمع الخامس)**: at the HCC center. Listed first.
+- **Madinaty (مدينتي)**: at Medical Hub Center, a shared medical center (not his own clinic, so no photos).
+- **Suez**: hidden for now (decision 2026-10-17): its address may change and the doctor wants SEO focused on Cairo and patients abroad. Add it back in `content/clinics.ts` once the address is final.
 - Surgeries happen in different hospitals. Hospitals are NOT clinic locations.
 
 **Goals**
 
 1. Rank first on Google for his name (Arabic and English spellings).
-2. Rank locally for each clinic (Suez first, New Cairo second).
+2. Rank locally for the Cairo clinics (New Cairo, Madinaty), and reach patients abroad (English content, later online consultations).
 3. Turn visitors into bookings: WhatsApp and phone (the clinic handles every booking).
 4. Publish articles based on patient questions from his reels.
 
@@ -52,7 +53,7 @@ Rendering: every public page is statically generated at build time (`generateSta
 | `/about`           | Full bio, credentials, hospitals where he operates                                                                                |
 | `/services`        | List of services                                                                                                                  |
 | `/services/[slug]` | One service page                                                                                                                  |
-| `/clinics/[slug]`  | One clinic page: address, map link, phone, days and hours, photos, booking CTA. Slugs: `suez`, `new-cairo`                        |
+| `/clinics/[slug]`  | One clinic page: address, map link, phone, days and hours, photos, booking CTA. Slugs: `new-cairo`, `madinaty` (`suez` later)     |
 | `/blog`            | Articles list                                                                                                                     |
 | `/blog/[slug]`     | One article                                                                                                                       |
 | `/book`            | How to book: WhatsApp and call buttons, the two clinics. No form                                                                  |
@@ -202,23 +203,23 @@ Match his existing social media brand:
 - TikTok: `drramiagamy.obg`
 - Facebook page: "Dr. Ramy Agamy - د.رامي عجمي"
 - New Cairo clinic address (Arabic, from Facebook): التجمع الخامس - ش التسعين الشمالي خلف المستشفى الجوي - مركز HCC الدور الثالث، عيادة 336
-- Suez clinic address (given by the developer, **not yet confirmed** against Google Business Profile): الملاحه الجديده, بجوار مستشفي قناه السويس التخصصي
+- Madinaty clinic address (from its Google Maps listing, confirmed): Medical Hub Center، المركز التجاري ايست هب، بلوك ١١ الطابق الثاني، ثانى القاهرة الجديدة
+- Hours (2026-10-17): New Cairo Monday and Wednesday 15:00–19:00; Madinaty Monday and Wednesday 19:00–21:00
+- Suez clinic (hidden for now, address may change): الملاحة الجديدة بجوار مستشفى قناة السويس - برج النوبي - الدور الثاني; phones 01116668967, 01033101414; Saturday, Sunday and Tuesday 13:00 to midnight
+- Services (2026-10-17): 12 in `content/services.ts`, from his profile document plus a list the developer gave. Summaries are short general definitions we wrote (from his scripts where possible), at the developer's request. Includes sex selection (تحديد نوع الجنين), approved by the developer.
 - Clinic email (accounts, not shown on the site): ramytagamo3clinic@gmail.com
 - Facebook page URL: https://www.facebook.com/RamyElAgamyClinic
-- Name spelling: use "رامي عجمي" / "Ramy Agamy" for now. "رامي العجمي" / "El-Agamy" also appear (his bio, Facebook URL); use them as alternate names in structured data.
+- Name spelling: use "رامي عجمي" / "Ramy Agamy" (confirmed by the developer 2026-10-17). "رامي العجمي" / "El-Agamy" also appear (his bio, Facebook URL); use them as alternate names in structured data.
 
 ## 10. Missing data (do NOT invent)
 
 These will be added to the content files later. Leave them out or as optional fields. Never write placeholder medical text, fake reviews, fake credentials, fake hours or fake addresses.
 
-- Suez clinic hours (and confirmation of its address)
-- New Cairo clinic days and hours
-- Final list of services and their content
+- Long service pages (MDX bodies)
 - Clinic names exactly as on Google Business Profile
-- Whether there is a Madinaty (مدينتي) clinic (mentioned on his Instagram)
 - Hospitals where he operates, testimonials, articles
-- Logo files and exact brand colors
-- Photos
+- Original logo files (SVG); exact brand colors (orange + cyan accent seen in the logo)
+- Photos: have the banner, 9 retouched studio portraits (Drive "Retouched" folder) and 5 New Cairo clinic photos
 - English versions of content
 - Final domain (start on the Netlify subdomain)
 
@@ -263,7 +264,7 @@ A learning project for the developer, built step by step with short lessons firs
 
 ## 12b. Decisions so far
 
-- **Launch without articles.** "Articles" is hidden from the nav and footer until the first post exists, per language. Later: turn his own reels into articles (transcribe with Whisper, draft, doctor approves, link the reel). Never copy other doctors' articles.
+- **Articles (2026-10-17):** the first 4 Arabic posts come from the doctor's reel scripts ("Dr Ramy 30 Scripts" PDF; he approved the scripts). Merge related scripts into one article, use only what the scripts say, add `videoUrl` later. "Articles" shows in the nav per language only once a post exists in it. Later: turn his own reels into articles (transcribe with Whisper, draft, doctor approves, link the reel). Never copy other doctors' articles.
 - **404:** `notFound()` inside pages renders an empty document in Next 16 (vercel/next.js#99287), so unknown URLs go to one bilingual `app/global-not-found.tsx` (experimental `globalNotFound` flag), and dynamic routes use `dynamicParams = false`.
 - **Workflow:** leave changes uncommitted for review; commit on the developer's OK and push on a separate OK. The developer is learning Next.js: explain new concepts briefly, keep replies short, use arrow functions.
 

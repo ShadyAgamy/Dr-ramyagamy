@@ -9,12 +9,15 @@ import { MdxContent } from "@/components/mdx/MdxContent";
 import { Section } from "@/components/ui/Section";
 import { routing } from "@/i18n/routing";
 import { getPostsForService, getService, getServices, localize, localizeStrict } from "@/lib/content";
+import { buildPageMetadata } from "@/lib/seo";
 
-/** Pre-build one page per service that exists in this language. */
-export const generateStaticParams = ({ params }: { params: { locale: string } }) => {
-  if (!hasLocale(routing.locales, params.locale)) return [];
-  return getServices(params.locale).map((service) => ({ slug: service.slug }));
-};
+/**
+ * Pre-build one page per service and language it exists in. Returned all at
+ * once (not per language): in Next 16 an empty list for one language
+ * stops every page of this route from being built.
+ */
+export const generateStaticParams = () =>
+  routing.locales.flatMap((locale) => getServices(locale).map((service) => ({ locale, slug: service.slug })));
 
 export const dynamicParams = false;
 
@@ -24,10 +27,18 @@ export const generateMetadata = async ({ params }: PageProps<"/[locale]/services
   const service = getService(slug, locale);
   if (!service) return {};
 
-  return {
-    title: localizeStrict(service.seo?.metaTitle, locale) ?? localize(service.title, locale),
-    description: localizeStrict(service.seo?.metaDescription, locale) ?? localize(service.summary, locale),
-  };
+  const title = localize(service.title, locale);
+  const t = await getTranslations("Services");
+
+  return buildPageMetadata({
+    locale,
+    title: localizeStrict(service.seo?.metaTitle, locale) ?? title,
+    description:
+      localizeStrict(service.seo?.metaDescription, locale) ??
+      localizeStrict(service.summary, locale) ??
+      t("metaDescription", { title }),
+    image: service.seo?.ogImage ?? service.image?.src,
+  });
 };
 
 /** /services/<slug>: one service, its long description, and related articles. */
@@ -45,7 +56,9 @@ const ServicePage = async ({ params }: PageProps<"/[locale]/services/[slug]">) =
     <>
       <article className="mx-auto max-w-3xl px-4 py-12">
         <h1 className="text-3xl font-bold sm:text-4xl">{localize(service.title, locale)}</h1>
-        <p className="mt-4 text-lg text-ink-muted">{localize(service.summary, locale)}</p>
+        {service.summary && (
+          <p className="mt-4 text-lg text-ink-muted">{localize(service.summary, locale)}</p>
+        )}
         {service.image && (
           <Image
             src={service.image.src}

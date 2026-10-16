@@ -84,9 +84,10 @@ export function getRedirects(): Redirect[] {
 // Services (summary in content/services.ts, optional body in MDX)
 // ---------------------------------------------------------------------------
 
-/** A service has an English version once its title and summary are translated. */
+/** A service has an English version once its title (and summary, if any) are translated. */
 function serviceHasLocale(service: Service, locale: Locale): boolean {
-  return locale === "ar" || Boolean(service.title.en && service.summary.en);
+  if (locale === "ar") return true;
+  return Boolean(service.title.en) && (!service.summary || Boolean(service.summary.en));
 }
 
 /** All services, sorted. With a locale, only the ones available in that language. */

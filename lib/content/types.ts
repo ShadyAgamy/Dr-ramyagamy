@@ -15,7 +15,7 @@ export type Seo = {
 };
 
 export type ImageRef = {
-  /** Path under /public, e.g. "/images/clinics/suez-1.jpg". */
+  /** Path under /public, e.g. "/images/clinics/new-cairo-reception.jpg". */
   src: string;
   /** Required on every image. */
   alt: Localized<string>;
@@ -34,6 +34,8 @@ export type SiteSettings = {
   doctorName: Localized<string>;
   /** Hidden until a real photo is added. */
   doctorPhoto?: ImageRef;
+  /** Full-width background of the home hero. Hidden until added. */
+  heroImage?: ImageRef;
   specialty: Localized<string>;
   /** Credentials as written in his Facebook bio. */
   credentials: Localized<string[]>;
@@ -68,7 +70,7 @@ export type ScheduleEntry = {
 export type Clinic = {
   /** URL slug: /clinics/<slug>. Latin letters only. */
   slug: string;
-  /** Short label for menus and cards, e.g. "السويس". */
+  /** Short label for menus and cards, e.g. "التجمع الخامس". */
   label: Localized<string>;
   /** Exact name as on Google Business Profile. */
   name?: Localized<string>;
@@ -91,7 +93,8 @@ export type Service = {
   /** URL slug: /services/<slug>. Latin letters only. */
   slug: string;
   title: Localized<string>;
-  summary: Localized<string>;
+  /** One or two sentences for cards. Hidden until written. */
+  summary?: Localized<string>;
   image?: ImageRef;
   /** Sort order on the services list, lowest first. */
   order: number;

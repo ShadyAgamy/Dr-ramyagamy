@@ -6,10 +6,13 @@ import { BookingCta } from "@/components/booking/BookingCta";
 import { ServiceGrid } from "@/components/services/ServiceCard";
 import { routing } from "@/i18n/routing";
 import { getServices } from "@/lib/content";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const generateMetadata = async (): Promise<Metadata> => {
+export const generateMetadata = async ({ params }: PageProps<"/[locale]/services">): Promise<Metadata> => {
+  const { locale } = await params;
+  if (!hasLocale(routing.locales, locale)) return {};
   const t = await getTranslations("Services");
-  return { title: t("title"), description: t("description") };
+  return buildPageMetadata({ locale, title: t("title"), description: t("description") });
 };
 
 /** /services: every service available in this language. */

@@ -6,15 +6,16 @@ import { MdxContent } from "@/components/mdx/MdxContent";
 import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { getPost, getPosts } from "@/lib/content";
+import { buildPageMetadata } from "@/lib/seo";
 
 /**
- * Which articles to pre-build. Runs once per language from the layout's
- * generateStaticParams, e.g. { locale: "en" } → only posts that have en.mdx.
+ * Which articles to pre-build: every (language, slug) pair that has a file,
+ * e.g. { locale: "ar", slug: "amh-test" }. Returned all at once on purpose:
+ * in Next 16, if the per-language version returns [] for one language
+ * (no English posts yet), no article is built at all.
  */
-export function generateStaticParams({ params }: { params: { locale: string } }) {
-  if (!hasLocale(routing.locales, params.locale)) return [];
-  return getPosts(params.locale).map((post) => ({ slug: post.slug }));
-}
+export const generateStaticParams = () =>
+  routing.locales.flatMap((locale) => getPosts(locale).map((post) => ({ locale, slug: post.slug })));
 
 // Any slug not returned above is a 404 (e.g. /en/blog/<arabic-only-post>).
 export const dynamicParams = false;
@@ -25,10 +26,13 @@ export async function generateMetadata({ params }: PageProps<"/[locale]/blog/[sl
   const post = getPost(slug, locale);
   if (!post) return {};
 
-  return {
+  return buildPageMetadata({
+    locale,
     title: post.metaTitle ?? post.title,
     description: post.metaDescription ?? post.excerpt,
-  };
+    image: post.cover?.src,
+    article: { publishedTime: post.publishedAt },
+  });
 }
 
 /** /blog/<slug> and /en/blog/<slug>: one article. */

@@ -4,6 +4,7 @@ import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { routing } from "@/i18n/routing";
 import { getSiteSettings, localize } from "@/lib/content";
+import { buildPageMetadata, siteUrl } from "@/lib/seo";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
@@ -21,15 +22,19 @@ export async function generateMetadata({ params }: LayoutProps<"/[locale]">): Pr
   const site = getSiteSettings();
   const t = await getTranslations({ locale, namespace: "Home" });
   const doctorName = localize(site.doctorName, locale);
+  const homeTitle = `${doctorName} | ${localize(site.specialty, locale)}`;
 
   return {
+    // Defaults for the home page (and any page without its own metadata).
+    ...buildPageMetadata({ locale, title: homeTitle, description: t("metaDescription") }),
+    // Turns relative image paths into full URLs, which share previews need.
+    metadataBase: new URL(siteUrl),
     title: {
       // Home page (and any page without its own title).
-      default: `${doctorName} | ${localize(site.specialty, locale)}`,
+      default: homeTitle,
       // Every other page: "<page title> | د. رامي عجمي".
       template: `%s | ${doctorName}`,
     },
-    description: t("metaDescription"),
     // Keep the site out of search results until real content exists.
     robots: { index: false, follow: false },
   };

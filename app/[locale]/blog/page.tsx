@@ -5,10 +5,13 @@ import { getTranslations } from "next-intl/server";
 import { PostGrid } from "@/components/blog/PostCard";
 import { routing } from "@/i18n/routing";
 import { getPosts } from "@/lib/content";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const generateMetadata = async (): Promise<Metadata> => {
+export const generateMetadata = async ({ params }: PageProps<"/[locale]/blog">): Promise<Metadata> => {
+  const { locale } = await params;
+  if (!hasLocale(routing.locales, locale)) return {};
   const t = await getTranslations("Blog");
-  return { title: t("title"), description: t("description") };
+  return buildPageMetadata({ locale, title: t("title"), description: t("description") });
 };
 
 /** /blog and /en/blog: the list of articles, newest first. */

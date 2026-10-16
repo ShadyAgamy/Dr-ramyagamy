@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { getPagePaths, getPosts, getSiteSettings, localize } from "@/lib/content";
@@ -16,9 +17,16 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 border-b border-line bg-surface/95 backdrop-blur">
       <div className="relative mx-auto flex h-16 max-w-site items-center justify-between gap-4 px-4">
-        {/* Text logo until the logo files arrive. */}
-        <Link href="/" className="text-lg font-bold text-ink">
-          {localize(site.doctorName, locale)}
+        {/* Temporary PNG made from a WhatsApp JPEG; swap for the original SVG when it arrives. */}
+        <Link href="/" className="shrink-0">
+          <Image
+            src="/images/brand/logo-wordmark.png"
+            alt={localize(site.doctorName, locale)}
+            width={548}
+            height={370}
+            priority
+            className="h-14 w-auto"
+          />
         </Link>
 
         <MainNav items={navItems} />

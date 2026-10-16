@@ -5,13 +5,14 @@ import { getFormatter, getTranslations } from "next-intl/server";
 import { MdxContent } from "@/components/mdx/MdxContent";
 import { routing } from "@/i18n/routing";
 import { getPage } from "@/lib/content";
+import { buildPageMetadata } from "@/lib/seo";
 
 export const generateMetadata = async ({ params }: PageProps<"/[locale]/privacy">): Promise<Metadata> => {
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) return {};
   const page = getPage("privacy", locale);
   if (!page) return {};
-  return { title: page.title, description: page.metaDescription };
+  return buildPageMetadata({ locale, title: page.title, description: page.metaDescription });
 };
 
 /** /privacy: content/pages/privacy/<locale>.mdx. 404 if that language has no file. */

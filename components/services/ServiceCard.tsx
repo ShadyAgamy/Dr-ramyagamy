@@ -31,7 +31,7 @@ export const ServiceCard = ({ service, headingLevel: Heading = "h3" }: ServiceCa
             {localize(service.title, locale)}
           </Link>
         </Heading>
-        <p className="text-ink-muted">{localize(service.summary, locale)}</p>
+        {service.summary && <p className="text-ink-muted">{localize(service.summary, locale)}</p>}
       </div>
     </article>
   );

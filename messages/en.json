@@ -43,7 +43,7 @@
     "latestArticlesTitle": "Latest articles",
     "allArticles": "All articles",
     "testimonialsTitle": "Patient reviews",
-    "metaDescription": "Dr. Ramy Agamy, consultant of obstetrics, gynecology and ICSI. Clinics in Suez and New Cairo. Book on WhatsApp or by phone."
+    "metaDescription": "Dr. Ramy Agamy, consultant of obstetrics, gynecology and ICSI. Clinics in New Cairo and Madinaty. Book on WhatsApp or by phone."
   },
   "About": {
     "title": "About the doctor",
@@ -55,7 +55,8 @@
     "title": "Services",
     "description": "Dr. Ramy Agamy's services in obstetrics, gynecology and ICSI.",
     "empty": "Services will be added soon.",
-    "relatedArticles": "Related articles"
+    "relatedArticles": "Related articles",
+    "metaDescription": "{title} with Dr. Ramy Agamy, consultant of obstetrics, gynecology and ICSI. Book at the New Cairo or Madinaty clinic."
   },
   "Clinics": {
     "title": "{label} Clinic",
@@ -83,14 +84,14 @@
   },
   "Book": {
     "title": "Book an appointment",
-    "description": "Book your appointment at the Suez or New Cairo clinic.",
+    "description": "Book your appointment at the New Cairo or Madinaty clinic.",
     "intro": "Contact us on WhatsApp or by phone, and we will confirm your appointment as soon as possible.",
     "notice": "Please do not write any medical details in your messages. Your case is discussed with the doctor directly.",
     "clinicsTitle": "Clinics"
   },
   "Cta": {
     "title": "Book your appointment",
-    "text": "Contact us to book an appointment at the Suez or New Cairo clinic.",
+    "text": "Contact us to book an appointment at the New Cairo or Madinaty clinic.",
     "book": "Book an appointment",
     "whatsapp": "Chat on WhatsApp",
     "call": "Call us"

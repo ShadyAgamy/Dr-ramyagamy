@@ -9,10 +9,13 @@ import { Section } from "@/components/ui/Section";
 import { routing } from "@/i18n/routing";
 import { getClinics, getSiteSettings } from "@/lib/content";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const generateMetadata = async (): Promise<Metadata> => {
+export const generateMetadata = async ({ params }: PageProps<"/[locale]/book">): Promise<Metadata> => {
+  const { locale } = await params;
+  if (!hasLocale(routing.locales, locale)) return {};
   const t = await getTranslations("Book");
-  return { title: t("title"), description: t("description") };
+  return buildPageMetadata({ locale, title: t("title"), description: t("description") });
 };
 
 /** /book: booking is by WhatsApp or phone, handled by the clinic. */

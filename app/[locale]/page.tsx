@@ -42,58 +42,82 @@ const HomePage = async ({ params }: PageProps<"/[locale]">) => {
 
   return (
     <>
-      {/* Hero */}
-      <section className="bg-peach">
-        <div className="mx-auto grid max-w-site items-center gap-10 px-4 py-16 md:grid-cols-2">
-          <div className="flex flex-col gap-5">
-            <h1 className="text-4xl font-bold sm:text-5xl">{localize(site.doctorName, locale)}</h1>
-            <p className="text-xl text-brand-strong">{localize(site.specialty, locale)}</p>
-
-            {credentials && credentials.length > 0 && (
-              <div>
-                <h2 className="sr-only">{t("credentialsTitle")}</h2>
-                <ul className="space-y-2">
-                  {credentials.map((credential) => (
-                    <li key={credential} className="flex gap-2">
-                      <span aria-hidden="true" className="text-brand">✓</span>
-                      <span>{credential}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-
-            <div className="flex flex-wrap gap-3">
-              <ButtonLink href="/book">{tCta("book")}</ButtonLink>
-              <ButtonLink
-                href={buildWhatsAppUrl(site.whatsappNumber, tWhatsApp("prefilledMessage"))}
-                variant="whatsapp"
-                external
-              >
-                <WhatsAppIcon className="size-5" />
-                {tCta("whatsapp")}
-              </ButtonLink>
-            </div>
-          </div>
-
-          {site.doctorPhoto && (
+      {/* Hero: full-width photo with a dark overlay so the text stays readable. */}
+      <section
+        className={`relative isolate ${site.heroImage ? "text-white" : "bg-peach"}`}
+      >
+        {site.heroImage && (
+          <>
             <Image
-              src={site.doctorPhoto.src}
-              alt={localize(site.doctorPhoto.alt, locale)}
-              width={site.doctorPhoto.width}
-              height={site.doctorPhoto.height}
-              sizes="(min-width: 768px) 50vw, 100vw"
+              src={site.heroImage.src}
+              alt={localize(site.heroImage.alt, locale)}
+              fill
+              sizes="100vw"
               priority
-              className="w-full rounded-card object-cover shadow-soft"
+              className="-z-20 object-cover"
             />
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 -z-10 bg-linear-to-r from-black/70 via-black/30 to-transparent rtl:bg-linear-to-l"
+            />
+          </>
+        )}
+        <div
+          className={`mx-auto flex max-w-site flex-col justify-center gap-5 px-4 py-20 sm:py-28 ${site.heroImage ? "min-h-[90vh]" : ""}`}
+        >
+          <h1 className="text-4xl font-bold sm:text-5xl">
+            {localize(site.doctorName, locale)}
+          </h1>
+          <p
+            className={`text-xl ${site.heroImage ? "text-brand-soft" : "text-brand-strong"}`}
+          >
+            {localize(site.specialty, locale)}
+          </p>
+
+          {credentials && credentials.length > 0 && (
+            <div>
+              <h2 className="sr-only">{t("credentialsTitle")}</h2>
+              <ul className="space-y-2">
+                {credentials.map((credential) => (
+                  <li key={credential} className="flex gap-2">
+                    <span aria-hidden="true" className="text-brand">
+                      ✓
+                    </span>
+                    <span>{credential}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           )}
+
+          <div className="flex flex-wrap gap-3">
+            <ButtonLink href="/book">{tCta("book")}</ButtonLink>
+            <ButtonLink
+              href={buildWhatsAppUrl(
+                site.whatsappNumber,
+                tWhatsApp("prefilledMessage"),
+              )}
+              variant="whatsapp"
+              external
+            >
+              <WhatsAppIcon className="size-5" />
+              {tCta("whatsapp")}
+            </ButtonLink>
+          </div>
         </div>
       </section>
 
       {services.length > 0 && (
         <Section
           title={t("servicesTitle")}
-          action={<Link href="/services" className="font-medium text-brand-strong hover:underline">{t("allServices")}</Link>}
+          action={
+            <Link
+              href="/services"
+              className="font-medium text-brand-strong hover:underline"
+            >
+              {t("allServices")}
+            </Link>
+          }
         >
           <ServiceGrid services={services} />
         </Section>
@@ -112,7 +136,14 @@ const HomePage = async ({ params }: PageProps<"/[locale]">) => {
       {latestPosts.length > 0 && (
         <Section
           title={t("latestArticlesTitle")}
-          action={<Link href="/blog" className="font-medium text-brand-strong hover:underline">{t("allArticles")}</Link>}
+          action={
+            <Link
+              href="/blog"
+              className="font-medium text-brand-strong hover:underline"
+            >
+              {t("allArticles")}
+            </Link>
+          }
         >
           <PostGrid posts={latestPosts} />
         </Section>
@@ -124,9 +155,13 @@ const HomePage = async ({ params }: PageProps<"/[locale]">) => {
             {testimonials.map((testimonial, index) => (
               <li key={index}>
                 <figure className="h-full rounded-card bg-surface p-6 shadow-soft">
-                  <blockquote className="leading-loose">“{localizeStrict(testimonial.quote, locale)}”</blockquote>
+                  <blockquote className="leading-loose">
+                    “{localizeStrict(testimonial.quote, locale)}”
+                  </blockquote>
                   <figcaption className="mt-4 text-sm text-ink-muted">
-                    {[testimonial.name, tTestimonials(testimonial.source)].filter(Boolean).join(" · ")}
+                    {[testimonial.name, tTestimonials(testimonial.source)]
+                      .filter(Boolean)
+                      .join(" · ")}
                   </figcaption>
                 </figure>
               </li>

@@ -12,10 +12,13 @@ import {
   localize,
   localizeStrict,
 } from "@/lib/content";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const generateMetadata = async (): Promise<Metadata> => {
+export const generateMetadata = async ({ params }: PageProps<"/[locale]/about">): Promise<Metadata> => {
+  const { locale } = await params;
+  if (!hasLocale(routing.locales, locale)) return {};
   const t = await getTranslations("About");
-  return { title: t("title"), description: t("metaDescription") };
+  return buildPageMetadata({ locale, title: t("title"), description: t("metaDescription") });
 };
 
 /** /about: name, specialty, credentials and hospitals. */
@@ -31,8 +34,9 @@ const AboutPage = async ({ params }: PageProps<"/[locale]/about">) => {
   return (
     <>
       <section className="bg-peach">
-        <div className="mx-auto grid max-w-site items-center gap-10 px-4 py-14 md:grid-cols-2">
-          <div className="flex flex-col gap-3">
+        {/* items-end + no bottom padding: the cut-out photo stands on the section's bottom edge. */}
+        <div className="mx-auto grid max-w-site items-end gap-10 px-4 pt-14 md:grid-cols-2">
+          <div className="flex flex-col gap-3 self-center">
             <h1 className="text-3xl font-bold sm:text-4xl">{t("title")}</h1>
             <p className="text-2xl font-bold">
               {localize(site.doctorName, locale)}
@@ -40,6 +44,22 @@ const AboutPage = async ({ params }: PageProps<"/[locale]/about">) => {
             <p className="text-lg text-brand-strong">
               {localize(site.specialty, locale)}
             </p>
+
+            {credentials && credentials.length > 0 && (
+              <div className="mt-3">
+                <h2 className="sr-only">{t("credentialsTitle")}</h2>
+                <ul className="space-y-2">
+                  {credentials.map((credential) => (
+                    <li key={credential} className="flex gap-2">
+                      <span aria-hidden="true" className="text-brand">
+                        ✓
+                      </span>
+                      <span>{credential}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
           {site.doctorPhoto && (
             <Image
@@ -49,29 +69,11 @@ const AboutPage = async ({ params }: PageProps<"/[locale]/about">) => {
               height={site.doctorPhoto.height}
               sizes="(min-width: 768px) 50vw, 100vw"
               priority
-              className="w-full rounded-card object-cover shadow-soft"
+              className="mx-auto w-full max-w-md"
             />
           )}
         </div>
       </section>
-
-      {credentials && credentials.length > 0 && (
-        <Section title={t("credentialsTitle")}>
-          <ul className="space-y-3">
-            {credentials.map((credential) => (
-              <li
-                key={credential}
-                className="flex gap-3 rounded-card bg-surface p-4 shadow-soft"
-              >
-                <span aria-hidden="true" className="text-brand">
-                  ✓
-                </span>
-                <span>{credential}</span>
-              </li>
-            ))}
-          </ul>
-        </Section>
-      )}
 
       {hospitals.length > 0 && (
         <Section title={t("hospitalsTitle")}>

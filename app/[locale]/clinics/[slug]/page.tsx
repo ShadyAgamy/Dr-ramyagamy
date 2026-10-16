@@ -10,6 +10,7 @@ import { Section } from "@/components/ui/Section";
 import { routing } from "@/i18n/routing";
 import { type Clinic, getClinic, getClinics, getSiteSettings, type Locale, localize, localizeStrict } from "@/lib/content";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
+import { buildPageMetadata } from "@/lib/seo";
 
 /** Pre-build one page per clinic, in both languages. */
 export const generateStaticParams = () => getClinics().map((clinic) => ({ slug: clinic.slug }));
@@ -31,13 +32,15 @@ export const generateMetadata = async ({ params }: PageProps<"/[locale]/clinics/
   const title = await getClinicTitle(clinic, locale);
   const t = await getTranslations("Clinics");
 
-  return {
+  return buildPageMetadata({
+    locale,
     title: localizeStrict(clinic.seo?.metaTitle, locale) ?? title,
     description:
       localizeStrict(clinic.seo?.metaDescription, locale) ??
       localizeStrict(clinic.description, locale) ??
       t("metaDescription", { title }),
-  };
+    image: clinic.seo?.ogImage ?? clinic.photos[0]?.src,
+  });
 };
 
 /** /clinics/<slug>: address, phone, map, hours, photos. Missing data is hidden. */

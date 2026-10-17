@@ -7,6 +7,7 @@ import type { Service } from "@/lib/content/types";
 export const services: Service[] = [
   {
     slug: "icsi-ivf",
+    icon: "microscope",
     title: { ar: "الحقن المجهري وأطفال الأنابيب", en: "ICSI and IVF" },
     summary: {
       ar: "تخصيب البويضات خارج الجسم ثم ترجيع أفضل الأجنة إلى الرحم. في الحقن المجهري نختار الحيوان المنوي ونحقنه داخل البويضة تحت الميكروسكوب.",
@@ -16,6 +17,7 @@ export const services: Service[] = [
   },
   {
     slug: "infertility-treatment",
+    icon: "heart",
     title: { ar: "علاج تأخر الإنجاب والعقم", en: "Infertility Treatment" },
     summary: {
       ar: "تقييم أسباب تأخر الحمل عند الزوجين بالتحاليل والسونار، ووضع خطة العلاج المناسبة لكل حالة.",
@@ -25,6 +27,7 @@ export const services: Service[] = [
   },
   {
     slug: "ovulation-induction",
+    icon: "egg",
     title: { ar: "تنشيط التبويض", en: "Ovulation Induction" },
     summary: {
       ar: "علاج ضعف التبويض بأدوية أو حقن منشطة، مع متابعة نمو البويضات بالسونار.",
@@ -34,6 +37,7 @@ export const services: Service[] = [
   },
   {
     slug: "assisted-reproduction",
+    icon: "flask",
     title: { ar: "الإخصاب المساعد بأحدث التقنيات", en: "Assisted Reproduction" },
     summary: {
       ar: "التلقيح الصناعي والحقن المجهري وغيرها من تقنيات المساعدة على الإنجاب، حسب سبب تأخر الحمل.",
@@ -43,6 +47,7 @@ export const services: Service[] = [
   },
   {
     slug: "embryo-genetic-testing",
+    icon: "dna",
     title: { ar: "الفحص الوراثي للأجنة", en: "Embryo Genetic Testing (PGT)" },
     summary: {
       ar: "فحص الأجنة الناتجة عن الحقن المجهري قبل ترجيعها، لاختيار الأجنة السليمة كروموسوميًا.",
@@ -52,6 +57,7 @@ export const services: Service[] = [
   },
   {
     slug: "sex-selection",
+    icon: "baby",
     title: { ar: "تحديد نوع الجنين", en: "Sex Selection" },
     summary: {
       ar: "تحديد نوع الجنين من خلال الحقن المجهري والفحص الوراثي للأجنة قبل ترجيعها إلى الرحم.",
@@ -61,6 +67,7 @@ export const services: Service[] = [
   },
   {
     slug: "egg-freezing",
+    icon: "snowflake",
     title: { ar: "تجميد البويضات", en: "Egg Freezing" },
     summary: {
       ar: "سحب البويضات بعد تنشيط المبيض وتجميدها، للحفاظ على فرص الحمل في المستقبل.",
@@ -70,6 +77,7 @@ export const services: Service[] = [
   },
   {
     slug: "endoscopic-surgery",
+    icon: "scope",
     title: { ar: "جراحات المناظير الدقيقة", en: "Precision Endoscopic Surgery" },
     summary: {
       ar: "تشخيص وعلاج مشاكل الرحم والمبايض والأنابيب بمنظار البطن ومنظار الرحم، من خلال فتحات صغيرة.",
@@ -79,6 +87,7 @@ export const services: Service[] = [
   },
   {
     slug: "endometriosis-treatment",
+    icon: "pulse",
     title: { ar: "علاج بطانة الرحم المهاجرة", en: "Endometriosis Treatment" },
     summary: {
       ar: "تشخيص وعلاج بطانة الرحم المهاجرة، وهي نمو أنسجة شبيهة ببطانة الرحم خارجه، بالأدوية أو بالمنظار حسب الحالة.",
@@ -88,6 +97,7 @@ export const services: Service[] = [
   },
   {
     slug: "laparoscopic-hysterectomy",
+    icon: "stethoscope",
     title: { ar: "استئصال الرحم بالمنظار", en: "Laparoscopic Hysterectomy" },
     summary: {
       ar: "استئصال الرحم بالمنظار من خلال فتحات صغيرة في البطن بدلًا من الجراحة المفتوحة.",
@@ -97,6 +107,7 @@ export const services: Service[] = [
   },
   {
     slug: "obstetric-gynecologic-surgery",
+    icon: "hospital",
     title: { ar: "جراحات النساء والتوليد", en: "Obstetric and Gynecologic Surgery" },
     summary: {
       ar: "العمليات الجراحية لأمراض النساء، والولادة القيصرية عند الحاجة.",
@@ -106,6 +117,7 @@ export const services: Service[] = [
   },
   {
     slug: "pregnancy-and-childbirth",
+    icon: "calendar",
     title: { ar: "متابعة الحمل والولادة", en: "Pregnancy and Childbirth Care" },
     summary: {
       ar: "متابعة الحمل بالسونار والتحاليل من أول أسابيعه حتى الولادة، طبيعية أو قيصرية حسب الحالة.",

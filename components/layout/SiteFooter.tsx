@@ -21,15 +21,15 @@ export function SiteFooter() {
     { label: "Facebook", href: site.social.facebook },
   ].filter((link): link is { label: string; href: string } => Boolean(link.href));
 
-  const headingClass = "mb-3 font-bold text-ink";
-  const linkClass = "text-ink-muted hover:text-brand-strong";
+  const headingClass = "mb-3 font-bold text-white";
+  const linkClass = "text-peach/80 hover:text-white";
 
   return (
-    <footer className="mt-16 border-t border-line bg-peach">
-      <div className="mx-auto grid max-w-site gap-8 px-4 py-10 sm:grid-cols-2 lg:grid-cols-5">
+    <footer className="mt-8 bg-ink text-peach/80">
+      <div className="mx-auto grid max-w-site gap-8 px-4 py-14 sm:grid-cols-2 lg:grid-cols-5">
         <div>
-          <p className="text-lg font-bold text-ink">{doctorName}</p>
-          <p className="mt-1 text-ink-muted">{localize(site.specialty, locale)}</p>
+          <p className="text-lg font-bold text-white">{doctorName}</p>
+          <p className="mt-1">{localize(site.specialty, locale)}</p>
         </div>
 
         <nav aria-labelledby="footer-quick-links">
@@ -73,7 +73,7 @@ export function SiteFooter() {
           <h2 className={headingClass}>{t("contact")}</h2>
           <ul className="space-y-2">
             <li>
-              <span className="text-ink-muted">{t("phone")}: </span>
+              <span>{t("phone")}: </span>
               <a href={`tel:${site.phone.e164}`} dir="ltr" className={linkClass}>
                 {site.phone.display}
               </a>
@@ -107,9 +107,9 @@ export function SiteFooter() {
         )}
       </div>
 
-      <div className="border-t border-line">
+      <div className="border-t border-white/10">
         {/* Extra bottom padding on mobile so the floating WhatsApp button does not cover this line. */}
-        <p className="mx-auto max-w-site px-4 pt-4 pb-24 text-sm text-ink-muted md:pb-4">
+        <p className="mx-auto max-w-site px-4 pt-4 pb-24 text-sm md:pb-4">
           {t("copyright", { year: new Date().getFullYear(), name: doctorName })}
         </p>
       </div>

@@ -34,8 +34,10 @@ export type SiteSettings = {
   doctorName: Localized<string>;
   /** Hidden until a real photo is added. */
   doctorPhoto?: ImageRef;
-  /** Full-width background of the home hero. Hidden until added. */
+  /** Cut-out photo beside the text in the home hero. Hidden until added. */
   heroImage?: ImageRef;
+  /** Short numbers in the home hero, e.g. years of experience. Hidden when empty. */
+  stats?: { value: Localized<string>; label: Localized<string> }[];
   specialty: Localized<string>;
   /** Credentials as written in his Facebook bio. */
   credentials: Localized<string[]>;
@@ -48,6 +50,7 @@ export type SiteSettings = {
     instagram?: string;
     tiktok?: string;
     facebook?: string;
+    facebookReels?: string;
   };
 };
 
@@ -89,10 +92,26 @@ export type Clinic = {
   seo?: Seo;
 };
 
+/** Line icons available for services (components/services/ServiceIcon.tsx). */
+export type ServiceIconName =
+  | "microscope"
+  | "heart"
+  | "egg"
+  | "flask"
+  | "dna"
+  | "baby"
+  | "snowflake"
+  | "scope"
+  | "pulse"
+  | "stethoscope"
+  | "hospital"
+  | "calendar";
+
 export type Service = {
   /** URL slug: /services/<slug>. Latin letters only. */
   slug: string;
   title: Localized<string>;
+  icon?: ServiceIconName;
   /** One or two sentences for cards. Hidden until written. */
   summary?: Localized<string>;
   image?: ImageRef;

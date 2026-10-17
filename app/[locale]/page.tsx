@@ -7,7 +7,7 @@ import { BookingCta } from "@/components/booking/BookingCta";
 import { ClinicCard } from "@/components/clinics/ClinicCard";
 import { ServiceGrid } from "@/components/services/ServiceCard";
 import { ButtonLink } from "@/components/ui/ButtonLink";
-import { WhatsAppIcon } from "@/components/ui/icons";
+import { CheckIcon, WhatsAppIcon } from "@/components/ui/icons";
 import { Section } from "@/components/ui/Section";
 import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
@@ -35,6 +35,7 @@ const HomePage = async ({ params }: PageProps<"/[locale]">) => {
   const site = getSiteSettings();
   // Text sections use localizeStrict: hidden on English pages until translated.
   const credentials = localizeStrict(site.credentials, locale);
+  const stats = site.stats ?? [];
   const services = getServices(locale);
   const clinics = getClinics();
   const latestPosts = getPosts(locale).slice(0, 3);
@@ -42,70 +43,78 @@ const HomePage = async ({ params }: PageProps<"/[locale]">) => {
 
   return (
     <>
-      {/* Hero: full-width photo with a dark overlay so the text stays readable. */}
-      <section
-        className={`relative isolate ${site.heroImage ? "text-white" : "bg-peach"}`}
-      >
-        {site.heroImage && (
-          <>
-            <Image
-              src={site.heroImage.src}
-              alt={localize(site.heroImage.alt, locale)}
-              fill
-              sizes="100vw"
-              priority
-              className="-z-20 object-cover"
-            />
-            <div
-              aria-hidden="true"
-              className="absolute inset-0 -z-10 bg-linear-to-r from-black/70 via-black/30 to-transparent rtl:bg-linear-to-l"
-            />
-          </>
-        )}
-        <div
-          className={`mx-auto flex max-w-site flex-col justify-center gap-5 px-4 py-20 sm:py-28 ${site.heroImage ? "min-h-[90vh]" : ""}`}
-        >
-          <h1 className="text-4xl font-bold sm:text-5xl">
-            {localize(site.doctorName, locale)}
-          </h1>
-          <p
-            className={`text-xl ${site.heroImage ? "text-brand-soft" : "text-brand-strong"}`}
-          >
-            {localize(site.specialty, locale)}
-          </p>
+      {/* Hero: text beside the cut-out photo, on a peach-to-cream background. */}
+      <section className="overflow-hidden bg-linear-to-b from-peach to-cream">
+        <div className="mx-auto grid max-w-site items-end gap-10 px-4 pt-12 md:grid-cols-[1.1fr_0.9fr] md:pt-16">
+          <div className="flex flex-col gap-5 md:pb-20">
+            <p className="self-start rounded-full border border-line bg-surface px-4 py-1.5 text-sm font-medium text-brand-strong">
+              {localize(site.specialty, locale)}
+            </p>
+            <h1 className="text-4xl leading-tight font-bold sm:text-5xl">
+              {localize(site.doctorName, locale)}
+              <span className="mt-2 block text-balance text-brand-strong">{t("heroTagline")}</span>
+            </h1>
+            <p className="max-w-xl text-lg text-ink-muted">{t("heroText")}</p>
 
-          {credentials && credentials.length > 0 && (
-            <div>
-              <h2 className="sr-only">{t("credentialsTitle")}</h2>
-              <ul className="space-y-2">
-                {credentials.map((credential) => (
-                  <li key={credential} className="flex gap-2">
-                    <span aria-hidden="true" className="text-brand">
-                      ✓
-                    </span>
-                    <span>{credential}</span>
-                  </li>
+            <div className="flex flex-wrap gap-3">
+              <ButtonLink href="/book">{tCta("book")}</ButtonLink>
+              <ButtonLink
+                href={buildWhatsAppUrl(site.whatsappNumber, tWhatsApp("prefilledMessage"))}
+                variant="whatsapp"
+                external
+              >
+                <WhatsAppIcon className="size-5" />
+                {tCta("whatsapp")}
+              </ButtonLink>
+            </div>
+
+            {stats.length > 0 && (
+              <dl className="mt-2 flex flex-wrap gap-x-8 gap-y-4 border-t border-line pt-6">
+                {stats.map((stat) => (
+                  <div key={stat.value.ar} className="flex flex-col-reverse">
+                    <dt className="text-sm text-ink-muted">{localize(stat.label, locale)}</dt>
+                    <dd className="text-3xl font-bold text-brand-strong">{localize(stat.value, locale)}</dd>
+                  </div>
                 ))}
-              </ul>
+              </dl>
+            )}
+          </div>
+
+          {site.heroImage && (
+            <div className="relative mx-auto w-full max-w-sm">
+              {/* Soft arch behind the photo. */}
+              <div aria-hidden="true" className="absolute inset-x-0 bottom-0 aspect-square rounded-t-full bg-brand-soft" />
+              <Image
+                src={site.heroImage.src}
+                alt={localize(site.heroImage.alt, locale)}
+                width={site.heroImage.width}
+                height={site.heroImage.height}
+                sizes="(min-width: 768px) 384px, 90vw"
+                priority
+                className="relative w-full"
+              />
             </div>
           )}
-
-          <div className="flex flex-wrap gap-3">
-            <ButtonLink href="/book">{tCta("book")}</ButtonLink>
-            <ButtonLink
-              href={buildWhatsAppUrl(
-                site.whatsappNumber,
-                tWhatsApp("prefilledMessage"),
-              )}
-              variant="whatsapp"
-              external
-            >
-              <WhatsAppIcon className="size-5" />
-              {tCta("whatsapp")}
-            </ButtonLink>
-          </div>
         </div>
       </section>
+
+      {credentials && credentials.length > 0 && (
+        <section className="bg-ink text-white">
+          <div className="mx-auto max-w-site px-4 py-8">
+            <h2 className="sr-only">{t("credentialsTitle")}</h2>
+            {/* Two rows. On wide screens the columns fit their text and each credential stays on one line. */}
+            <ul className="grid gap-x-12 gap-y-4 lg:grid-cols-2 xl:grid-cols-[auto_auto] xl:justify-center">
+              {/* The first credential repeats the specialty, so the strip shows the rest. */}
+              {credentials.slice(1).map((credential) => (
+                <li key={credential} className="flex gap-3 xl:whitespace-nowrap">
+                  <CheckIcon className="mt-1 size-5 shrink-0 text-brand" />
+                  <span>{credential}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+      )}
 
       {services.length > 0 && (
         <Section
@@ -119,19 +128,21 @@ const HomePage = async ({ params }: PageProps<"/[locale]">) => {
             </Link>
           }
         >
-          <ServiceGrid services={services} />
+          <ServiceGrid services={services.slice(0, 6)} />
         </Section>
       )}
 
-      <Section title={t("clinicsTitle")}>
-        <ul className="grid gap-6 sm:grid-cols-2">
-          {clinics.map((clinic) => (
-            <li key={clinic.slug}>
-              <ClinicCard clinic={clinic} />
-            </li>
-          ))}
-        </ul>
-      </Section>
+      <div className="mt-8 bg-peach">
+        <Section title={t("clinicsTitle")}>
+          <ul className="grid gap-6 sm:grid-cols-2">
+            {clinics.map((clinic) => (
+              <li key={clinic.slug}>
+                <ClinicCard clinic={clinic} />
+              </li>
+            ))}
+          </ul>
+        </Section>
+      </div>
 
       {latestPosts.length > 0 && (
         <Section
@@ -150,16 +161,34 @@ const HomePage = async ({ params }: PageProps<"/[locale]">) => {
       )}
 
       {testimonials.length > 0 && (
-        <Section title={t("testimonialsTitle")}>
-          <ul className="grid gap-6 md:grid-cols-2">
+        <Section
+          title={t("testimonialsTitle")}
+          action={
+            site.social.facebook && (
+              <a
+                href={`${site.social.facebook}/reviews`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-medium text-brand-strong hover:underline"
+              >
+                {t("allReviews")}
+              </a>
+            )
+          }
+        >
+          <ul className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {testimonials.map((testimonial, index) => (
-              <li key={index}>
-                <figure className="h-full rounded-card bg-surface p-6 shadow-soft">
-                  <blockquote className="leading-loose">
-                    “{localizeStrict(testimonial.quote, locale)}”
+              // Phones show the first 3 only, so the page does not get too long.
+              <li key={index} className={index >= 3 ? "hidden md:block" : undefined}>
+                <figure className="flex h-full flex-col gap-4 rounded-card bg-surface p-7 shadow-soft">
+                  <span aria-hidden="true" className="font-serif text-5xl leading-none text-brand">
+                    ”
+                  </span>
+                  <blockquote className="flex-1 text-lg leading-loose">
+                    {localizeStrict(testimonial.quote, locale)}
                   </blockquote>
-                  <figcaption className="mt-4 text-sm text-ink-muted">
-                    {[testimonial.name, tTestimonials(testimonial.source)]
+                  <figcaption className="text-sm text-ink-muted">
+                    {[testimonial.name, tTestimonials(testimonial.source), locale === "en" && tTestimonials("translated")]
                       .filter(Boolean)
                       .join(" · ")}
                   </figcaption>

@@ -4,6 +4,7 @@ import { hasLocale } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { BookingCta } from "@/components/booking/BookingCta";
 import { ServiceGrid } from "@/components/services/ServiceCard";
+import { PageHeader } from "@/components/ui/PageHeader";
 import { routing } from "@/i18n/routing";
 import { getServices } from "@/lib/content";
 import { buildPageMetadata } from "@/lib/seo";
@@ -25,8 +26,8 @@ const ServicesPage = async ({ params }: PageProps<"/[locale]/services">) => {
 
   return (
     <>
-      <div className="mx-auto max-w-site px-4 py-12">
-        <h1 className="mb-8 text-3xl font-bold">{t("title")}</h1>
+      <PageHeader title={t("title")} intro={t("description")} />
+      <div className="mx-auto max-w-site px-4 py-14">
         {services.length === 0 ? (
           <p className="text-ink-muted">{t("empty")}</p>
         ) : (

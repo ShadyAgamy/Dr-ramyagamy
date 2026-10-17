@@ -3,13 +3,19 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { hasLocale } from "next-intl";
 import { getTranslations } from "next-intl/server";
-import { PostGrid } from "@/components/blog/PostCard";
-import { BookingCta } from "@/components/booking/BookingCta";
+import { PostCard } from "@/components/blog/PostCard";
+import { BookingCard } from "@/components/booking/BookingCard";
+import { ServiceIcon } from "@/components/services/ServiceIcon";
 import { MdxContent } from "@/components/mdx/MdxContent";
-import { Section } from "@/components/ui/Section";
+import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
+import { ButtonLink } from "@/components/ui/ButtonLink";
+import { WhatsAppIcon } from "@/components/ui/icons";
+import { PageHeader } from "@/components/ui/PageHeader";
+import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
-import { getPostsForService, getService, getServices, localize, localizeStrict } from "@/lib/content";
+import { getPostsForService, getService, getServices, getSiteSettings, localize, localizeStrict } from "@/lib/content";
 import { buildPageMetadata } from "@/lib/seo";
+import { buildWhatsAppUrl } from "@/lib/whatsapp";
 
 /**
  * Pre-build one page per service and language it exists in. Returned all at
@@ -50,40 +56,91 @@ const ServicePage = async ({ params }: PageProps<"/[locale]/services/[slug]">) =
   if (!service) notFound();
 
   const t = await getTranslations("Services");
-  const relatedPosts = getPostsForService(slug, locale);
+  const tNav = await getTranslations("Nav");
+  const tCta = await getTranslations("Cta");
+  const tWhatsApp = await getTranslations("WhatsApp");
+  const site = getSiteSettings();
+  const title = localize(service.title, locale);
+  // Up to 4 related articles, so the page stays short; the rest are on /blog.
+  const relatedPosts = getPostsForService(slug, locale).slice(0, 4);
+  const otherServices = getServices(locale).filter((item) => item.slug !== slug).slice(0, 5);
 
   return (
     <>
-      <article className="mx-auto max-w-3xl px-4 py-12">
-        <h1 className="text-3xl font-bold sm:text-4xl">{localize(service.title, locale)}</h1>
-        {service.summary && (
-          <p className="mt-4 text-lg text-ink-muted">{localize(service.summary, locale)}</p>
-        )}
-        {service.image && (
-          <Image
-            src={service.image.src}
-            alt={localize(service.image.alt, locale)}
-            width={service.image.width}
-            height={service.image.height}
-            sizes="(min-width: 768px) 768px, 100vw"
-            priority
-            className="mt-8 w-full rounded-card object-cover"
-          />
-        )}
-        {service.body && (
-          <div className="mt-8">
-            <MdxContent source={service.body} />
+      <PageHeader
+        top={
+          <div className="flex flex-col items-start gap-6">
+            <Breadcrumbs
+              items={[
+                { label: tNav("home"), href: "/" },
+                { label: tNav("services"), href: "/services" },
+                { label: title },
+              ]}
+            />
+            {service.icon && <ServiceIcon name={service.icon} className="size-16 bg-surface" />}
           </div>
-        )}
-      </article>
+        }
+        title={title}
+        intro={service.summary && localize(service.summary, locale)}
+      >
+        <div className="mt-2 flex flex-wrap gap-3">
+          <ButtonLink href="/book">{tCta("book")}</ButtonLink>
+          <ButtonLink href={buildWhatsAppUrl(site.whatsappNumber, tWhatsApp("prefilledMessage"))} variant="whatsapp" external>
+            <WhatsAppIcon className="size-5" />
+            {tCta("whatsapp")}
+          </ButtonLink>
+        </div>
+      </PageHeader>
 
-      {relatedPosts.length > 0 && (
-        <Section title={t("relatedArticles")}>
-          <PostGrid posts={relatedPosts} />
-        </Section>
-      )}
+      <div className="mx-auto grid max-w-site items-start gap-10 px-4 py-14 lg:grid-cols-[minmax(0,1fr)_22rem]">
+        <div className="flex flex-col gap-12">
+          {service.image && (
+            <Image
+              src={service.image.src}
+              alt={localize(service.image.alt, locale)}
+              width={service.image.width}
+              height={service.image.height}
+              sizes="(min-width: 1024px) 800px, 100vw"
+              priority
+              className="w-full rounded-card object-cover"
+            />
+          )}
+          {service.body && <MdxContent source={service.body} />}
 
-      <BookingCta />
+          {relatedPosts.length > 0 && (
+            <section>
+              <h2 className="mb-6 text-2xl font-bold sm:text-3xl">{t("relatedArticles")}</h2>
+              <ul className="grid gap-5 sm:grid-cols-2">
+                {relatedPosts.map((post) => (
+                  <li key={post.slug}>
+                    <PostCard post={post} />
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+        </div>
+
+        <aside className="flex flex-col gap-5 lg:sticky lg:top-24">
+          <BookingCard />
+          {otherServices.length > 0 && (
+            <nav aria-labelledby="other-services" className="rounded-card border border-line bg-surface p-6">
+              <h2 id="other-services" className="mb-3 font-bold">
+                {t("otherServices")}
+              </h2>
+              <ul className="flex flex-col gap-2">
+                {otherServices.map((item) => (
+                  <li key={item.slug}>
+                    <Link href={`/services/${item.slug}`} className="text-brand-strong hover:underline">
+                      {localize(item.title, locale)}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          )}
+        </aside>
+      </div>
     </>
   );
 };

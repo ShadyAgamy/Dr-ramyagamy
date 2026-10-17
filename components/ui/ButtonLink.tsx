@@ -5,6 +5,9 @@ const styles = {
   primary: "bg-brand-strong text-white shadow-soft hover:opacity-90",
   secondary: "border border-line bg-surface text-ink hover:bg-peach",
   whatsapp: "bg-whatsapp-strong text-white shadow-soft hover:opacity-90",
+  // For dark or orange backgrounds.
+  light: "bg-white text-brand-strong hover:bg-peach",
+  outlineLight: "border border-white/70 text-white hover:bg-white/10",
 };
 
 type ButtonLinkProps = {

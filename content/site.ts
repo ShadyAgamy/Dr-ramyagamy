@@ -19,16 +19,22 @@ export const siteSettings: SiteSettings = {
     width: 1000,
     height: 1043,
   },
-  // The WhatsApp banner. Replace with a photographer's wide shot when it arrives.
+  // Retouched studio photo HOSS2573 (suit), background removed.
   heroImage: {
-    src: "/images/hero-doctor.jpg",
+    src: "/images/doctor-hero-suit.webp",
     alt: {
       ar: "د. رامي عجمي",
       en: "Dr. Ramy Agamy",
     },
-    width: 1600,
-    height: 837,
+    width: 1000,
+    height: 1613,
   },
+  // From the brief: his bio, Facebook page and reviews.
+  stats: [
+    { value: { ar: "+١٥", en: "15+" }, label: { ar: "عامًا من الخبرة", en: "years of experience" } },
+    { value: { ar: "٥٢٥ ألف", en: "525K" }, label: { ar: "متابع على فيسبوك", en: "Facebook followers" } },
+    { value: { ar: "١٠٠٪", en: "100%" }, label: { ar: "يوصون به (٣٤ تقييمًا)", en: "recommend him (34 reviews)" } },
+  ],
   // From his Facebook bio.
   credentials: {
     ar: [
@@ -57,5 +63,7 @@ export const siteSettings: SiteSettings = {
     instagram: "https://www.instagram.com/drramyagamy",
     tiktok: "https://www.tiktok.com/@drramiagamy.obg",
     facebook: "https://www.facebook.com/RamyElAgamyClinic",
+    // His reels on Facebook: linked from the articles page.
+    facebookReels: "https://www.facebook.com/RamyElAgamyClinic/reels/",
   },
 };

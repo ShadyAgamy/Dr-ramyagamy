@@ -14,7 +14,7 @@ export const generateMetadata = async ({ params }: PageProps<"/[locale]/blog">):
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) return {};
   const t = await getTranslations("Blog");
-  return buildPageMetadata({ locale, title: t("title"), description: t("description") });
+  return buildPageMetadata({ locale, path: "/blog", title: t("title"), description: t("description") });
 };
 
 /** /blog and /en/blog: the list of articles, newest first. */

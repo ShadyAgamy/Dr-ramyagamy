@@ -18,7 +18,7 @@ export const generateMetadata = async ({ params }: PageProps<"/[locale]/about">)
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) return {};
   const t = await getTranslations("About");
-  return buildPageMetadata({ locale, title: t("title"), description: t("metaDescription") });
+  return buildPageMetadata({ locale, path: "/about", title: t("title"), description: t("metaDescription") });
 };
 
 /** /about: name, specialty, credentials and hospitals. */

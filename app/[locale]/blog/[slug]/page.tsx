@@ -9,7 +9,7 @@ import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
-import { getPost, getPosts, getService, getSiteSettings, localize } from "@/lib/content";
+import { getAvailableLocales, getPost, getPosts, getService, getSiteSettings, localize } from "@/lib/content";
 import { buildPageMetadata } from "@/lib/seo";
 
 /**
@@ -32,6 +32,9 @@ export async function generateMetadata({ params }: PageProps<"/[locale]/blog/[sl
 
   return buildPageMetadata({
     locale,
+    path: `/blog/${slug}`,
+    locales: getAvailableLocales("post", slug),
+    noindex: post.noindex,
     title: post.metaTitle ?? post.title,
     description: post.metaDescription ?? post.excerpt,
     image: post.cover?.src,

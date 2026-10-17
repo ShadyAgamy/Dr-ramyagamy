@@ -48,6 +48,9 @@ export const generateMetadata = async ({
 
   return buildPageMetadata({
     locale,
+    path: `/clinics/${slug}`,
+    noindex: clinic.seo?.noindex,
+    canonicalUrl: clinic.seo?.canonicalUrl,
     title: localizeStrict(clinic.seo?.metaTitle, locale) ?? title,
     description:
       localizeStrict(clinic.seo?.metaDescription, locale) ??

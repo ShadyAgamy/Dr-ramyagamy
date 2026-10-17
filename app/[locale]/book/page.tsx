@@ -15,7 +15,7 @@ export const generateMetadata = async ({ params }: PageProps<"/[locale]/book">):
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) return {};
   const t = await getTranslations("Book");
-  return buildPageMetadata({ locale, title: t("title"), description: t("description") });
+  return buildPageMetadata({ locale, path: "/book", title: t("title"), description: t("description") });
 };
 
 /** /book: booking is by WhatsApp or phone, handled by the clinic. */

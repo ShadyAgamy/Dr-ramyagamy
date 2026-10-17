@@ -13,7 +13,7 @@ export const generateMetadata = async ({ params }: PageProps<"/[locale]/services
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) return {};
   const t = await getTranslations("Services");
-  return buildPageMetadata({ locale, title: t("title"), description: t("description") });
+  return buildPageMetadata({ locale, path: "/services", title: t("title"), description: t("description") });
 };
 
 /** /services: every service available in this language. */

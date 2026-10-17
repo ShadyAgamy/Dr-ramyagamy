@@ -13,7 +13,7 @@ import { WhatsAppIcon } from "@/components/ui/icons";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
-import { getPostsForService, getService, getServices, getSiteSettings, localize, localizeStrict } from "@/lib/content";
+import { getAvailableLocales, getPostsForService, getService, getServices, getSiteSettings, localize, localizeStrict } from "@/lib/content";
 import { buildPageMetadata } from "@/lib/seo";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
 
@@ -38,6 +38,10 @@ export const generateMetadata = async ({ params }: PageProps<"/[locale]/services
 
   return buildPageMetadata({
     locale,
+    path: `/services/${slug}`,
+    locales: getAvailableLocales("service", slug),
+    noindex: service.seo?.noindex,
+    canonicalUrl: service.seo?.canonicalUrl,
     title: localizeStrict(service.seo?.metaTitle, locale) ?? title,
     description:
       localizeStrict(service.seo?.metaDescription, locale) ??

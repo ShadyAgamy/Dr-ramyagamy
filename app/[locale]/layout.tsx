@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: LayoutProps<"/[locale]">): Pr
 
   return {
     // Defaults for the home page (and any page without its own metadata).
-    ...buildPageMetadata({ locale, title: homeTitle, description: t("metaDescription") }),
+    ...buildPageMetadata({ locale, path: "/", title: homeTitle, description: t("metaDescription") }),
     // Turns relative image paths into full URLs, which share previews need.
     metadataBase: new URL(siteUrl),
     title: {

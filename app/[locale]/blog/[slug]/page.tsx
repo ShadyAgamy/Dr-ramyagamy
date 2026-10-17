@@ -8,7 +8,9 @@ import { MdxContent } from "@/components/mdx/MdxContent";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { Link } from "@/i18n/navigation";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { routing } from "@/i18n/routing";
+import { articleJsonLd } from "@/lib/jsonld";
 import { getAvailableLocales, getPost, getPosts, getService, getSiteSettings, localize } from "@/lib/content";
 import { buildPageMetadata } from "@/lib/seo";
 
@@ -59,6 +61,7 @@ export default async function PostPage({ params }: PageProps<"/[locale]/blog/[sl
 
   return (
     <>
+      <JsonLd data={articleJsonLd(post, locale)} />
       <PageHeader
         top={
           <div className="flex flex-col items-start gap-4">

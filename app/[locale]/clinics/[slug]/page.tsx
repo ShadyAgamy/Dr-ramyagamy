@@ -9,7 +9,9 @@ import { ButtonLink } from "@/components/ui/ButtonLink";
 import { WhatsAppIcon } from "@/components/ui/icons";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { Section } from "@/components/ui/Section";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { routing } from "@/i18n/routing";
+import { clinicJsonLd } from "@/lib/jsonld";
 import {
   type Clinic,
   getClinic,
@@ -84,6 +86,7 @@ const ClinicPage = async ({
 
   return (
     <>
+      <JsonLd data={clinicJsonLd(clinic, title, locale)} />
       <PageHeader
         top={
           <Breadcrumbs

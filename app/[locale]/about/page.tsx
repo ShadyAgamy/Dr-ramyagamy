@@ -5,6 +5,7 @@ import { hasLocale } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { BookingCta } from "@/components/booking/BookingCta";
 import { Section } from "@/components/ui/Section";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { routing } from "@/i18n/routing";
 import {
   getHospitals,
@@ -13,6 +14,7 @@ import {
   localizeStrict,
 } from "@/lib/content";
 import { buildPageMetadata } from "@/lib/seo";
+import { physicianJsonLd } from "@/lib/jsonld";
 
 export const generateMetadata = async ({ params }: PageProps<"/[locale]/about">): Promise<Metadata> => {
   const { locale } = await params;
@@ -33,6 +35,7 @@ const AboutPage = async ({ params }: PageProps<"/[locale]/about">) => {
 
   return (
     <>
+      <JsonLd data={physicianJsonLd(locale)} />
       <section className="bg-peach">
         {/* items-end + no bottom padding: the cut-out photo stands on the section's bottom edge. */}
         <div className="mx-auto grid max-w-site items-end gap-10 px-4 pt-14 md:grid-cols-2">

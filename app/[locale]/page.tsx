@@ -10,6 +10,7 @@ import { ButtonLink } from "@/components/ui/ButtonLink";
 import { CheckIcon, WhatsAppIcon } from "@/components/ui/icons";
 import { Section } from "@/components/ui/Section";
 import { Link } from "@/i18n/navigation";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { routing } from "@/i18n/routing";
 import {
   getClinics,
@@ -21,6 +22,7 @@ import {
   localizeStrict,
 } from "@/lib/content";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
+import { physicianJsonLd } from "@/lib/jsonld";
 
 // Every section below hides itself when its data is empty.
 const HomePage = async ({ params }: PageProps<"/[locale]">) => {
@@ -43,6 +45,7 @@ const HomePage = async ({ params }: PageProps<"/[locale]">) => {
 
   return (
     <>
+      <JsonLd data={physicianJsonLd(locale)} />
       {/* Hero: text beside the cut-out photo, on a peach-to-cream background. */}
       <section className="overflow-hidden bg-linear-to-b from-peach to-cream">
         <div className="mx-auto grid max-w-site items-end gap-10 px-4 pt-12 md:grid-cols-[1.1fr_0.9fr] md:pt-16">

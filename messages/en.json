@@ -10,7 +10,8 @@
     "blog": "Articles",
     "book": "Book an appointment",
     "openMenu": "Open menu",
-    "closeMenu": "Close menu"
+    "closeMenu": "Close menu",
+    "tools": "Pregnancy calculators"
   },
   "LanguageSwitcher": {
     "label": "العربية",
@@ -95,7 +96,29 @@
     "description": "Book your appointment at the New Cairo or Madinaty clinic.",
     "intro": "Contact us on WhatsApp or by phone, and we will confirm your appointment as soon as possible.",
     "notice": "Please do not write any medical details in your messages. Your case is discussed with the doctor directly.",
-    "clinicsTitle": "Clinics"
+    "clinicsTitle": "Clinics",
+    "stepsTitle": "How to book",
+    "steps": [
+      {
+        "title": "Contact us",
+        "text": "Send a WhatsApp message or give us a call."
+      },
+      {
+        "title": "Choose a clinic and day",
+        "text": "New Cairo or Madinaty, on the clinic's working days."
+      },
+      {
+        "title": "We confirm your appointment",
+        "text": "The clinic team replies and confirms your time."
+      },
+      {
+        "title": "Visit us",
+        "text": "At the clinic and on the day you chose."
+      }
+    ],
+    "privacyTitle": "Your privacy matters",
+    "privacyText": "We keep your personal and medical information confidential.",
+    "privacyLink": "Privacy policy"
   },
   "Cta": {
     "title": "Book your appointment",
@@ -115,5 +138,37 @@
   },
   "Breadcrumbs": {
     "label": "Breadcrumb"
+  },
+  "Tools": {
+    "title": "Pregnancy and ovulation calculators",
+    "description": "Estimate your due date and your ovulation days.",
+    "open": "Open calculator",
+    "disclaimer": "Results are estimates only and do not replace a doctor's visit. Real dates vary from woman to woman.",
+    "lastPeriod": "First day of your last period",
+    "calculate": "Calculate",
+    "invalidDate": "Please choose a valid date within the last 42 weeks.",
+    "bookCta": "Book a follow-up appointment",
+    "dueDate": {
+      "title": "Due date calculator",
+      "description": "Estimate your due date and how many weeks pregnant you are from your last period.",
+      "resultTitle": "Estimated due date",
+      "age": "Today you are {weeks} weeks and {days} days pregnant",
+      "trimester": "{trimester, select, 1 {First} 2 {Second} other {Third}} trimester",
+      "howTitle": "How is it calculated?",
+      "how": "We add 280 days (40 weeks) to the first day of your last period. This is the usual way to estimate a due date; an early pregnancy ultrasound dates the pregnancy more accurately."
+    },
+    "ovulation": {
+      "title": "Ovulation calculator",
+      "description": "Find your expected ovulation day and most fertile days.",
+      "cycleLength": "Cycle length (days)",
+      "cycleHint": "From the first day of one period to the first day of the next. Usually 28 days.",
+      "resultTitle": "Expected ovulation days",
+      "ovulationDay": "Expected ovulation day",
+      "fertileWindow": "Most fertile days",
+      "nextPeriod": "Next period",
+      "cycle": "Cycle {number}",
+      "howTitle": "How is it calculated?",
+      "how": "Ovulation usually happens about 14 days before the next period. The most fertile days are the 5 days before ovulation, ovulation day and the day after. If your cycle is irregular the result is less accurate; a follicle-tracking ultrasound is the best way to confirm ovulation."
+    }
   }
 }

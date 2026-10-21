@@ -4,6 +4,7 @@ export const navItems = [
   { href: "/about", key: "about" },
   { href: "/services", key: "services" },
   { href: "/blog", key: "blog" },
+  { href: "/tools", key: "tools" },
 ] as const;
 
 export type NavItem = (typeof navItems)[number];

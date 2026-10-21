@@ -12,11 +12,12 @@ import { arabicFont, latinFont } from "../fonts";
 import "../globals.css";
 
 // Pre-render both languages at build time.
-export function generateStaticParams() {
-  return routing.locales.map((locale) => ({ locale }));
-}
+export const generateStaticParams = () =>
+  routing.locales.map((locale) => ({ locale }));
 
-export async function generateMetadata({ params }: LayoutProps<"/[locale]">): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: LayoutProps<"/[locale]">): Promise<Metadata> {
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) return {};
   const site = getSiteSettings();
@@ -26,7 +27,12 @@ export async function generateMetadata({ params }: LayoutProps<"/[locale]">): Pr
 
   return {
     // Defaults for the home page (and any page without its own metadata).
-    ...buildPageMetadata({ locale, path: "/", title: homeTitle, description: t("metaDescription") }),
+    ...buildPageMetadata({
+      locale,
+      path: "/",
+      title: homeTitle,
+      description: t("metaDescription"),
+    }),
     // Turns relative image paths into full URLs, which share previews need.
     metadataBase: new URL(siteUrl),
     title: {
@@ -40,7 +46,10 @@ export async function generateMetadata({ params }: LayoutProps<"/[locale]">): Pr
   };
 }
 
-export default async function LocaleLayout({ children, params }: LayoutProps<"/[locale]">) {
+export default async function LocaleLayout({
+  children,
+  params,
+}: LayoutProps<"/[locale]">) {
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) notFound();
 

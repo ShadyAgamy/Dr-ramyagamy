@@ -1,9 +1,5 @@
-// All content types. Fields for data we do not have yet are optional,
-// so the site builds and renders without them.
-
 export type Locale = "ar" | "en";
 
-/** Arabic is required, English is optional until translated. */
 export type Localized<T> = { ar: T; en?: T };
 
 export type Seo = {
@@ -15,9 +11,7 @@ export type Seo = {
 };
 
 export type ImageRef = {
-  /** Path under /public, e.g. "/images/clinics/new-cairo-reception.jpg". */
   src: string;
-  /** Required on every image. */
   alt: Localized<string>;
   width: number;
   height: number;
@@ -32,19 +26,14 @@ export type PhoneNumber = {
 
 export type SiteSettings = {
   doctorName: Localized<string>;
-  /** Hidden until a real photo is added. */
   doctorPhoto?: ImageRef;
-  /** Cut-out photo beside the text in the home hero. Hidden until added. */
   heroImage?: ImageRef;
-  /** Short numbers in the home hero, e.g. years of experience. Hidden when empty. */
   stats?: { value: Localized<string>; label: Localized<string> }[];
   specialty: Localized<string>;
-  /** Credentials as written in his Facebook bio. */
   credentials: Localized<string[]>;
   phone: PhoneNumber;
   /** Digits only, with country code, as wa.me expects, e.g. "201097333303". */
   whatsappNumber: string;
-  /** Clinic email. Not shown on the site. */
   email?: string;
   social: {
     instagram?: string;
@@ -71,9 +60,7 @@ export type ScheduleEntry = {
 };
 
 export type Clinic = {
-  /** URL slug: /clinics/<slug>. Latin letters only. */
   slug: string;
-  /** Short label for menus and cards, e.g. "التجمع الخامس". */
   label: Localized<string>;
   /** Exact name as on Google Business Profile. */
   name?: Localized<string>;
@@ -83,16 +70,13 @@ export type Clinic = {
   mapsUrl?: string;
   lat?: number;
   lng?: number;
-  /** Clinic phone if different from the main phone in site settings. */
   phone?: PhoneNumber;
-  /** Empty until the days and hours are known. */
   schedule: ScheduleEntry[];
   photos: ImageRef[];
   description?: Localized<string>;
   seo?: Seo;
 };
 
-/** Line icons available for services (components/services/ServiceIcon.tsx). */
 export type ServiceIconName =
   | "microscope"
   | "heart"
@@ -108,19 +92,15 @@ export type ServiceIconName =
   | "calendar";
 
 export type Service = {
-  /** URL slug: /services/<slug>. Latin letters only. */
   slug: string;
   title: Localized<string>;
   icon?: ServiceIconName;
-  /** One or two sentences for cards. Hidden until written. */
   summary?: Localized<string>;
   image?: ImageRef;
-  /** Sort order on the services list, lowest first. */
   order: number;
   seo?: Seo;
 };
 
-/** A service with its long MDX body for one language, if that file exists. */
 export type ServiceDetail = Service & {
   body?: string;
 };
@@ -158,11 +138,9 @@ export type Post = {
   metaTitle?: string;
   metaDescription?: string;
   noindex: boolean;
-  /** Raw MDX. Rendered in the page (Phase 3). */
   body: string;
 };
 
-/** A simple MDX page, e.g. the privacy policy, from content/pages/<slug>/<locale>.mdx. */
 export type Page = {
   slug: string;
   locale: Locale;

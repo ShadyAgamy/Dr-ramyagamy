@@ -13,7 +13,15 @@ import { WhatsAppIcon } from "@/components/ui/icons";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
-import { getAvailableLocales, getPostsForService, getService, getServices, getSiteSettings, localize, localizeStrict } from "@/lib/content";
+import {
+  getAvailableLocales,
+  getPostsForService,
+  getService,
+  getServices,
+  getSiteSettings,
+  localize,
+  localizeStrict,
+} from "@/lib/content";
 import { buildPageMetadata } from "@/lib/seo";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
 
@@ -23,11 +31,15 @@ import { buildWhatsAppUrl } from "@/lib/whatsapp";
  * stops every page of this route from being built.
  */
 export const generateStaticParams = () =>
-  routing.locales.flatMap((locale) => getServices(locale).map((service) => ({ locale, slug: service.slug })));
+  routing.locales.flatMap((locale) =>
+    getServices(locale).map((service) => ({ locale, slug: service.slug })),
+  );
 
 export const dynamicParams = false;
 
-export const generateMetadata = async ({ params }: PageProps<"/[locale]/services/[slug]">): Promise<Metadata> => {
+export const generateMetadata = async ({
+  params,
+}: PageProps<"/[locale]/services/[slug]">): Promise<Metadata> => {
   const { locale, slug } = await params;
   if (!hasLocale(routing.locales, locale)) return {};
   const service = getService(slug, locale);
@@ -52,7 +64,9 @@ export const generateMetadata = async ({ params }: PageProps<"/[locale]/services
 };
 
 /** /services/<slug>: one service, its long description, and related articles. */
-const ServicePage = async ({ params }: PageProps<"/[locale]/services/[slug]">) => {
+const ServicePage = async ({
+  params,
+}: PageProps<"/[locale]/services/[slug]">) => {
   const { locale, slug } = await params;
   if (!hasLocale(routing.locales, locale)) notFound();
 
@@ -67,7 +81,9 @@ const ServicePage = async ({ params }: PageProps<"/[locale]/services/[slug]">) =
   const title = localize(service.title, locale);
   // Up to 4 related articles, so the page stays short; the rest are on /blog.
   const relatedPosts = getPostsForService(slug, locale).slice(0, 4);
-  const otherServices = getServices(locale).filter((item) => item.slug !== slug).slice(0, 5);
+  const otherServices = getServices(locale)
+    .filter((item) => item.slug !== slug)
+    .slice(0, 5);
 
   return (
     <>
@@ -81,7 +97,9 @@ const ServicePage = async ({ params }: PageProps<"/[locale]/services/[slug]">) =
                 { label: title },
               ]}
             />
-            {service.icon && <ServiceIcon name={service.icon} className="size-16 bg-surface" />}
+            {service.icon && (
+              <ServiceIcon name={service.icon} className="size-16 bg-surface" />
+            )}
           </div>
         }
         title={title}
@@ -89,7 +107,14 @@ const ServicePage = async ({ params }: PageProps<"/[locale]/services/[slug]">) =
       >
         <div className="mt-2 flex flex-wrap gap-3">
           <ButtonLink href="/book">{tCta("book")}</ButtonLink>
-          <ButtonLink href={buildWhatsAppUrl(site.whatsappNumber, tWhatsApp("prefilledMessage"))} variant="whatsapp" external>
+          <ButtonLink
+            href={buildWhatsAppUrl(
+              site.whatsappNumber,
+              tWhatsApp("prefilledMessage"),
+            )}
+            variant="whatsapp"
+            external
+          >
             <WhatsAppIcon className="size-5" />
             {tCta("whatsapp")}
           </ButtonLink>
@@ -113,7 +138,9 @@ const ServicePage = async ({ params }: PageProps<"/[locale]/services/[slug]">) =
 
           {relatedPosts.length > 0 && (
             <section>
-              <h2 className="mb-6 text-2xl font-bold sm:text-3xl">{t("relatedArticles")}</h2>
+              <h2 className="mb-6 text-2xl font-bold sm:text-3xl">
+                {t("relatedArticles")}
+              </h2>
               <ul className="grid gap-5 sm:grid-cols-2">
                 {relatedPosts.map((post) => (
                   <li key={post.slug}>
@@ -128,14 +155,20 @@ const ServicePage = async ({ params }: PageProps<"/[locale]/services/[slug]">) =
         <aside className="flex flex-col gap-5 lg:sticky lg:top-24">
           <BookingCard />
           {otherServices.length > 0 && (
-            <nav aria-labelledby="other-services" className="rounded-card border border-line bg-surface p-6">
+            <nav
+              aria-labelledby="other-services"
+              className="rounded-card border border-line bg-surface p-6"
+            >
               <h2 id="other-services" className="mb-3 font-bold">
                 {t("otherServices")}
               </h2>
               <ul className="flex flex-col gap-2">
                 {otherServices.map((item) => (
                   <li key={item.slug}>
-                    <Link href={`/services/${item.slug}`} className="text-brand-strong hover:underline">
+                    <Link
+                      href={`/services/${item.slug}`}
+                      className="text-brand-strong hover:underline"
+                    >
                       {localize(item.title, locale)}
                     </Link>
                   </li>

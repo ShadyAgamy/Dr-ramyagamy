@@ -8,7 +8,11 @@ const nextConfig: NextConfig = {
   redirects: async () =>
     redirects.flatMap(({ from, to, permanent }) => [
       { source: from, destination: to, permanent },
-      { source: `/en${from}`, destination: `/en${to === "/" ? "" : to}`, permanent },
+      {
+        source: `/en${from}`,
+        destination: `/en${to === "/" ? "" : to}`,
+        permanent,
+      },
     ]),
   experimental: {
     // One bilingual 404 page for every unknown URL (app/global-not-found.tsx).

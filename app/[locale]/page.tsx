@@ -24,7 +24,6 @@ import {
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
 import { physicianJsonLd } from "@/lib/jsonld";
 
-// Every section below hides itself when its data is empty.
 const HomePage = async ({ params }: PageProps<"/[locale]">) => {
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) notFound();
@@ -55,14 +54,19 @@ const HomePage = async ({ params }: PageProps<"/[locale]">) => {
             </p>
             <h1 className="text-4xl leading-tight font-bold sm:text-5xl">
               {localize(site.doctorName, locale)}
-              <span className="mt-2 block text-balance text-brand-strong">{t("heroTagline")}</span>
+              <span className="mt-2 block text-balance text-brand-strong">
+                {t("heroTagline")}
+              </span>
             </h1>
             <p className="max-w-xl text-lg text-ink-muted">{t("heroText")}</p>
 
             <div className="flex flex-wrap gap-3">
               <ButtonLink href="/book">{tCta("book")}</ButtonLink>
               <ButtonLink
-                href={buildWhatsAppUrl(site.whatsappNumber, tWhatsApp("prefilledMessage"))}
+                href={buildWhatsAppUrl(
+                  site.whatsappNumber,
+                  tWhatsApp("prefilledMessage"),
+                )}
                 variant="whatsapp"
                 external
               >
@@ -75,8 +79,12 @@ const HomePage = async ({ params }: PageProps<"/[locale]">) => {
               <dl className="mt-2 flex flex-wrap gap-x-8 gap-y-4 border-t border-line pt-6">
                 {stats.map((stat) => (
                   <div key={stat.value.ar} className="flex flex-col-reverse">
-                    <dt className="text-sm text-ink-muted">{localize(stat.label, locale)}</dt>
-                    <dd className="text-3xl font-bold text-brand-strong">{localize(stat.value, locale)}</dd>
+                    <dt className="text-sm text-ink-muted">
+                      {localize(stat.label, locale)}
+                    </dt>
+                    <dd className="text-3xl font-bold text-brand-strong">
+                      {localize(stat.value, locale)}
+                    </dd>
                   </div>
                 ))}
               </dl>
@@ -86,7 +94,10 @@ const HomePage = async ({ params }: PageProps<"/[locale]">) => {
           {site.heroImage && (
             <div className="relative mx-auto w-full max-w-sm">
               {/* Soft arch behind the photo. */}
-              <div aria-hidden="true" className="absolute inset-x-0 bottom-0 aspect-square rounded-t-full bg-brand-soft" />
+              <div
+                aria-hidden="true"
+                className="absolute inset-x-0 bottom-0 aspect-square rounded-t-full bg-brand-soft"
+              />
               <Image
                 src={site.heroImage.src}
                 alt={localize(site.heroImage.alt, locale)}
@@ -109,7 +120,10 @@ const HomePage = async ({ params }: PageProps<"/[locale]">) => {
             <ul className="grid gap-x-12 gap-y-4 lg:grid-cols-2 xl:grid-cols-[auto_auto] xl:justify-center">
               {/* The first credential repeats the specialty, so the strip shows the rest. */}
               {credentials.slice(1).map((credential) => (
-                <li key={credential} className="flex gap-3 xl:whitespace-nowrap">
+                <li
+                  key={credential}
+                  className="flex gap-3 xl:whitespace-nowrap"
+                >
                   <CheckIcon className="mt-1 size-5 shrink-0 text-brand" />
                   <span>{credential}</span>
                 </li>
@@ -182,16 +196,26 @@ const HomePage = async ({ params }: PageProps<"/[locale]">) => {
           <ul className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {testimonials.map((testimonial, index) => (
               // Phones show the first 3 only, so the page does not get too long.
-              <li key={index} className={index >= 3 ? "hidden md:block" : undefined}>
+              <li
+                key={index}
+                className={index >= 3 ? "hidden md:block" : undefined}
+              >
                 <figure className="flex h-full flex-col gap-4 rounded-card bg-surface p-7 shadow-soft">
-                  <span aria-hidden="true" className="font-serif text-5xl leading-none text-brand">
+                  <span
+                    aria-hidden="true"
+                    className="font-serif text-5xl leading-none text-brand"
+                  >
                     ”
                   </span>
                   <blockquote className="flex-1 text-lg leading-loose">
                     {localizeStrict(testimonial.quote, locale)}
                   </blockquote>
                   <figcaption className="text-sm text-ink-muted">
-                    {[testimonial.name, tTestimonials(testimonial.source), locale === "en" && tTestimonials("translated")]
+                    {[
+                      testimonial.name,
+                      tTestimonials(testimonial.source),
+                      locale === "en" && tTestimonials("translated"),
+                    ]
                       .filter(Boolean)
                       .join(" · ")}
                   </figcaption>

@@ -60,7 +60,7 @@ export function getSiteSettings(): SiteSettings {
 }
 
 export function getClinics(): Clinic[] {
-  checkDataFiles();
+  checkClinicData();
   return clinics;
 }
 
@@ -87,12 +87,15 @@ export function getRedirects(): Redirect[] {
 /** A service has an English version once its title (and summary, if any) are translated. */
 function serviceHasLocale(service: Service, locale: Locale): boolean {
   if (locale === "ar") return true;
-  return Boolean(service.title.en) && (!service.summary || Boolean(service.summary.en));
+  return (
+    Boolean(service.title.en) &&
+    (!service.summary || Boolean(service.summary.en))
+  );
 }
 
 /** All services, sorted. With a locale, only the ones available in that language. */
 export function getServices(locale?: Locale): Service[] {
-  checkDataFiles();
+  checkServicesData();
   return services
     .filter((service) => !locale || serviceHasLocale(service, locale))
     .sort((a, b) => a.order - b.order);
@@ -241,28 +244,30 @@ export const getPagePaths = (locale: Locale): string[] => [
 // these catch what it cannot: slug format, duplicates, time format.
 // ---------------------------------------------------------------------------
 
-const checkDataFiles = cache(() => {
+const checkClinicData = cache(() => {
   checkSlugs(
     "content/clinics.ts",
     clinics.map((clinic) => clinic.slug),
   );
+  clinics.forEach(({ schedule, slug }) => {
+    schedule.forEach(({ opens, closes }) => {
+      [opens, closes].forEach((time) => {
+        if (!/^([01]\d|2[0-3]):[0-5]\d$/.test(time)) {
+          throw contentError(
+            "content/clinics.ts",
+            `${slug} schedule: "${time}" must be 24-hour time like "17:00"`,
+          );
+        }
+      });
+    });
+  });
+});
+
+const checkServicesData = cache(() => {
   checkSlugs(
     "content/services.ts",
     services.map((service) => service.slug),
   );
-
-  for (const clinic of clinics) {
-    for (const entry of clinic.schedule) {
-      for (const time of [entry.opens, entry.closes]) {
-        if (!/^([01]\d|2[0-3]):[0-5]\d$/.test(time)) {
-          throw contentError(
-            "content/clinics.ts",
-            `${clinic.slug} schedule: "${time}" must be 24-hour time like "17:00"`,
-          );
-        }
-      }
-    }
-  }
 });
 
 function checkSlugs(file: string, slugs: string[]) {

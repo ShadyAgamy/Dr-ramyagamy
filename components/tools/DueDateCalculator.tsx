@@ -3,6 +3,7 @@
 import { type FormEvent, useState } from "react";
 import { useFormatter, useTranslations } from "next-intl";
 import { calculateDueDate, type DueDateResult, parseDateInput } from "@/lib/calculators";
+import { LastPeriodInput } from "@/components/tools/LastPeriodInput";
 
 /** Due date from the first day of the last period. Runs in the browser; nothing is sent anywhere. */
 export const DueDateCalculator = () => {
@@ -23,16 +24,7 @@ export const DueDateCalculator = () => {
   return (
     <div className="flex flex-col gap-6 rounded-card bg-surface p-6 shadow-soft sm:p-8">
       <form onSubmit={onSubmit} className="flex flex-col gap-4 sm:flex-row sm:items-end">
-        <label className="flex flex-1 flex-col gap-2 font-medium">
-          {t("lastPeriod")}
-          <input
-            type="date"
-            required
-            value={lastPeriod}
-            onChange={(event) => setLastPeriod(event.target.value)}
-            className="rounded-xl border border-line bg-cream px-4 py-3 text-ink"
-          />
-        </label>
+        <LastPeriodInput label={t("lastPeriod")} value={lastPeriod} onChange={setLastPeriod} />
         <button type="submit" className="rounded-button bg-brand-strong px-6 py-3 font-medium text-white shadow-soft hover:opacity-90">
           {t("calculate")}
         </button>

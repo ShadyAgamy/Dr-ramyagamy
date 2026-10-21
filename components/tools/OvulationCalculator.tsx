@@ -10,6 +10,7 @@ import {
   parseDateInput,
   todayUtc,
 } from "@/lib/calculators";
+import { LastPeriodInput } from "@/components/tools/LastPeriodInput";
 
 /** Ovulation and fertile days for the next 3 cycles. Runs in the browser; nothing is sent anywhere. */
 export const OvulationCalculator = () => {
@@ -33,20 +34,13 @@ export const OvulationCalculator = () => {
 
   return (
     <div className="flex flex-col gap-6 rounded-card bg-surface p-6 shadow-soft sm:p-8">
-      <form onSubmit={onSubmit} className="grid gap-4 sm:grid-cols-[1fr_12rem_auto] sm:items-end">
-        <label className="flex flex-col gap-2 font-medium">
-          {t("lastPeriod")}
-          <input
-            type="date"
-            required
-            value={lastPeriod}
-            onChange={(event) => setLastPeriod(event.target.value)}
-            className="rounded-xl border border-line bg-cream px-4 py-3 text-ink"
-          />
-        </label>
+      <form onSubmit={onSubmit} className="grid gap-4 sm:grid-cols-[auto_12rem_auto] sm:justify-start sm:items-end">
+        <LastPeriodInput label={t("lastPeriod")} value={lastPeriod} onChange={setLastPeriod} />
         <label className="flex flex-col gap-2 font-medium">
           {t("ovulation.cycleLength")}
           <input
+            id="cycle-length"
+            name="cycleLength"
             type="number"
             required
             min={MIN_CYCLE}

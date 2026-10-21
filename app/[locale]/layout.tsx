@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { GoogleTagManager } from "@next/third-parties/google";
 import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations } from "next-intl/server";
@@ -10,6 +11,8 @@ import { SiteHeader } from "@/components/layout/SiteHeader";
 import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
 import { arabicFont, latinFont } from "../fonts";
 import "../globals.css";
+
+const gtmId = process.env.NEXT_PUBLIC_GTM_ID;
 
 // Pre-render both languages at build time.
 export const generateStaticParams = () =>
@@ -61,6 +64,8 @@ export default async function LocaleLayout({
       dir={locale === "ar" ? "rtl" : "ltr"}
       className={`${arabicFont.variable} ${latinFont.variable}`}
     >
+      {/* Google Tag Manager: only when the ID is set (production on Netlify), so local runs send no data. */}
+      {gtmId && <GoogleTagManager gtmId={gtmId} />}
       <body className="flex min-h-dvh flex-col font-sans antialiased">
         <NextIntlClientProvider>
           <a

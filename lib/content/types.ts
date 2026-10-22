@@ -24,11 +24,35 @@ export type PhoneNumber = {
   e164: string;
 };
 
+/** A number written out as text, e.g. "٥٢٥ ألف" + "متابع على فيسبوك". */
+export type Stat = {
+  value: Localized<string>;
+  label: Localized<string>;
+};
+
+/** A number that counts up on the home page, e.g. 6000 + "قصة نجاح". */
+export type Counter = {
+  value: number;
+  /** Shown right after the number, e.g. "+". */
+  suffix?: string;
+  label: Localized<string>;
+};
+
 export type SiteSettings = {
   doctorName: Localized<string>;
   doctorPhoto?: ImageRef;
   heroImage?: ImageRef;
-  stats?: { value: Localized<string>; label: Localized<string> }[];
+  /** Wide studio banner, for a hero that runs the full width of the screen. */
+  bannerImage?: ImageRef;
+  /** Numbers that come from his pages, shown as plain text. */
+  socialProof?: {
+    /** Badge in the hero. */
+    followers?: Stat;
+    /** Shown with the reviews. */
+    recommend?: Stat;
+  };
+  /** Numbers that count up once they scroll into view. */
+  counters?: Counter[];
   specialty: Localized<string>;
   credentials: Localized<string[]>;
   phone: PhoneNumber;

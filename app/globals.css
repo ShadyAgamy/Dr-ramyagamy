@@ -7,14 +7,23 @@
  * (bg-brand, text-ink, bg-cream, rounded-card, shadow-soft, ...).
  */
 :root {
-  /* Brand orange. "brand-strong" is dark enough for white text and links on white (WCAG AA). */
-  --brand: #f07c2a;
-  --brand-strong: #b4500e;
-  --brand-soft: #fde4d0;
+  /* Brand orange, from the logo: #FF9E1B. It is a light orange, so it is only
+     used for fills and decoration; "brand-strong" is the same hue darkened until
+     it carries white text and reads as a link on white, cream and peach (WCAG AA). */
+  --brand: #ff9e1b;
+  --brand-strong: #a05d00;
+  --brand-soft: #ffe9cc;
 
-  /* Backgrounds */
-  --peach: #fdebdd;
-  --cream: #fffaf4;
+  /* Cyan accent, from the logo: #00A7D4. Used sparingly, as a gradient partner
+     for the brand orange on badges, halos and highlighted numbers, never as a
+     full background. The bright one is for decoration only (dots, glows);
+     "accent-cyan-strong" is dark enough for text (WCAG AA). */
+  --accent-cyan: #00a7d4;
+  --accent-cyan-strong: #00718f;
+
+  /* Backgrounds: tints of the brand orange, so they sit under it without clashing. */
+  --peach: #fff0db;
+  --cream: #fffbf5;
   --surface: #ffffff;
 
   /* Text */
@@ -22,7 +31,7 @@
   --ink-muted: #6b5d52;
 
   /* Lines */
-  --line: #f1e3d6;
+  --line: #f6e4cb;
 
   /* WhatsApp brand green. The bright one is for the icon-only floating button;
      "whatsapp-strong" is dark enough for white button text (WCAG AA). */
@@ -32,8 +41,8 @@
   /* Shape */
   --radius-card: 1.25rem;
   --radius-button: 9999px;
-  --shadow-soft: 0 6px 24px -8px rgb(180 80 14 / 0.18);
-  --shadow-lift: 0 14px 36px -10px rgb(180 80 14 / 0.3);
+  --shadow-soft: 0 6px 24px -8px rgb(160 93 0 / 0.18);
+  --shadow-lift: 0 14px 36px -10px rgb(160 93 0 / 0.3);
 
   /* Layout */
   --container-max: 72rem;
@@ -43,6 +52,8 @@
   --color-brand: var(--brand);
   --color-brand-strong: var(--brand-strong);
   --color-brand-soft: var(--brand-soft);
+  --color-accent-cyan: var(--accent-cyan);
+  --color-accent-cyan-strong: var(--accent-cyan-strong);
   --color-peach: var(--peach);
   --color-cream: var(--cream);
   --color-surface: var(--surface);
@@ -58,11 +69,19 @@
   --shadow-lift: var(--shadow-lift);
   --container-site: var(--container-max);
 
-
   --font-sans: var(--font-latin), var(--font-arabic), system-ui, sans-serif;
 }
 
 body {
   background: var(--cream);
   color: var(--ink);
+}
+
+/* For the testimonials scroll-snap row: swipe gesture stays, the scrollbar track doesn't. */
+.scrollbar-hide {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }

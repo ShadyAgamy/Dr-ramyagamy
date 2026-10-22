@@ -29,11 +29,48 @@ export const siteSettings: SiteSettings = {
     width: 1000,
     height: 1613,
   },
-  // From the brief: his bio, Facebook page and reviews.
-  stats: [
-    { value: { ar: "+١٥", en: "15+" }, label: { ar: "عامًا من الخبرة", en: "years of experience" } },
-    { value: { ar: "٥٢٥ ألف", en: "525K" }, label: { ar: "متابع على فيسبوك", en: "Facebook followers" } },
-    { value: { ar: "١٠٠٪", en: "100%" }, label: { ar: "يوصون به (٣٤ تقييمًا)", en: "recommend him (34 reviews)" } },
+  // Wide studio banner: he stands in the middle, his signature is on the wall
+  // to one side, and the window wall on the other side is empty enough for text.
+  bannerImage: {
+    src: "/images/doctor-banner.jpg",
+    alt: {
+      ar: "د. رامي عجمي",
+      en: "Dr. Ramy Agamy",
+    },
+    width: 1200,
+    height: 630,
+  },
+  // From his Facebook page and its reviews.
+  socialProof: {
+    followers: {
+      value: { ar: "٥٢٥ ألف", en: "525K" },
+      label: { ar: "متابع على فيسبوك", en: "Facebook followers" },
+    },
+    recommend: {
+      value: { ar: "١٠٠٪", en: "100%" },
+      label: { ar: "يوصون به (٣٤ تقييمًا)", en: "recommend him (34 reviews)" },
+    },
+  },
+  // Counted up on the home page. The developer gave these numbers (2026-10-22).
+  // TODO: confirm "قصة نجاح" and "بروتوكول علاجي" with the doctor before launch.
+  counters: [
+    {
+      value: 6000,
+      suffix: "+",
+      label: { ar: "قصة نجاح", en: "success stories" },
+    },
+    {
+      value: 220,
+      label: {
+        ar: "بروتوكول علاجي مختلف",
+        en: "different treatment protocols",
+      },
+    },
+    {
+      value: 15,
+      suffix: "+",
+      label: { ar: "سنة خبرة", en: "years of experience" },
+    },
   ],
   // From his Facebook bio.
   credentials: {

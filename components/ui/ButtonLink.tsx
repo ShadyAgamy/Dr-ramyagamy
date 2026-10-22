@@ -2,7 +2,9 @@ import type { ComponentProps, ReactNode } from "react";
 import { Link } from "@/i18n/navigation";
 
 const styles = {
-  primary: "bg-brand-strong text-white shadow-soft hover:opacity-90",
+  // The brand orange is light, so the primary button carries dark text on it
+  // rather than white: that is both the logo's orange and the stronger contrast.
+  primary: "bg-brand text-ink shadow-soft hover:opacity-90",
   secondary: "border border-line bg-surface text-ink hover:bg-peach",
   whatsapp: "bg-whatsapp-strong text-white shadow-soft hover:opacity-90",
   // For dark or orange backgrounds.
@@ -19,7 +21,12 @@ type ButtonLinkProps = {
 };
 
 /** A link styled as a button. Internal links use next-intl's Link (real <a href>). */
-export const ButtonLink = ({ href, variant = "primary", external = false, children }: ButtonLinkProps) => {
+export const ButtonLink = ({
+  href,
+  variant = "primary",
+  external = false,
+  children,
+}: ButtonLinkProps) => {
   const className = `inline-flex items-center justify-center gap-2 rounded-button px-5 py-3 font-medium transition ${styles[variant]}`;
 
   if (external) {

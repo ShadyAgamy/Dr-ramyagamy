@@ -205,12 +205,14 @@ Match his existing social media brand:
 - Facebook page: "Dr. Ramy Agamy - د.رامي عجمي"
 - New Cairo clinic address (Arabic, from Facebook): التجمع الخامس - ش التسعين الشمالي خلف المستشفى الجوي - مركز HCC الدور الثالث، عيادة 331
 - Madinaty clinic address (from its Google Maps listing, confirmed): Medical Hub Center، المركز التجاري ايست هب، بلوك ١١ الطابق الثاني، ثانى القاهرة الجديدة
-- Hours (2026-10-17): New Cairo Monday and Wednesday 15:00–19:00; Madinaty Monday and Wednesday 19:00–21:00
+- Hours (2026-10-17): New Cairo Monday and Wednesday 15:00–19:00 (confirmed again 2026-10-24); Madinaty Monday and Wednesday 19:00–21:00
 - Suez clinic (hidden for now, address may change): الملاحة الجديدة بجوار مستشفى قناة السويس - برج النوبي - الدور الثاني; phones 01116668967, 01033101414; Saturday, Sunday and Tuesday 13:00 to midnight
 - Services (2026-10-17): 12 in `content/services.ts`, from his profile document plus a list the developer gave. Summaries are short general definitions we wrote (from his scripts where possible), at the developer's request. Includes sex selection (تحديد نوع الجنين), approved by the developer.
 - Clinic email (accounts, not shown on the site): ramytagamo3clinic@gmail.com
 - Facebook page URL: https://www.facebook.com/RamyElAgamyClinic
 - Domain: **ramyagamy.com** (Cloudflare, owned by the doctor's Google account). GTM `GTM-THJXPFZW`; GA4 `G-7XKJ7SXE5W` loads through a GTM tag, not in code.
+- Google Business Profile (2026-10-24): Ramy is owner, the developer is manager. Hours, categories, description, photos and social links are updated. Review link: https://g.page/r/CWIewLmLfrq1EBM/review
+- Home stats (2026-10-24): 6,000+ success stories and 220 treatment protocols come from the doctor; 700K followers is Facebook 525K + TikTok 100K + Instagram 50K, rounded. Still open: is "15+ years" total experience or in assisted reproduction (the credentials line may change).
 - Testimonials: 9 real Facebook reviews in `content/testimonials.ts`, without names (sensitive health data), English marked as translated.
 - Name spelling: use "رامي عجمي" / "Ramy Agamy" (confirmed by the developer 2026-10-17). "رامي العجمي" / "El-Agamy" also appear (his bio, Facebook URL); use them as alternate names in structured data.
 
@@ -270,6 +272,9 @@ A learning project for the developer, built step by step with short lessons firs
 - **Articles (2026-10-17):** the 14 posts (Arabic and English) come from the doctor's reel scripts ("Dr Ramy 30 Scripts" PDF; he approved the scripts). Merge related scripts into one article, use only what the scripts say, add `videoUrl` later. "Articles" shows in the nav per language only once a post exists in it. Later: turn his own reels into articles (transcribe with Whisper, draft, doctor approves, link the reel). Never copy other doctors' articles.
 - **Competitor review (2026-10-22):** ivfegypt, drnoamanaboelwafaa, Dr Mohamed Gamal Omar (same Madinaty building), drwessamabuelghar. Built: booking steps and privacy note on `/book`, `/tools` calculators. Parked until the doctor provides the data: videos page (reel thumbnails linking out), patients-abroad page (English), conferences and memberships on `/about`, emergency line.
 - **404:** `notFound()` inside pages renders an empty document in Next 16 (vercel/next.js#99287), so unknown URLs go to one bilingual `app/global-not-found.tsx` (experimental `globalNotFound` flag), and dynamic routes use `dynamicParams = false`.
+- **Services (2026-10-24):** 12 full pages in `content/services/<slug>/{ar,en}.mdx`, general information from international guidelines (ESHRE, ASRM, ACOG, NICE, WHO), no success rates or practice claims. The doctor reviews them before launch.
+- **Articles (2026-10-24):** the doctor finds them too basic. They will be rewritten later from his voice notes. Do not rewrite them before that.
+- **Payments (2026-10-24):** Paymob. Version 1 is a Paymob payment link (no code) behind a "Pay now" button on an online consultation page, plus a refund policy page (Paymob requires it). Version 2 (own checkout and HMAC webhook) is Phase 7, after launch. Price, currency, consultation type and policies come from the doctor; never invent them.
 - **Workflow:** leave changes uncommitted for review; commit on the developer's OK and push on a separate OK. The developer is learning Next.js: explain new concepts briefly, keep replies short, use arrow functions.
 
 ## 13. Rules

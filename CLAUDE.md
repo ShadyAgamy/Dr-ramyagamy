@@ -57,6 +57,7 @@ Rendering: every public page is statically generated at build time (`generateSta
 | `/blog`            | Articles list                                                                                                                     |
 | `/blog/[slug]`     | One article                                                                                                                       |
 | `/book`            | How to book: WhatsApp and call buttons, the two clinics. No form                                                                  |
+| `/tools`           | Patient calculators: `/tools/due-date`, `/tools/ovulation` (client components, ideas from the competitor review)                  |
 | `/privacy`         | Privacy policy (MDX)                                                                                                              |
 | 404                | Custom, bilingual, with links home and to booking                                                                                 |
 
@@ -209,6 +210,8 @@ Match his existing social media brand:
 - Services (2026-10-17): 12 in `content/services.ts`, from his profile document plus a list the developer gave. Summaries are short general definitions we wrote (from his scripts where possible), at the developer's request. Includes sex selection (تحديد نوع الجنين), approved by the developer.
 - Clinic email (accounts, not shown on the site): ramytagamo3clinic@gmail.com
 - Facebook page URL: https://www.facebook.com/RamyElAgamyClinic
+- Domain: **ramyagamy.com** (Cloudflare, owned by the doctor's Google account). GTM `GTM-THJXPFZW`; GA4 `G-7XKJ7SXE5W` loads through a GTM tag, not in code.
+- Testimonials: 9 real Facebook reviews in `content/testimonials.ts`, without names (sensitive health data), English marked as translated.
 - Name spelling: use "رامي عجمي" / "Ramy Agamy" (confirmed by the developer 2026-10-17). "رامي العجمي" / "El-Agamy" also appear (his bio, Facebook URL); use them as alternate names in structured data.
 
 ## 10. Missing data (do NOT invent)
@@ -217,11 +220,11 @@ These will be added to the content files later. Leave them out or as optional fi
 
 - Long service pages (MDX bodies)
 - Clinic names exactly as on Google Business Profile
-- Hospitals where he operates, testimonials, articles
+- Hospitals where he operates
+- Reel links for articles (`videoUrl`)
 - Original logo files (SVG); exact brand colors (orange + cyan accent seen in the logo)
 - Photos: have the banner, 9 retouched studio portraits (Drive "Retouched" folder) and 5 New Cairo clinic photos
 - English versions of content
-- Final domain (start on the Netlify subdomain)
 
 The site must build and render cleanly when this data is missing. Hide empty sections instead of breaking or showing placeholders.
 
@@ -264,7 +267,8 @@ A learning project for the developer, built step by step with short lessons firs
 
 ## 12b. Decisions so far
 
-- **Articles (2026-10-17):** the first 4 Arabic posts come from the doctor's reel scripts ("Dr Ramy 30 Scripts" PDF; he approved the scripts). Merge related scripts into one article, use only what the scripts say, add `videoUrl` later. "Articles" shows in the nav per language only once a post exists in it. Later: turn his own reels into articles (transcribe with Whisper, draft, doctor approves, link the reel). Never copy other doctors' articles.
+- **Articles (2026-10-17):** the 14 posts (Arabic and English) come from the doctor's reel scripts ("Dr Ramy 30 Scripts" PDF; he approved the scripts). Merge related scripts into one article, use only what the scripts say, add `videoUrl` later. "Articles" shows in the nav per language only once a post exists in it. Later: turn his own reels into articles (transcribe with Whisper, draft, doctor approves, link the reel). Never copy other doctors' articles.
+- **Competitor review (2026-10-22):** ivfegypt, drnoamanaboelwafaa, Dr Mohamed Gamal Omar (same Madinaty building), drwessamabuelghar. Built: booking steps and privacy note on `/book`, `/tools` calculators. Parked until the doctor provides the data: videos page (reel thumbnails linking out), patients-abroad page (English), conferences and memberships on `/about`, emergency line.
 - **404:** `notFound()` inside pages renders an empty document in Next 16 (vercel/next.js#99287), so unknown URLs go to one bilingual `app/global-not-found.tsx` (experimental `globalNotFound` flag), and dynamic routes use `dynamicParams = false`.
 - **Workflow:** leave changes uncommitted for review; commit on the developer's OK and push on a separate OK. The developer is learning Next.js: explain new concepts briefly, keep replies short, use arrow functions.
 

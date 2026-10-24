@@ -34,6 +34,9 @@ yarn-error.log*
 .env*
 !.env.example
 
+# Claude Code worktrees (full copies of the repo)
+.claude/worktrees/
+
 # vercel
 .vercel
 

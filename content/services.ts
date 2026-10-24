@@ -10,7 +10,7 @@ export const services: Service[] = [
     icon: "microscope",
     title: { ar: "الحقن المجهري وأطفال الأنابيب", en: "ICSI and IVF" },
     summary: {
-      ar: "تخصيب البويضات خارج الجسم ثم ترجيع أفضل الأجنة إلى الرحم. في الحقن المجهري نختار الحيوان المنوي ونحقنه داخل البويضة تحت الميكروسكوب.",
+      ar: "تخصيب البويضات خارج الجسم ثم إرجاع أفضل الأجنة إلى الرحم. في الحقن المجهري نختار الحيوان المنوي ونحقنه داخل البويضة تحت الميكروسكوب.",
       en: "Eggs are fertilized outside the body and the best embryos are transferred to the uterus. In ICSI, a selected sperm is injected into the egg under the microscope.",
     },
     order: 1,
@@ -50,7 +50,7 @@ export const services: Service[] = [
     icon: "dna",
     title: { ar: "الفحص الوراثي للأجنة", en: "Embryo Genetic Testing (PGT)" },
     summary: {
-      ar: "فحص الأجنة الناتجة عن الحقن المجهري قبل ترجيعها، لاختيار الأجنة السليمة كروموسوميًا.",
+      ar: "فحص الأجنة الناتجة عن الحقن المجهري قبل إرجاعها، لاختيار الأجنة السليمة كروموسوميًا.",
       en: "Testing embryos created through ICSI before transfer, to choose chromosomally healthy embryos.",
     },
     order: 5,
@@ -60,7 +60,7 @@ export const services: Service[] = [
     icon: "baby",
     title: { ar: "تحديد نوع الجنين", en: "Sex Selection" },
     summary: {
-      ar: "تحديد نوع الجنين من خلال الحقن المجهري والفحص الوراثي للأجنة قبل ترجيعها إلى الرحم.",
+      ar: "تحديد نوع الجنين من خلال الحقن المجهري والفحص الوراثي للأجنة قبل إرجاعها إلى الرحم.",
       en: "Choosing the baby's sex through ICSI and genetic testing of the embryos before transfer to the uterus.",
     },
     order: 6,

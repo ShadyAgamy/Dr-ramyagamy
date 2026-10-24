@@ -134,7 +134,12 @@ const ServicePage = async ({
               className="w-full rounded-card object-cover"
             />
           )}
-          {service.body && <MdxContent source={service.body} />}
+          {/* Wrapped so the column's gap-12 spaces the sections, not every paragraph. */}
+          {service.body && (
+            <div>
+              <MdxContent source={service.body} />
+            </div>
+          )}
 
           {relatedPosts.length > 0 && (
             <section>

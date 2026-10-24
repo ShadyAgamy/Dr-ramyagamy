@@ -30,6 +30,10 @@
   --ink: #2a211b;
   --ink-muted: #6b5d52;
 
+  /* The dark bands (footer, credentials strip): a deep version of the logo's
+     cyan. Kept separate from --ink, which is the text colour everywhere. */
+  --surface-dark: #125160;
+
   /* Lines */
   --line: #f6e4cb;
 
@@ -59,6 +63,7 @@
   --color-surface: var(--surface);
   --color-ink: var(--ink);
   --color-ink-muted: var(--ink-muted);
+  --color-surface-dark: var(--surface-dark);
   --color-line: var(--line);
   --color-whatsapp: var(--whatsapp);
   --color-whatsapp-strong: var(--whatsapp-strong);

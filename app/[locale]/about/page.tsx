@@ -16,11 +16,18 @@ import {
 import { buildPageMetadata } from "@/lib/seo";
 import { physicianJsonLd } from "@/lib/jsonld";
 
-export const generateMetadata = async ({ params }: PageProps<"/[locale]/about">): Promise<Metadata> => {
+export const generateMetadata = async ({
+  params,
+}: PageProps<"/[locale]/about">): Promise<Metadata> => {
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) return {};
   const t = await getTranslations("About");
-  return buildPageMetadata({ locale, path: "/about", title: t("title"), description: t("metaDescription") });
+  return buildPageMetadata({
+    locale,
+    path: "/about",
+    title: t("title"),
+    description: t("metaDescription"),
+  });
 };
 
 /** /about: name, specialty, credentials and hospitals. */
@@ -36,15 +43,15 @@ const AboutPage = async ({ params }: PageProps<"/[locale]/about">) => {
   return (
     <>
       <JsonLd data={physicianJsonLd(locale)} />
-      <section className="bg-peach">
+      <section className="overflow-hidden bg-linear-to-b from-peach to-cream">
         {/* items-end + no bottom padding: the cut-out photo stands on the section's bottom edge. */}
         <div className="mx-auto grid max-w-site items-end gap-10 px-4 pt-14 md:grid-cols-2">
           <div className="flex flex-col gap-3 self-center">
             <h1 className="text-3xl font-bold sm:text-4xl">{t("title")}</h1>
-            <p className="text-2xl font-bold">
+            <p className="bg-linear-to-l from-brand-strong to-accent-cyan-strong bg-clip-text text-2xl font-bold text-transparent ltr:bg-linear-to-r">
               {localize(site.doctorName, locale)}
             </p>
-            <p className="text-lg text-brand-strong">
+            <p className="text-lg font-semibold text-ink-muted">
               {localize(site.specialty, locale)}
             </p>
 
@@ -65,15 +72,22 @@ const AboutPage = async ({ params }: PageProps<"/[locale]/about">) => {
             )}
           </div>
           {site.doctorPhoto && (
-            <Image
-              src={site.doctorPhoto.src}
-              alt={localize(site.doctorPhoto.alt, locale)}
-              width={site.doctorPhoto.width}
-              height={site.doctorPhoto.height}
-              sizes="(min-width: 768px) 50vw, 100vw"
-              priority
-              className="mx-auto w-full max-w-md"
-            />
+            <div className="relative mx-auto w-full max-w-md">
+              {/* The same gradient halo as the home page, behind the cut-out photo. */}
+              <div
+                aria-hidden="true"
+                className="absolute inset-x-4 bottom-0 aspect-square rounded-t-full bg-linear-to-br from-brand/30 via-brand-soft to-accent-cyan/40 blur-[2px]"
+              />
+              <Image
+                src={site.doctorPhoto.src}
+                alt={localize(site.doctorPhoto.alt, locale)}
+                width={site.doctorPhoto.width}
+                height={site.doctorPhoto.height}
+                sizes="(min-width: 768px) 50vw, 100vw"
+                priority
+                className="relative w-full"
+              />
+            </div>
           )}
         </div>
       </section>

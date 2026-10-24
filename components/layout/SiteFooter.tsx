@@ -19,13 +19,15 @@ export function SiteFooter() {
     { label: "Instagram", href: site.social.instagram },
     { label: "TikTok", href: site.social.tiktok },
     { label: "Facebook", href: site.social.facebook },
-  ].filter((link): link is { label: string; href: string } => Boolean(link.href));
+  ].filter((link): link is { label: string; href: string } =>
+    Boolean(link.href),
+  );
 
   const headingClass = "mb-3 font-bold text-white";
-  const linkClass = "text-peach/80 hover:text-white";
+  const linkClass = "text-white/75 hover:text-white";
 
   return (
-    <footer className="mt-8 bg-ink text-peach/80">
+    <footer className="mt-8 bg-surface-dark text-white/75">
       <div className="mx-auto grid max-w-site gap-8 px-4 py-14 sm:grid-cols-2 lg:grid-cols-5">
         <div>
           <p className="text-lg font-bold text-white">{doctorName}</p>
@@ -62,7 +64,9 @@ export function SiteFooter() {
                 <Link href={`/clinics/${clinic.slug}`} className={linkClass}>
                   {clinic.name
                     ? localize(clinic.name, locale)
-                    : tClinics("title", { label: localize(clinic.label, locale) })}
+                    : tClinics("title", {
+                        label: localize(clinic.label, locale),
+                      })}
                 </Link>
               </li>
             ))}
@@ -74,13 +78,20 @@ export function SiteFooter() {
           <ul className="space-y-2">
             <li>
               <span>{t("phone")}: </span>
-              <a href={`tel:${site.phone.e164}`} dir="ltr" className={linkClass}>
+              <a
+                href={`tel:${site.phone.e164}`}
+                dir="ltr"
+                className={linkClass}
+              >
                 {site.phone.display}
               </a>
             </li>
             <li>
               <a
-                href={buildWhatsAppUrl(site.whatsappNumber, tWhatsApp("prefilledMessage"))}
+                href={buildWhatsAppUrl(
+                  site.whatsappNumber,
+                  tWhatsApp("prefilledMessage"),
+                )}
                 target="_blank"
                 rel="noopener noreferrer"
                 className={linkClass}
@@ -97,7 +108,12 @@ export function SiteFooter() {
             <ul className="space-y-2">
               {socialLinks.map((link) => (
                 <li key={link.label}>
-                  <a href={link.href} target="_blank" rel="noopener noreferrer" className={linkClass}>
+                  <a
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={linkClass}
+                  >
                     {link.label}
                   </a>
                 </li>

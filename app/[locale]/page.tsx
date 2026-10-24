@@ -46,7 +46,7 @@ const HomePage = async ({ params }: PageProps<"/[locale]">) => {
       <StatCounters />
 
       {credentials && credentials.length > 0 && (
-        <section className="bg-ink text-white">
+        <section className="bg-surface-dark text-white">
           <div className="mx-auto max-w-site px-4 py-8">
             <h2 className="sr-only">{t("credentialsTitle")}</h2>
             {/* Two rows. On wide screens the columns fit their text and each credential stays on one line. */}

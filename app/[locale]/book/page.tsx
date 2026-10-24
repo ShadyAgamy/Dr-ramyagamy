@@ -13,11 +13,18 @@ import { getClinics, getPage, getSiteSettings } from "@/lib/content";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
 import { buildPageMetadata } from "@/lib/seo";
 
-export const generateMetadata = async ({ params }: PageProps<"/[locale]/book">): Promise<Metadata> => {
+export const generateMetadata = async ({
+  params,
+}: PageProps<"/[locale]/book">): Promise<Metadata> => {
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) return {};
   const t = await getTranslations("Book");
-  return buildPageMetadata({ locale, path: "/book", title: t("title"), description: t("description") });
+  return buildPageMetadata({
+    locale,
+    path: "/book",
+    title: t("title"),
+    description: t("description"),
+  });
 };
 
 /** /book: booking is by WhatsApp or phone, handled by the clinic. */
@@ -39,18 +46,28 @@ const BookPage = async ({ params }: PageProps<"/[locale]/book">) => {
       <PageHeader title={t("title")} intro={t("intro")}>
         <div className="mt-2 flex flex-wrap gap-3">
           <ButtonLink
-            href={buildWhatsAppUrl(site.whatsappNumber, tWhatsApp("prefilledMessage"))}
+            href={buildWhatsAppUrl(
+              site.whatsappNumber,
+              tWhatsApp("prefilledMessage"),
+            )}
             variant="whatsapp"
             external
           >
             <WhatsAppIcon className="size-5" />
             {tCta("whatsapp")}
           </ButtonLink>
-          <ButtonLink href={`tel:${site.phone.e164}`} variant="secondary" external>
+          <ButtonLink
+            href={`tel:${site.phone.e164}`}
+            variant="secondary"
+            external
+          >
             {tCta("call")} <span dir="ltr">{site.phone.display}</span>
           </ButtonLink>
         </div>
-        <p role="note" className="max-w-3xl rounded-card border border-brand-soft bg-surface p-4 text-ink-muted">
+        <p
+          role="note"
+          className="max-w-3xl rounded-card border border-brand-soft bg-surface p-4 text-ink-muted"
+        >
           {t("notice")}
         </p>
       </PageHeader>
@@ -58,8 +75,11 @@ const BookPage = async ({ params }: PageProps<"/[locale]/book">) => {
       <Section title={t("stepsTitle")}>
         <ol className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {steps.map((step, index) => (
-            <li key={step.title} className="flex flex-col gap-3 rounded-card bg-surface p-6 shadow-soft">
-              <span className="grid size-10 place-items-center rounded-full bg-brand-strong font-bold text-white">
+            <li
+              key={step.title}
+              className="flex flex-col gap-3 rounded-card bg-surface p-6 shadow-soft"
+            >
+              <span className="grid size-10 place-items-center rounded-full bg-brand font-bold text-ink">
                 {format.number(index + 1)}
               </span>
               <h3 className="text-lg font-bold">{step.title}</h3>
@@ -73,7 +93,10 @@ const BookPage = async ({ params }: PageProps<"/[locale]/book">) => {
           <p>
             <strong>{t("privacyTitle")}:</strong> {t("privacyText")}{" "}
             {hasPrivacyPage && (
-              <Link href="/privacy" className="font-medium text-brand-strong underline underline-offset-4">
+              <Link
+                href="/privacy"
+                className="font-medium text-brand-strong underline underline-offset-4"
+              >
                 {t("privacyLink")}
               </Link>
             )}

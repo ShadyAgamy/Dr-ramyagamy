@@ -40,19 +40,19 @@ export const siteSettings: SiteSettings = {
     width: 1200,
     height: 630,
   },
-  // From his Facebook page and its reviews.
+  // Followers: Facebook 525K + TikTok 100K + Instagram 50K ≈ 675K, rounded (2026-10-23).
+  // Recommend: from his Facebook reviews.
   socialProof: {
     followers: {
-      value: { ar: "٥٢٥ ألف", en: "525K" },
-      label: { ar: "متابع على فيسبوك", en: "Facebook followers" },
+      value: { ar: "٧٠٠ ألف", en: "700K" },
+      label: { ar: "متابع على منصات التواصل", en: "followers across social media" },
     },
     recommend: {
       value: { ar: "١٠٠٪", en: "100%" },
       label: { ar: "يوصون به (٣٤ تقييمًا)", en: "recommend him (34 reviews)" },
     },
   },
-  // Counted up on the home page. The developer gave these numbers (2026-10-22).
-  // TODO: confirm "قصة نجاح" and "بروتوكول علاجي" with the doctor before launch.
+  // Counted up on the home page. Numbers and wording from the doctor (confirmed 2026-10-23).
   counters: [
     {
       value: 6000,

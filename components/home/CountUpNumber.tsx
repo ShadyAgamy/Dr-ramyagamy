@@ -3,7 +3,7 @@
 import { useLocale } from "next-intl";
 import { useEffect, useMemo, useRef } from "react";
 
-const DURATION_MS = 1600;
+const DURATION_MS = 2500;
 /** Starts the count just before the number scrolls in, so it never starts from a visible zero. */
 const ROOT_MARGIN = "0px 0px 120px 0px";
 
@@ -48,8 +48,9 @@ export const CountUpNumber = ({ value, suffix }: CountUpNumberProps) => {
         const start = performance.now();
         const step = (now: number) => {
           const progress = Math.min((now - start) / DURATION_MS, 1);
-          // Ease out: fast at first, then slowing into the real number.
-          const shown = Math.round(value * (1 - (1 - progress) ** 3));
+          // Ease in and out: starts gently, speeds up, then settles into the real number.
+          const eased = progress < 0.5 ? 2 * progress ** 2 : 1 - (-2 * progress + 2) ** 2 / 2;
+          const shown = Math.round(value * eased);
           node.textContent = `${format.format(shown)}${suffix ?? ""}`;
           if (progress < 1) frame = requestAnimationFrame(step);
         };

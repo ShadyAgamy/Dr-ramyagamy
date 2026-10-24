@@ -17,9 +17,9 @@ export const clinics: Clinic[] = [
     slug: "new-cairo",
     label: { ar: "التجمع الخامس", en: "New Cairo" },
     address: {
-      ar: "التجمع الخامس- ش التسعين الشمالي خلف المستشفى الجوي-مركز HCC-الدور الثالث عيادة 336",
+      ar: "التجمع الخامس- ش التسعين الشمالي خلف المستشفى الجوي-مركز HCC-الدور الثالث عيادة 331",
       // Our translation; building name and street as on Google Maps ("Health Care City", "90 N Teseen").
-      en: "Health Care City (HCC), 3rd floor, clinic 336, 90 North Teseen St., behind the Air Force Hospital, Fifth Settlement, New Cairo",
+      en: "Health Care City (HCC), 3rd floor, clinic 331, 90 North Teseen St., behind the Air Force Hospital, Fifth Settlement, New Cairo",
     },
     city: { ar: "القاهرة", en: "Cairo" },
     // His own Google Maps listing (shared by the developer 2026-10-17).
@@ -32,11 +32,31 @@ export const clinics: Clinic[] = [
     ],
     // The first photo is the one shown on clinic cards.
     photos: [
-      newCairoPhoto("new-cairo-consultation-room.jpg", "غرفة الكشف في عيادة التجمع الخامس", "Consultation room at the New Cairo clinic"),
-      newCairoPhoto("new-cairo-reception.jpg", "استقبال عيادة التجمع الخامس", "Reception at the New Cairo clinic"),
-      newCairoPhoto("new-cairo-waiting-area.jpg", "منطقة الانتظار في عيادة التجمع الخامس", "Waiting area at the New Cairo clinic"),
-      newCairoPhoto("new-cairo-ultrasound-room.jpg", "غرفة السونار في عيادة التجمع الخامس", "Ultrasound room at the New Cairo clinic"),
-      newCairoPhoto("new-cairo-corridor.jpg", "ممر عيادة التجمع الخامس", "Corridor at the New Cairo clinic"),
+      newCairoPhoto(
+        "new-cairo-consultation-room.jpg",
+        "غرفة الكشف في عيادة التجمع الخامس",
+        "Consultation room at the New Cairo clinic",
+      ),
+      newCairoPhoto(
+        "new-cairo-reception.jpg",
+        "استقبال عيادة التجمع الخامس",
+        "Reception at the New Cairo clinic",
+      ),
+      newCairoPhoto(
+        "new-cairo-waiting-area.jpg",
+        "منطقة الانتظار في عيادة التجمع الخامس",
+        "Waiting area at the New Cairo clinic",
+      ),
+      newCairoPhoto(
+        "new-cairo-ultrasound-room.jpg",
+        "غرفة السونار في عيادة التجمع الخامس",
+        "Ultrasound room at the New Cairo clinic",
+      ),
+      newCairoPhoto(
+        "new-cairo-corridor.jpg",
+        "ممر عيادة التجمع الخامس",
+        "Corridor at the New Cairo clinic",
+      ),
     ],
   },
   {

@@ -203,7 +203,7 @@ Match his existing social media brand:
 - Instagram: `drramyagamy`
 - TikTok: `drramiagamy.obg`
 - Facebook page: "Dr. Ramy Agamy - د.رامي عجمي"
-- New Cairo clinic address (Arabic, from Facebook): التجمع الخامس - ش التسعين الشمالي خلف المستشفى الجوي - مركز HCC الدور الثالث، عيادة 336
+- New Cairo clinic address (Arabic, from Facebook): التجمع الخامس - ش التسعين الشمالي خلف المستشفى الجوي - مركز HCC الدور الثالث، عيادة 331
 - Madinaty clinic address (from its Google Maps listing, confirmed): Medical Hub Center، المركز التجاري ايست هب، بلوك ١١ الطابق الثاني، ثانى القاهرة الجديدة
 - Hours (2026-10-17): New Cairo Monday and Wednesday 15:00–19:00; Madinaty Monday and Wednesday 19:00–21:00
 - Suez clinic (hidden for now, address may change): الملاحة الجديدة بجوار مستشفى قناة السويس - برج النوبي - الدور الثاني; phones 01116668967, 01033101414; Saturday, Sunday and Tuesday 13:00 to midnight

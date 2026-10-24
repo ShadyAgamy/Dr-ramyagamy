@@ -12,6 +12,9 @@
      it carries white text and reads as a link on white, cream and peach (WCAG AA). */
   --brand: #ff9e1b;
   --brand-strong: #a05d00;
+  /* Between the two: the brightest orange that still passes WCAG AA for large
+     text on cream (3.2:1). For big numbers and headings only. */
+  --brand-vivid: #d97400;
   --brand-soft: #ffe9cc;
 
   /* Cyan accent, from the logo: #00A7D4. Used sparingly, as a gradient partner
@@ -55,6 +58,7 @@
 @theme inline {
   --color-brand: var(--brand);
   --color-brand-strong: var(--brand-strong);
+  --color-brand-vivid: var(--brand-vivid);
   --color-brand-soft: var(--brand-soft);
   --color-accent-cyan: var(--accent-cyan);
   --color-accent-cyan-strong: var(--accent-cyan-strong);

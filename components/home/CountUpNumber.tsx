@@ -3,26 +3,39 @@
 import { useLocale } from "next-intl";
 import { useEffect, useMemo, useRef } from "react";
 
-const DURATION_MS = 2500;
-/** Starts the count just before the number scrolls in, so it never starts from a visible zero. */
-const ROOT_MARGIN = "0px 0px 120px 0px";
+const DURATION_MS = 3200;
+/** How long the number takes to fade and rise into place. */
+const REVEAL_MS = 900;
+/** Starts once the number is a little way into the screen, so the whole animation is seen. */
+const ROOT_MARGIN = "0px 0px -15% 0px";
 
 type CountUpNumberProps = {
   value: number;
   /** Shown right after the number, e.g. "+". */
   suffix?: string;
+  /** Wait before starting, so several counters start one after another. */
+  delayMs?: number;
+  className?: string;
 };
 
+/** Starts slowly, speeds up, then settles very gently into the real number. */
+const easeInOutSine = (progress: number) =>
+  -(Math.cos(Math.PI * progress) - 1) / 2;
+
 /**
- * Counts from zero up to `value` as it scrolls into view.
+ * Fades the number in and counts from zero up to `value` as it scrolls into view.
  *
  * React renders the real number, so that is what ends up in the HTML for search
- * engines and for anyone without JavaScript, and it also stays on screen if the
- * browser never reports the number as visible. Only once it does is the count
- * written straight to the DOM: it runs on every animation frame, and that keeps
- * it off React's render path.
+ * engines and for anyone without JavaScript. Screen readers read a hidden copy
+ * of the final number, never the moving one. The count is written straight to
+ * the DOM on every animation frame, which keeps it off React's render path.
  */
-export const CountUpNumber = ({ value, suffix }: CountUpNumberProps) => {
+export const CountUpNumber = ({
+  value,
+  suffix = "",
+  delayMs = 0,
+  className = "",
+}: CountUpNumberProps) => {
   const locale = useLocale();
   // "ar" on its own formats with Latin digits; the rest of the site writes its
   // numbers in Arabic-Indic ones, so ask for the Egyptian Arabic locale.
@@ -31,6 +44,7 @@ export const CountUpNumber = ({ value, suffix }: CountUpNumberProps) => {
     [locale],
   );
   const ref = useRef<HTMLSpanElement>(null);
+  const finalText = `${format.format(value)}${suffix}`;
 
   useEffect(() => {
     const node = ref.current;
@@ -38,23 +52,33 @@ export const CountUpNumber = ({ value, suffix }: CountUpNumberProps) => {
     // Someone who asked for less motion just keeps the final number.
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
+    // Hidden at zero until it scrolls in.
+    node.style.transition = `opacity ${REVEAL_MS}ms ease-out, transform ${REVEAL_MS}ms cubic-bezier(0.22, 1, 0.36, 1)`;
+    node.style.opacity = "0";
+    node.style.transform = "translateY(1rem) scale(0.92)";
+    node.textContent = `${format.format(0)}${suffix}`;
+
     let frame = 0;
+    let timer = 0;
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (!entry.isIntersecting) return;
         // Count once, not every time it scrolls past.
         observer.disconnect();
 
-        const start = performance.now();
-        const step = (now: number) => {
-          const progress = Math.min((now - start) / DURATION_MS, 1);
-          // Ease in and out: starts gently, speeds up, then settles into the real number.
-          const eased = progress < 0.5 ? 2 * progress ** 2 : 1 - (-2 * progress + 2) ** 2 / 2;
-          const shown = Math.round(value * eased);
-          node.textContent = `${format.format(shown)}${suffix ?? ""}`;
-          if (progress < 1) frame = requestAnimationFrame(step);
-        };
-        frame = requestAnimationFrame(step);
+        timer = window.setTimeout(() => {
+          node.style.opacity = "1";
+          node.style.transform = "none";
+
+          const start = performance.now();
+          const step = (now: number) => {
+            const progress = Math.min((now - start) / DURATION_MS, 1);
+            const shown = Math.round(value * easeInOutSine(progress));
+            node.textContent = `${format.format(shown)}${suffix}`;
+            if (progress < 1) frame = requestAnimationFrame(step);
+          };
+          frame = requestAnimationFrame(step);
+        }, delayMs);
       },
       { rootMargin: ROOT_MARGIN, threshold: 0 },
     );
@@ -62,14 +86,26 @@ export const CountUpNumber = ({ value, suffix }: CountUpNumberProps) => {
     observer.observe(node);
     return () => {
       observer.disconnect();
+      window.clearTimeout(timer);
       cancelAnimationFrame(frame);
+      node.textContent = finalText;
+      node.style.opacity = "";
+      node.style.transform = "";
     };
-  }, [value, suffix, format]);
+  }, [value, suffix, delayMs, format, finalText]);
 
   return (
-    <span ref={ref} className="tabular-nums">
-      {format.format(value)}
-      {suffix}
-    </span>
+    <>
+      <span className="sr-only">{finalText}</span>
+      {/* inline-block so it can rise and scale; the gradient sits on this span
+          because background-clip text does not paint through a moving child. */}
+      <span
+        ref={ref}
+        aria-hidden="true"
+        className={`inline-block tabular-nums ${className}`}
+      >
+        {finalText}
+      </span>
+    </>
   );
 };

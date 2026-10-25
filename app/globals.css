@@ -2,31 +2,35 @@
 
 /*
  * Design tokens.
- * Brand colors are placeholders until the exact hex values arrive.
+ * The brand values come from the designer's pack (Dr_Ramy_Clinics_Brand_Assets,
+ * 02_Colors/HEX-COLORS.txt). Everything else here is derived from them, keeping
+ * the same hue, so the whole site shifts from one place.
  * Change them here only; components use the Tailwind names below
  * (bg-brand, text-ink, bg-cream, rounded-card, shadow-soft, ...).
  */
 :root {
-  /* Brand orange, from the logo: #FF9E1B. It is a light orange, so it is only
-     used for fills and decoration; "brand-strong" is the same hue darkened until
-     it carries white text and reads as a link on white, cream and peach (WCAG AA). */
-  --brand: #ff9e1b;
-  --brand-strong: #a05d00;
+  /* Brand orange, exactly as in the pack ("primary_orange"). It is light, so it
+     only carries dark text, never white. "brand-strong" is the pack's
+     "orange_shadow" (#A9600D) a touch darker, so it passes WCAG AA as text on
+     peach too (4.7:1), and carries white text. */
+  --brand: #f68b1e;
+  --brand-strong: #9e5a0c;
   /* Between the two: the brightest orange that still passes WCAG AA for large
-     text on cream (3.2:1). For big numbers and headings only. */
+     text on cream. For big numbers and headings only. */
   --brand-vivid: #d97400;
-  --brand-soft: #ffe9cc;
+  --brand-soft: #fde6ce;
 
-  /* Cyan accent, from the logo: #00A7D4. Used sparingly, as a gradient partner
-     for the brand orange on badges, halos and highlighted numbers, never as a
-     full background. The bright one is for decoration only (dots, glows);
-     "accent-cyan-strong" is dark enough for text (WCAG AA). */
-  --accent-cyan: #00a7d4;
-  --accent-cyan-strong: #00718f;
+  /* Cyan accent, exactly as in the pack ("primary_cyan"). Used sparingly, as a
+     gradient partner for the brand orange on badges, halos and highlighted
+     numbers, never as a full background. The bright one is for decoration only
+     (dots, glows); "accent-cyan-strong" is dark enough for text (WCAG AA). */
+  --accent-cyan: #00a7c5;
+  /* 4.7:1 on peach, 5.2:1 on cream. */
+  --accent-cyan-strong: #00758b;
 
   /* Backgrounds: tints of the brand orange, so they sit under it without clashing. */
-  --peach: #fff0db;
-  --cream: #fffbf5;
+  --peach: #feeddd;
+  --cream: #fffaf5;
   --surface: #ffffff;
 
   /* Text */
@@ -38,7 +42,7 @@
   --surface-dark: #125160;
 
   /* Lines */
-  --line: #f6e4cb;
+  --line: #f6e1cb;
 
   /* WhatsApp brand green. The bright one is for the icon-only floating button;
      "whatsapp-strong" is dark enough for white button text (WCAG AA). */
@@ -48,8 +52,8 @@
   /* Shape */
   --radius-card: 1.25rem;
   --radius-button: 9999px;
-  --shadow-soft: 0 6px 24px -8px rgb(160 93 0 / 0.18);
-  --shadow-lift: 0 14px 36px -10px rgb(160 93 0 / 0.3);
+  --shadow-soft: 0 6px 24px -8px rgb(158 90 12 / 0.18);
+  --shadow-lift: 0 14px 36px -10px rgb(158 90 12 / 0.3);
 
   /* Layout */
   --container-max: 72rem;

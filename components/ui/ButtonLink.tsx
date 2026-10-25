@@ -10,6 +10,8 @@ const styles = {
   // For dark or orange backgrounds.
   light: "bg-white text-brand-strong hover:bg-peach",
   outlineLight: "border border-white/70 text-white hover:bg-white/10",
+  // For the bright brand orange, which carries dark text rather than white.
+  outlineDark: "border border-ink/35 text-ink hover:bg-ink/5",
 };
 
 type ButtonLinkProps = {

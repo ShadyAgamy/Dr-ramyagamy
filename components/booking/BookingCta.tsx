@@ -12,13 +12,14 @@ export const BookingCta = () => {
 
   return (
     <section className="mx-auto max-w-site px-4 py-14">
-      <div className="relative flex flex-col gap-6 overflow-hidden rounded-[2rem] border-b-[6px] border-accent-cyan bg-brand-strong px-6 py-10 text-white sm:px-12 sm:py-14 lg:flex-row lg:items-center lg:justify-between">
-        {/* The glow is a lighter shade of the same orange, never cyan: cyan over
+      <div className="relative flex flex-col gap-6 overflow-hidden rounded-[2rem] border-b-[6px] border-accent-cyan bg-brand px-6 py-10 text-ink sm:px-12 sm:py-14 lg:flex-row lg:items-center lg:justify-between">
+        {/* The band is the brand orange itself, so it carries dark text rather
+            than white. The glow is a plain light wash, never cyan: cyan over
             orange mixes towards olive. Cyan instead meets the orange along the
             bottom edge, where a hard border keeps the two from blending at all. */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute -top-20 -end-16 size-64 rounded-full bg-brand/40 blur-3xl"
+          className="pointer-events-none absolute -top-20 -end-16 size-64 rounded-full bg-white/30 blur-3xl"
         />
         <div className="relative max-w-2xl">
           <h2 className="text-3xl leading-snug font-bold">{t("title")}</h2>
@@ -30,7 +31,7 @@ export const BookingCta = () => {
               site.whatsappNumber,
               tWhatsApp("prefilledMessage"),
             )}
-            variant="light"
+            variant="whatsapp"
             external
           >
             <WhatsAppIcon className="size-5" />
@@ -38,7 +39,7 @@ export const BookingCta = () => {
           </ButtonLink>
           <ButtonLink
             href={`tel:${site.phone.e164}`}
-            variant="outlineLight"
+            variant="outlineDark"
             external
           >
             <span dir="ltr">{site.phone.display}</span>

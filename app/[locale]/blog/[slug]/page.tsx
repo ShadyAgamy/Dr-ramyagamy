@@ -11,7 +11,14 @@ import { Link } from "@/i18n/navigation";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { routing } from "@/i18n/routing";
 import { articleJsonLd } from "@/lib/jsonld";
-import { getAvailableLocales, getPost, getPosts, getService, getSiteSettings, localize } from "@/lib/content";
+import {
+  getAvailableLocales,
+  getPost,
+  getPosts,
+  getService,
+  getSiteSettings,
+  localize,
+} from "@/lib/content";
 import { buildPageMetadata } from "@/lib/seo";
 
 /**
@@ -21,12 +28,16 @@ import { buildPageMetadata } from "@/lib/seo";
  * (no English posts yet), no article is built at all.
  */
 export const generateStaticParams = () =>
-  routing.locales.flatMap((locale) => getPosts(locale).map((post) => ({ locale, slug: post.slug })));
+  routing.locales.flatMap((locale) =>
+    getPosts(locale).map((post) => ({ locale, slug: post.slug })),
+  );
 
 // Any slug not returned above is a 404 (e.g. /en/blog/<arabic-only-post>).
 export const dynamicParams = false;
 
-export async function generateMetadata({ params }: PageProps<"/[locale]/blog/[slug]">): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: PageProps<"/[locale]/blog/[slug]">): Promise<Metadata> {
   const { locale, slug } = await params;
   if (!hasLocale(routing.locales, locale)) return {};
   const post = getPost(slug, locale);
@@ -45,7 +56,9 @@ export async function generateMetadata({ params }: PageProps<"/[locale]/blog/[sl
 }
 
 /** /blog/<slug> and /en/blog/<slug>: one article. */
-export default async function PostPage({ params }: PageProps<"/[locale]/blog/[slug]">) {
+export default async function PostPage({
+  params,
+}: PageProps<"/[locale]/blog/[slug]">) {
   const { locale, slug } = await params;
   if (!hasLocale(routing.locales, locale)) notFound();
 
@@ -56,8 +69,12 @@ export default async function PostPage({ params }: PageProps<"/[locale]/blog/[sl
   const tNav = await getTranslations("Nav");
   const format = await getFormatter();
   const site = getSiteSettings();
-  const mainService = post.relatedServices[0] ? getService(post.relatedServices[0], locale) : undefined;
-  const moreArticles = getPosts(locale).filter((item) => item.slug !== slug).slice(0, 4);
+  const mainService = post.relatedServices[0]
+    ? getService(post.relatedServices[0], locale)
+    : undefined;
+  const moreArticles = getPosts(locale)
+    .filter((item) => item.slug !== slug)
+    .slice(0, 4);
 
   return (
     <>
@@ -96,8 +113,13 @@ export default async function PostPage({ params }: PageProps<"/[locale]/blog/[sl
           )}
           <div className="leading-snug">
             <p className="font-bold">{localize(site.doctorName, locale)}</p>
-            <time dateTime={post.publishedAt} className="text-sm text-ink-muted">
-              {format.dateTime(new Date(post.publishedAt), { dateStyle: "long" })}
+            <time
+              dateTime={post.publishedAt}
+              className="text-sm text-ink-muted"
+            >
+              {format.dateTime(new Date(post.publishedAt), {
+                dateStyle: "long",
+              })}
             </time>
           </div>
         </div>
@@ -111,7 +133,7 @@ export default async function PostPage({ params }: PageProps<"/[locale]/blog/[sl
               href={post.videoUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="mb-6 inline-block rounded-button bg-brand-strong px-5 py-2 font-medium text-white hover:opacity-90"
+              className="mb-6 inline-block rounded-button bg-brand px-5 py-2 font-medium text-ink hover:opacity-90"
             >
               {t("watchVideo")}
             </a>
@@ -122,14 +144,20 @@ export default async function PostPage({ params }: PageProps<"/[locale]/blog/[sl
         <aside className="flex flex-col gap-5 lg:sticky lg:top-24">
           <BookingCard />
           {moreArticles.length > 0 && (
-            <nav aria-labelledby="more-articles" className="rounded-card border border-line bg-surface p-6">
+            <nav
+              aria-labelledby="more-articles"
+              className="rounded-card border border-line bg-surface p-6"
+            >
               <h2 id="more-articles" className="mb-3 font-bold">
                 {t("moreArticles")}
               </h2>
               <ul className="flex flex-col gap-3">
                 {moreArticles.map((item) => (
                   <li key={item.slug}>
-                    <Link href={`/blog/${item.slug}`} className="text-brand-strong hover:underline">
+                    <Link
+                      href={`/blog/${item.slug}`}
+                      className="text-brand-strong hover:underline"
+                    >
                       {item.title}
                     </Link>
                   </li>

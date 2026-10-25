@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { getClinics, getPosts, getSiteSettings, localize } from "@/lib/content";
@@ -30,8 +31,15 @@ export function SiteFooter() {
     <footer className="mt-8 bg-surface-dark text-white/75">
       <div className="mx-auto grid max-w-site gap-8 px-4 py-14 sm:grid-cols-2 lg:grid-cols-5">
         <div>
-          <p className="text-lg font-bold text-white">{doctorName}</p>
-          <p className="mt-1">{localize(site.specialty, locale)}</p>
+          {/* The white logo, for the dark band. His name is the alt text. */}
+          <Image
+            src="/images/brand/logo-full-white.svg"
+            alt={doctorName}
+            width={586}
+            height={320}
+            className="h-16 w-auto"
+          />
+          <p className="mt-3">{localize(site.specialty, locale)}</p>
         </div>
 
         <nav aria-labelledby="footer-quick-links">

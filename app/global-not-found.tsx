@@ -14,11 +14,15 @@ export const metadata: Metadata = {
 };
 
 const linkClass = "rounded-button px-5 py-3 font-medium";
-const primary = `${linkClass} bg-brand-strong text-white shadow-soft hover:opacity-90`;
+const primary = `${linkClass} bg-brand text-ink shadow-soft hover:opacity-90`;
 const secondary = `${linkClass} border border-line bg-surface text-ink hover:bg-peach`;
 
 const GlobalNotFound = () => (
-  <html lang="ar" dir="rtl" className={`${arabicFont.variable} ${latinFont.variable}`}>
+  <html
+    lang="ar"
+    dir="rtl"
+    className={`${arabicFont.variable} ${latinFont.variable}`}
+  >
     <body className="flex min-h-dvh flex-col items-center justify-center gap-12 px-4 py-16 text-center font-sans antialiased">
       <p className="text-6xl font-bold text-brand">404</p>
 
@@ -26,8 +30,12 @@ const GlobalNotFound = () => (
         <h1 className="text-3xl font-bold">{ar.NotFound.title}</h1>
         <p className="text-ink-muted">{ar.NotFound.text}</p>
         <div className="flex flex-wrap justify-center gap-3">
-          <Link href="/" className={primary}>{ar.NotFound.home}</Link>
-          <Link href="/book" className={secondary}>{ar.NotFound.book}</Link>
+          <Link href="/" className={primary}>
+            {ar.NotFound.home}
+          </Link>
+          <Link href="/book" className={secondary}>
+            {ar.NotFound.book}
+          </Link>
         </div>
       </section>
 
@@ -35,8 +43,12 @@ const GlobalNotFound = () => (
         <h2 className="text-2xl font-bold">{en.NotFound.title}</h2>
         <p className="text-ink-muted">{en.NotFound.text}</p>
         <div className="flex flex-wrap justify-center gap-3">
-          <Link href="/en" className={primary}>{en.NotFound.home}</Link>
-          <Link href="/en/book" className={secondary}>{en.NotFound.book}</Link>
+          <Link href="/en" className={primary}>
+            {en.NotFound.home}
+          </Link>
+          <Link href="/en/book" className={secondary}>
+            {en.NotFound.book}
+          </Link>
         </div>
       </section>
     </body>

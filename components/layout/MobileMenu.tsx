@@ -33,7 +33,11 @@ export function MobileMenu({ items }: { items: NavItem[] }) {
         onClick={() => setOpen((value) => !value)}
         className="grid size-11 place-items-center rounded-button text-ink hover:bg-peach"
       >
-        {open ? <CloseIcon className="size-6" /> : <MenuIcon className="size-6" />}
+        {open ? (
+          <CloseIcon className="size-6" />
+        ) : (
+          <MenuIcon className="size-6" />
+        )}
       </button>
 
       <nav
@@ -43,7 +47,10 @@ export function MobileMenu({ items }: { items: NavItem[] }) {
         className="absolute inset-x-0 top-full border-b border-line bg-surface shadow-soft"
       >
         {/* Clicking any link closes the menu. */}
-        <ul className="mx-auto flex max-w-site flex-col gap-1 px-4 py-4" onClick={() => setOpen(false)}>
+        <ul
+          className="mx-auto flex max-w-site flex-col gap-1 px-4 py-4"
+          onClick={() => setOpen(false)}
+        >
           {items.map((item) => {
             const active = isActive(pathname, item.href);
             return (
@@ -63,7 +70,7 @@ export function MobileMenu({ items }: { items: NavItem[] }) {
           <li className="pt-2">
             <Link
               href={bookHref}
-              className="block rounded-button bg-brand-strong px-4 py-3 text-center font-medium text-white hover:opacity-90"
+              className="block rounded-button bg-brand px-4 py-3 text-center font-medium text-ink hover:opacity-90"
             >
               {t("book")}
             </Link>

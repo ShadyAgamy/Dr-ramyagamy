@@ -48,7 +48,9 @@ const AboutPage = async ({ params }: PageProps<"/[locale]/about">) => {
         <div className="mx-auto grid max-w-site items-end gap-10 px-4 pt-14 md:grid-cols-2">
           <div className="flex flex-col gap-3 self-center">
             <h1 className="text-3xl font-bold sm:text-4xl">{t("title")}</h1>
-            <p className="bg-linear-to-l from-brand-strong to-accent-cyan-strong bg-clip-text text-2xl font-bold text-transparent ltr:bg-linear-to-r">
+            {/* Solid rather than a gradient: at this size a gradient would need the
+                lighter orange, which only clears WCAG AA as large text. */}
+            <p className="text-2xl font-bold text-brand-strong">
               {localize(site.doctorName, locale)}
             </p>
             <p className="text-lg font-semibold text-ink-muted">

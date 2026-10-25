@@ -51,7 +51,7 @@ export const HeroBanner = () => {
       {/* Wide screens: the fade comes from the text side instead, so he stays clear. */}
       <div
         aria-hidden="true"
-        className="absolute inset-y-0 start-0 hidden w-[62%] bg-linear-to-l from-cream from-20% via-cream/92 via-70% to-transparent ltr:bg-linear-to-r lg:block"
+        className="absolute inset-y-0 start-0 hidden w-[62%] bg-linear-to-l from-cream from-5% via-cream/70 via-50% to-transparent ltr:bg-linear-to-r lg:block"
       />
       {/* A last soft edge so the photo meets the cream page instead of cutting off. */}
       <div
@@ -65,7 +65,7 @@ export const HeroBanner = () => {
             <p className="inline-flex items-center gap-2 rounded-full border border-line bg-surface px-4 py-1.5 text-sm font-semibold text-ink shadow-soft">
               <span
                 aria-hidden="true"
-                className="size-2 shrink-0 rounded-full bg-linear-to-l from-brand to-accent-cyan"
+                className="size-2 shrink-0 rounded-full bg-brand"
               />
               {localize(followers.value, locale)}{" "}
               {localize(followers.label, locale)}
@@ -73,7 +73,9 @@ export const HeroBanner = () => {
           )}
 
           <h1 className="text-4xl leading-tight font-bold sm:text-5xl lg:text-6xl">
-            <span className="bg-linear-to-l from-brand-strong to-accent-cyan-strong bg-clip-text text-transparent ltr:bg-linear-to-r">
+            {/* Orange only, like the counters: orange into cyan mixes into olive
+                in the middle. Vertical, so it reads the same in Arabic and English. */}
+            <span className="bg-linear-to-b from-brand-vivid to-brand-strong bg-clip-text text-transparent">
               {localize(site.doctorName, locale)}
             </span>
             <span className="mt-2 block text-balance text-ink">
@@ -81,13 +83,15 @@ export const HeroBanner = () => {
             </span>
           </h1>
 
-          <p className="font-semibold text-ink-muted">
+          {/* Solid ink, not the muted grey: this text sits over the photo, and the
+              muted grey only holds up against a solid background. */}
+          <p className="font-semibold text-ink">
             {localize(site.specialty, locale)}
           </p>
           {/* Narrow screens keep the hero short: the clinics have their own section
               below. The width keeps this line inside the strong part of the fade,
               instead of running on over his jacket. */}
-          <p className="hidden max-w-md text-lg text-ink-muted lg:block">
+          <p className="hidden max-w-md text-lg text-ink lg:block">
             {t("heroText")}
           </p>
 

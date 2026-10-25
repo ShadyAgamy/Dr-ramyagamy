@@ -2,7 +2,11 @@
 
 import { type FormEvent, useState } from "react";
 import { useFormatter, useTranslations } from "next-intl";
-import { calculateDueDate, type DueDateResult, parseDateInput } from "@/lib/calculators";
+import {
+  calculateDueDate,
+  type DueDateResult,
+  parseDateInput,
+} from "@/lib/calculators";
 import { LastPeriodInput } from "@/components/tools/LastPeriodInput";
 
 /** Due date from the first day of the last period. Runs in the browser; nothing is sent anywhere. */
@@ -23,9 +27,19 @@ export const DueDateCalculator = () => {
 
   return (
     <div className="flex flex-col gap-6 rounded-card bg-surface p-6 shadow-soft sm:p-8">
-      <form onSubmit={onSubmit} className="flex flex-col gap-4 sm:flex-row sm:items-end">
-        <LastPeriodInput label={t("lastPeriod")} value={lastPeriod} onChange={setLastPeriod} />
-        <button type="submit" className="rounded-button bg-brand-strong px-6 py-3 font-medium text-white shadow-soft hover:opacity-90">
+      <form
+        onSubmit={onSubmit}
+        className="flex flex-col gap-4 sm:flex-row sm:items-end"
+      >
+        <LastPeriodInput
+          label={t("lastPeriod")}
+          value={lastPeriod}
+          onChange={setLastPeriod}
+        />
+        <button
+          type="submit"
+          className="rounded-button bg-brand px-6 py-3 font-medium text-ink shadow-soft hover:opacity-90"
+        >
           {t("calculate")}
         </button>
       </form>
@@ -37,10 +51,17 @@ export const DueDateCalculator = () => {
           <div className="flex flex-col gap-2 rounded-card bg-peach p-6">
             <p className="text-ink-muted">{t("dueDate.resultTitle")}</p>
             <p className="text-2xl font-bold text-brand-strong sm:text-3xl">
-              {format.dateTime(result.dueDate, { dateStyle: "full", timeZone: "UTC" })}
+              {format.dateTime(result.dueDate, {
+                dateStyle: "full",
+                timeZone: "UTC",
+              })}
             </p>
-            <p className="text-lg">{t("dueDate.age", { weeks: result.weeks, days: result.days })}</p>
-            <p className="text-ink-muted">{t("dueDate.trimester", { trimester: String(result.trimester) })}</p>
+            <p className="text-lg">
+              {t("dueDate.age", { weeks: result.weeks, days: result.days })}
+            </p>
+            <p className="text-ink-muted">
+              {t("dueDate.trimester", { trimester: String(result.trimester) })}
+            </p>
           </div>
         )}
       </div>

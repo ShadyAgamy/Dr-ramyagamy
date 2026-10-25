@@ -32,20 +32,23 @@ export const siteSettings: SiteSettings = {
   // Wide studio banner: he stands in the middle, his signature is on the wall
   // to one side, and the window wall on the other side is empty enough for text.
   bannerImage: {
-    src: "/images/doctor-banner.jpg",
+    src: "/images/doctor-cover.jpg",
     alt: {
       ar: "د. رامي عجمي",
       en: "Dr. Ramy Agamy",
     },
-    width: 1200,
-    height: 630,
+    width: 2400,
+    height: 1260,
   },
   // Followers: Facebook 525K + TikTok 100K + Instagram 50K ≈ 675K, rounded (2026-10-23).
   // Recommend: from his Facebook reviews.
   socialProof: {
     followers: {
       value: { ar: "٧٠٠ ألف", en: "700K" },
-      label: { ar: "متابع على منصات التواصل", en: "followers across social media" },
+      label: {
+        ar: "متابع على منصات التواصل",
+        en: "followers across social media",
+      },
     },
     recommend: {
       value: { ar: "١٠٠٪", en: "100%" },

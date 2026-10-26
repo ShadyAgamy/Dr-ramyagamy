@@ -64,6 +64,8 @@ export type SiteSettings = {
     tiktok?: string;
     facebook?: string;
     facebookReels?: string;
+    /** Google Business Profile link that opens the "write a review" box. */
+    googleReview?: string;
   };
 };
 

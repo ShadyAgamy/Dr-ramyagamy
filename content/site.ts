@@ -105,5 +105,7 @@ export const siteSettings: SiteSettings = {
     facebook: "https://www.facebook.com/RamyElAgamyClinic",
     // His reels on Facebook: linked from the articles page.
     facebookReels: "https://www.facebook.com/RamyElAgamyClinic/reels/",
+    // From his Google Business Profile (New Cairo), 2026-10-24.
+    googleReview: "https://g.page/r/CWIewLmLfrq1EBM/review",
   },
 };

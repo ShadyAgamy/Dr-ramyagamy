@@ -114,16 +114,28 @@ const HomePage = async ({ params }: PageProps<"/[locale]">) => {
         <Section
           title={t("testimonialsTitle")}
           action={
-            site.social.facebook && (
-              <a
-                href={`${site.social.facebook}/reviews`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-medium text-brand-strong hover:underline"
-              >
-                {t("allReviews")}
-              </a>
-            )
+            <div className="flex flex-wrap gap-x-5 gap-y-2">
+              {site.social.facebook && (
+                <a
+                  href={`${site.social.facebook}/reviews`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-medium text-brand-strong hover:underline"
+                >
+                  {t("allReviews")}
+                </a>
+              )}
+              {site.social.googleReview && (
+                <a
+                  href={site.social.googleReview}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-medium text-brand-strong hover:underline"
+                >
+                  {t("reviewOnGoogle")}
+                </a>
+              )}
+            </div>
           }
         >
           {/* The Facebook rating, next to the reviews it comes from. */}
@@ -135,8 +147,13 @@ const HomePage = async ({ params }: PageProps<"/[locale]">) => {
           )}
           {/* Horizontal scroll-snap on phones: swipeable like a story feed, the next
               card peeks by ~15% as a hint, no JS and no library. A grid from md up,
-              where 4 cards fit side by side anyway. */}
-          <ul className="scrollbar-hide -mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-2 md:mx-0 md:grid md:grid-cols-2 md:gap-5 md:overflow-visible md:px-0 md:pb-0 lg:grid-cols-4">
+              where 4 cards fit side by side anyway. tabIndex lets keyboard users
+              focus the list and scroll it with the arrow keys. */}
+          <ul
+            tabIndex={0}
+            aria-label={t("reviewsListLabel")}
+            className="scrollbar-hide -mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-2 md:mx-0 md:grid md:grid-cols-2 md:gap-5 md:overflow-visible md:px-0 md:pb-0 lg:grid-cols-4 rounded-card focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-strong"
+          >
             {testimonials.slice(0, 4).map((testimonial, index) => (
               <li
                 key={index}

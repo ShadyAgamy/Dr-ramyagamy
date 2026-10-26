@@ -130,7 +130,7 @@ const ServicePage = async ({
               width={service.image.width}
               height={service.image.height}
               sizes="(min-width: 1024px) 800px, 100vw"
-              priority
+              preload
               className="w-full rounded-card object-cover"
             />
           )}

@@ -36,7 +36,8 @@ export const HeroBanner = () => {
           alt={localize(banner.alt, locale)}
           fill
           sizes="100vw"
-          priority
+          preload
+          fetchPriority="high"
           className="object-cover object-center lg:object-top"
         />
       )}

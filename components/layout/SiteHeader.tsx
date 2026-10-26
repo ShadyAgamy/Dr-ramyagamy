@@ -28,7 +28,7 @@ export function SiteHeader() {
             alt={localize(site.doctorName, locale)}
             width={586}
             height={320}
-            priority
+            preload
             className="h-12 w-auto sm:h-14"
           />
         </Link>

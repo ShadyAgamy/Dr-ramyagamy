@@ -86,7 +86,7 @@ const AboutPage = async ({ params }: PageProps<"/[locale]/about">) => {
                 width={site.doctorPhoto.width}
                 height={site.doctorPhoto.height}
                 sizes="(min-width: 768px) 50vw, 100vw"
-                priority
+                preload
                 className="relative w-full"
               />
             </div>

@@ -73,7 +73,7 @@ primary domain in Netlify and `www` redirects to it.
 
 ## Launch checklist
 
-1. Remove the pre-launch `robots: { index: false, follow: false }` in `app/[locale]/layout.tsx`.
+1. ~~Remove the pre-launch `robots: { index: false, follow: false }` in `app/[locale]/layout.tsx`.~~ Done 2026-10-26.
 2. Google Search Console: Domain property for `ramyagamy.com` (TXT record in Cloudflare), submit
    `https://ramyagamy.com/sitemap.xml`, request indexing for the home page.
 3. Google Business Profile: add the website, and check the address and phone match the site exactly.

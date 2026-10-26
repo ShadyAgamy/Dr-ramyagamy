@@ -3,8 +3,9 @@ import { siteUrl } from "@/lib/seo";
 
 /**
  * /robots.txt: lets search engines crawl everything and points them to the sitemap.
- * Until launch, pages stay out of Google through the noindex tag in the layout
- * (crawlers must be allowed in to see that tag).
+ * To keep one page out of Google, set noindex on it in the content (it is then
+ * also left out of the sitemap); robots.txt must still allow it, or Google never
+ * sees that tag.
  */
 const robots = (): MetadataRoute.Robots => ({
   rules: { userAgent: "*", allow: "/" },

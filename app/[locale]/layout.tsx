@@ -44,8 +44,6 @@ export async function generateMetadata({
       // Every other page: "<page title> | د. رامي عجمي".
       template: `%s | ${doctorName}`,
     },
-    // Keep the site out of search results until real content exists.
-    robots: { index: false, follow: false },
   };
 }
 

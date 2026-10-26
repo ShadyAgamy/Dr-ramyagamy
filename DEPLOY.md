@@ -33,8 +33,8 @@ The keys are listed in `.env.example`:
 
 | Key                         | Value                                       | Needed from |
 | --------------------------- | ------------------------------------------- | ----------- |
-| `NEXT_PUBLIC_SITE_URL`      | The live URL, e.g. `https://drramyagamy.netlify.app` | Phase 4 |
-| `NEXT_PUBLIC_GTM_ID`        | Google Tag Manager ID, e.g. `GTM-XXXXXXX`   | Phase 6     |
+| `NEXT_PUBLIC_SITE_URL`      | `https://ramyagamy.com`                     | Phase 4     |
+| `NEXT_PUBLIC_GTM_ID`        | `GTM-THJXPFZW`                              | Phase 6     |
 
 `NEXT_PUBLIC_*` values are baked in at build time. After changing one, trigger a new deploy:
 **Deploys** → **Trigger deploy** → **Deploy project**.
@@ -66,3 +66,14 @@ and from Egypt when served by other Netlify IPs such as `75.2.60.5`.
   and point `www` to the same IP. Do not use Netlify DNS or a CNAME to `*.netlify.app`, because both send
   Egyptian visitors back to the Frankfurt servers. Then test on several Egyptian mobile carriers.
 - **If that fails:** move hosting to Cloudflare Pages.
+
+**Done (2026-10-24):** `ramyagamy.com` is on Cloudflare DNS with A records for `@` and `www` → `75.2.60.5`,
+proxy **off** ("DNS only", so Netlify can issue the Let's Encrypt certificate). `ramyagamy.com` is the
+primary domain in Netlify and `www` redirects to it.
+
+## Launch checklist
+
+1. Remove the pre-launch `robots: { index: false, follow: false }` in `app/[locale]/layout.tsx`.
+2. Google Search Console: Domain property for `ramyagamy.com` (TXT record in Cloudflare), submit
+   `https://ramyagamy.com/sitemap.xml`, request indexing for the home page.
+3. Google Business Profile: add the website, and check the address and phone match the site exactly.
